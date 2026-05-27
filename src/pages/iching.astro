@@ -1,0 +1,231 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+
+// I-Ching — mockup 05 — Hexagram 11 Tài (Peace)
+// Lines bottom→top: Y Y Y / y y y  (Heaven below, Earth above)
+const lines = [
+  { type: 'yin',  pos: 6, note: 'top' },
+  { type: 'yin',  pos: 5 },
+  { type: 'yin',  pos: 4 },
+  { type: 'yang', pos: 3 },
+  { type: 'yang', pos: 2 },
+  { type: 'yang', pos: 1, note: 'bottom' },
+];
+---
+<BaseLayout title="Hexagram 11 · Tài (Peace) · cusprose" path="/iching/" description="I Ching Hexagram 11 Tài — Peace. When opposites meet softly, things flourish.">
+  <Nav /><!-- I Ching lives under /east/ in nav UX; no top-level link to highlight -->
+
+  <main class="iching">
+    <div class="container">
+      <p class="crumb">EAST / I CHING / HEXAGRAM 11</p>
+
+      <div class="grid">
+        <!-- Left: hero -->
+        <section class="hero">
+          <p class="eyebrow"><span class="star">✦</span> ䷊ HEXAGRAM ELEVEN</p>
+          <h1>Tài —<br/>Peace.</h1>
+          <p class="lede">☷ · Heaven below, Earth above. When opposites meet softly, things flourish.</p>
+
+          <div class="actions">
+            <p class="jump-label">JUMP TO</p>
+            <div class="jump-row">
+              <a href="#" class="jump-btn primary">Six lines →</a>
+              <a href="#" class="jump-btn">Changing into ䷨</a>
+              <a href="#" class="jump-btn">Cast a hexagram</a>
+              <a href="#" class="jump-btn">Save reading</a>
+            </div>
+          </div>
+
+          <p class="pairs"><span class="pairs-label">PAIRS WITH</span> Mercury in 7th house · The Lovers (upright) · BaZi 甲寅</p>
+        </section>
+
+        <!-- Center: figure -->
+        <aside class="figure">
+          <p class="fig-head">THE FIGURE</p>
+          <div class="lines">
+            {lines.map((l) => (
+              <button class="line-row" type="button" aria-label={`Line ${l.pos} — ${l.type}`}>
+                <span class="line-num">{l.pos}</span>
+                <span class={`line-glyph ${l.type}`}>
+                  {l.type === 'yang' ? (
+                    <span class="bar full"></span>
+                  ) : (
+                    <><span class="bar half"></span><span class="bar half"></span></>
+                  )}
+                </span>
+              </button>
+            ))}
+          </div>
+          <p class="fig-foot">Tap a line to read its 爻辞</p>
+        </aside>
+
+        <!-- Right: reading -->
+        <section class="reading">
+          <div class="panel">
+            <p class="p-head">CORE READING</p>
+            <blockquote>
+              "The small departs,<br/>the great approaches."
+            </blockquote>
+            <p class="attr">— Wilhelm-Baynes translation</p>
+          </div>
+          <div class="panel">
+            <p class="p-head">WHEN IT APPEARS</p>
+            <p class="p-body">A season of openness. The right people arrive, the resistance you'd been bracing for dissolves. Move with what is already moving.</p>
+          </div>
+          <div class="panel">
+            <p class="p-head">SHADOW SIDE</p>
+            <p class="p-body">Peace breeds inertia. Do not mistake ease for permanence — tend it.</p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .iching { padding-bottom: 6rem; }
+  .crumb {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 2.5rem;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr 1fr;
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+  @media (max-width: 980px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+
+  .eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
+  }
+  .eyebrow .star { color: var(--gold); margin-right: 0.4rem; }
+  h1 {
+    font-size: clamp(3rem, 6.5vw, 5.5rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.025em;
+    margin-bottom: 1.4rem;
+  }
+  .lede {
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    margin-bottom: 2.5rem;
+    max-width: 460px;
+  }
+
+  .actions { margin-bottom: 2.5rem; }
+  .jump-label {
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 0.7rem;
+  }
+  .jump-row { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+  .jump-btn {
+    font-size: 0.74rem;
+    letter-spacing: 0.08em;
+    padding: 0.6rem 1rem;
+    border-radius: 999px;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+  }
+  .jump-btn.primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+  .pairs { font-size: 0.78rem; color: var(--ink-soft); }
+  .pairs-label {
+    font-size: 0.66rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-right: 0.55rem;
+  }
+
+  /* figure */
+  .figure {
+    background: var(--surface);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--surface-border);
+    border-radius: 20px;
+    padding: 1.8rem 1.6rem;
+    box-shadow: 0 14px 40px rgba(22,24,58,0.08);
+    text-align: center;
+  }
+  .fig-head {
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
+  }
+  .lines { display: flex; flex-direction: column; gap: 0.7rem; }
+  .line-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.3rem 0.4rem;
+    border-radius: 8px;
+    transition: background 0.2s;
+  }
+  .line-row:hover { background: rgba(255,255,255,0.4); }
+  .line-num {
+    font-size: 0.7rem;
+    color: var(--ink-soft);
+    width: 14px;
+    text-align: right;
+  }
+  .line-glyph {
+    flex: 1;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+  }
+  .bar {
+    height: 8px;
+    background: var(--ink);
+    border-radius: 2px;
+  }
+  .bar.full { width: 100%; }
+  .bar.half { width: calc(50% - 4px); }
+  .fig-foot {
+    font-size: 0.7rem;
+    color: var(--ink-soft);
+    margin-top: 1.4rem;
+    font-style: italic;
+  }
+
+  /* reading */
+  .reading { display: flex; flex-direction: column; gap: 1.6rem; }
+  .panel { padding-left: 0; }
+  .p-head {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 0.7rem;
+  }
+  .p-body { font-size: 1rem; line-height: 1.55; color: var(--ink); }
+  blockquote {
+    font-size: 1.4rem;
+    line-height: 1.3;
+    font-style: italic;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+  .attr { font-size: 0.78rem; color: var(--ink-soft); }
+</style>

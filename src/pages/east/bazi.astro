@@ -1,0 +1,140 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+
+const pillars = [
+  { label: 'YEAR',  cn: '年柱', stem: 'Yang Wood',  branch: 'Tiger',   note: 'Your ancestry, the wider world.' },
+  { label: 'MONTH', cn: '月柱', stem: 'Yin Fire',   branch: 'Snake',   note: 'Your environment, career, parents.' },
+  { label: 'DAY',   cn: '日柱', stem: 'Yang Earth', branch: 'Horse',   note: 'You. Your spouse. Your core self.' },
+  { label: 'HOUR',  cn: '时柱', stem: 'Yin Metal',  branch: 'Rooster', note: 'Your children, late life, hidden talent.' },
+];
+---
+<BaseLayout title="BaZi — Your Four Pillars · cusprose" path="/east/bazi/" description="BaZi (八字) reads your birth as four pillars — Year, Month, Day, Hour. A chemistry set for who you are. Free chart in 60 seconds.">
+  <Nav />
+
+  <main class="bazi">
+    <div class="container">
+      <p class="crumb">EAST / BAZI</p>
+
+      <header class="head">
+        <p class="eyebrow"><span class="star">✦</span> 八字 · FOUR PILLARS OF DESTINY</p>
+        <h1>Your birth,<br/>read as chemistry.</h1>
+        <p class="lede">
+          BaZi takes the year, month, day, and hour you were born and turns each into a pair of characters —
+          a heavenly stem and an earthly branch. Eight characters total. From those eight, almost everything.
+        </p>
+        <div class="cta-row">
+          <a class="cta primary" href="#calculator">Calculate my chart →</a>
+          <a class="cta" href="#how">How it works</a>
+        </div>
+      </header>
+
+      <section class="pillars" aria-label="Sample chart">
+        <p class="p-eyebrow">SAMPLE CHART</p>
+        <div class="pillar-grid">
+          {pillars.map((p) => (
+            <article class="pillar">
+              <p class="p-label">{p.label}<span class="p-cn">{p.cn}</span></p>
+              <p class="p-stem">{p.stem}</p>
+              <p class="p-branch">{p.branch}</p>
+              <p class="p-note">{p.note}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="how" class="how">
+        <p class="how-head">HOW IT WORKS</p>
+        <div class="how-grid">
+          <div>
+            <p class="step-num">01</p>
+            <h3>Convert your birth time</h3>
+            <p>Solar calendar → Chinese sexagenary cycle. We do this for you; no math required.</p>
+          </div>
+          <div>
+            <p class="step-num">02</p>
+            <h3>Read the Day Master</h3>
+            <p>The heavenly stem of your Day pillar is <em>you</em>. Everything else is described in relation to it.</p>
+          </div>
+          <div>
+            <p class="step-num">03</p>
+            <h3>Balance the five elements</h3>
+            <p>Wood, Fire, Earth, Metal, Water. The ratio shows where you flow easily and where you have to work.</p>
+          </div>
+          <div>
+            <p class="step-num">04</p>
+            <h3>Read your luck cycles</h3>
+            <p>Each decade brings a new pillar of energy. Knowing yours tells you when to push and when to wait.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="calculator" class="calc">
+        <div class="calc-inner">
+          <p class="calc-eyebrow">FREE CHART · 60 SECONDS</p>
+          <h2>Ready when you are.</h2>
+          <p class="calc-lede">Enter your birth date, time, and city. We'll send back a full BaZi reading in plain English.</p>
+          <a class="cta primary" href="#" aria-disabled="true">Coming soon →</a>
+        </div>
+      </section>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .bazi { padding-bottom: 6rem; }
+  .crumb { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 2.5rem; }
+  .head { max-width: 720px; margin-bottom: 4rem; }
+  .eyebrow { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1.25rem; }
+  .eyebrow .star { color: var(--gold); margin-right: 0.4rem; }
+  h1 { font-size: clamp(2.8rem, 6vw, 5rem); font-weight: 500; line-height: 1.05; letter-spacing: -0.025em; margin-bottom: 1.4rem; }
+  .lede { color: var(--ink-soft); font-size: 1.05rem; line-height: 1.6; margin-bottom: 2rem; }
+
+  .cta-row { display: flex; gap: 0.7rem; flex-wrap: wrap; }
+  .cta {
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    padding: 0.85rem 1.4rem;
+    border-radius: 999px;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+  }
+  .cta.primary { background: var(--ink); color: #fff; }
+
+  .pillars { margin-bottom: 5rem; }
+  .p-eyebrow { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; }
+  .pillar-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+  @media (max-width: 880px) { .pillar-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .pillar-grid { grid-template-columns: 1fr; } }
+  .pillar {
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
+    border-radius: 20px;
+    padding: 1.5rem 1.4rem;
+  }
+  .p-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: baseline; }
+  .p-cn { color: var(--gold); letter-spacing: 0.05em; font-size: 0.85rem; }
+  .p-stem { font-size: 1.3rem; font-weight: 600; color: var(--ink); margin-bottom: 0.2rem; }
+  .p-branch { font-size: 1rem; color: var(--ink); margin-bottom: 1rem; }
+  .p-note { font-size: 0.82rem; color: var(--ink-soft); line-height: 1.5; }
+
+  .how { margin-bottom: 5rem; }
+  .how-head { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+  .how-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem 3rem; }
+  @media (max-width: 760px) { .how-grid { grid-template-columns: 1fr; } }
+  .step-num { font-size: 1.6rem; color: var(--ink-soft); font-weight: 300; margin-bottom: 0.7rem; }
+  .how-grid h3 { font-size: 1.2rem; font-weight: 500; margin-bottom: 0.6rem; }
+  .how-grid p { font-size: 0.95rem; line-height: 1.6; color: var(--ink-soft); }
+  .how-grid em { color: var(--ink); font-style: italic; }
+
+  .calc {
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
+    border-radius: 24px;
+    padding: 3rem 2.5rem;
+    text-align: center;
+  }
+  .calc-eyebrow { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .calc h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 500; letter-spacing: -0.02em; margin-bottom: 0.8rem; }
+  .calc-lede { color: var(--ink-soft); font-size: 1rem; line-height: 1.55; max-width: 480px; margin: 0 auto 1.8rem; }
+</style>

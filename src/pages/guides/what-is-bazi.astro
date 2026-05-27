@@ -1,0 +1,247 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+
+// Article — mockup 07 — editorial / cream canvas
+const toc = [
+  { n: '01', label: 'The four pillars', active: true, href: '#s1' },
+  { n: '02', label: 'Five elements at play', href: '#s2' },
+  { n: '03', label: 'How it differs from Western', href: '#s3' },
+  { n: '04', label: 'Reading your day master', href: '#s4' },
+  { n: '05', label: 'Common myths', href: '#s5' },
+  { n: '06', label: 'Try yours →', href: '/birth-chart/' },
+];
+const pillars = [
+  { label: 'YEAR',  stem: '甲', branch: '子', element: 'Wood',  color: '#e8ddf0' },
+  { label: 'MONTH', stem: '丙', branch: '寅', element: 'Fire',  color: '#f4ddc9' },
+  { label: 'DAY',   stem: '戊', branch: '辰', element: 'Earth', color: '#d9e7ce', highlight: true },
+  { label: 'HOUR',  stem: '庚', branch: '午', element: 'Metal', color: '#e0d5ea' },
+];
+---
+<BaseLayout title="What is BaZi · The Beginner's Guide · cusprose" path="/guides/what-is-bazi/" description="BaZi is the Chinese system of fate analysis from your birth's eight characters. Here's what it is, and why it isn't just astrology.">
+  <body class="cream"> <!-- noop wrapper for selector readability -->
+  </body>
+  <Nav />
+
+  <article class="art">
+    <div class="container">
+      <header class="hero">
+        <p class="crumb">EAST / BAZI / GUIDE</p>
+        <p class="eyebrow"><span class="star">✦</span> THE BEGINNER'S GUIDE</p>
+        <h1>What is BaZi,<br/>and why it's not<br/>just astrology.</h1>
+        <p class="byline">BY THE CUSPROSE EDITORS · 14 MIN READ · UPDATED MAY 2026</p>
+      </header>
+
+      <div class="grid">
+        <!-- TOC -->
+        <aside class="toc">
+          <p class="toc-head">ON THIS PAGE</p>
+          <ol>
+            {toc.map((t) => (
+              <li class={t.active ? 'active' : ''}>
+                <a href={t.href}><span class="n">{t.n}</span> · {t.label}</a>
+              </li>
+            ))}
+          </ol>
+        </aside>
+
+        <!-- Body -->
+        <section class="body">
+          <p class="anchor" id="s1">01 — THE FOUR PILLARS</p>
+          <h2>Eight characters, a portrait in time.</h2>
+          <p>BaZi (八字, literally "eight characters") reads the moment you arrived: year, month, day, and hour. Each is paired with a heavenly stem and an earthly branch — eight glyphs in total — and from that grid a portrait emerges. Not a prediction. A description of the wind you were born into.</p>
+
+          <p>The four pillars together form the chart. Your <em>day master</em> — the stem of the day pillar — is the protagonist. Everything else is climate, terrain, weather. The art is reading how they meet.</p>
+
+          <div class="rule"></div>
+          <blockquote class="pull">
+            "BaZi doesn't tell you what will happen. It tells you what you brought with you."
+          </blockquote>
+
+          <p class="anchor" id="s2">02 — FIVE ELEMENTS AT PLAY</p>
+          <h3>Wood feeds fire. Fire makes earth.</h3>
+          <p>The five elements — wood, fire, earth, metal, water — flow into and away from each other in two great cycles: generation (生) and control (克). Your chart's balance among these five tells you what you have too much of, what you need, what feeds you, what drains you.</p>
+
+          <p class="anchor" id="s3">03 — HOW IT DIFFERS FROM WESTERN</p>
+          <h3>Different question, different geometry.</h3>
+          <p>Western astrology asks <em>where</em> — what part of the sky the planets occupied when you were born. BaZi asks <em>when</em> — what kind of time it was. One is spatial. The other is temporal. Both are valid lenses; they're answering different questions, in different vocabularies, from different traditions of looking up.</p>
+        </section>
+
+        <!-- Sidebar card -->
+        <aside class="side">
+          <div class="card">
+            <p class="card-eye">YOUR FOUR PILLARS · EXAMPLE</p>
+            <div class="pillars">
+              {pillars.map((p) => (
+                <div class={`pillar ${p.highlight ? 'hl' : ''}`} style={`background:${p.color}`}>
+                  <p class="p-label">{p.label}</p>
+                  <p class="p-stem">{p.stem}</p>
+                  <p class="p-branch">{p.branch}</p>
+                  <p class="p-el">{p.element}</p>
+                </div>
+              ))}
+            </div>
+            <p class="card-foot">Day master: <strong>戊 · Yang Earth</strong></p>
+            <a href="/birth-chart/" class="card-cta">Generate yours →</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style is:global>
+  /* Override page background for cream editorial canvas */
+  body { background: #f4ecdc !important; }
+</style>
+
+<style>
+  .art { padding-bottom: 6rem; color: #1a1b2e; }
+  .hero { max-width: 1100px; margin: 0 auto 3.5rem; }
+  .crumb {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #8e8e9c;
+    margin-bottom: 1rem;
+  }
+  .eyebrow {
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #c9a24a;
+    margin-bottom: 1.2rem;
+  }
+  .eyebrow .star { margin-right: 0.4rem; }
+
+  h1 {
+    font-size: clamp(3rem, 7.5vw, 6rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.025em;
+    margin-bottom: 1.5rem;
+    color: #1a1b2e;
+  }
+  .byline {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #8e8e9c;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 200px 1fr 320px;
+    gap: clamp(2rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+  @media (max-width: 1080px) {
+    .grid { grid-template-columns: 1fr; }
+    .toc, .side { position: static; }
+  }
+
+  /* TOC */
+  .toc { position: sticky; top: 2rem; }
+  .toc-head {
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #8e8e9c;
+    margin-bottom: 1.2rem;
+  }
+  .toc ol { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+  .toc li a {
+    display: block;
+    font-size: 0.92rem;
+    color: #5c5d70;
+    padding-left: 0.6rem;
+    border-left: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .toc li.active a { color: #1a1b2e; border-left-color: #c9a24a; }
+  .toc .n { color: #8e8e9c; font-feature-settings: 'tnum'; margin-right: 0.3rem; }
+
+  /* Body */
+  .body { max-width: 660px; }
+  .anchor {
+    font-size: 0.74rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #c9a24a;
+    margin: 3rem 0 1rem;
+  }
+  .body h2 {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 500;
+    line-height: 1.15;
+    color: #1a1b2e;
+    margin-bottom: 1.4rem;
+  }
+  .body h3 {
+    font-size: 1.35rem;
+    font-weight: 500;
+    color: #1a1b2e;
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+  }
+  .body p {
+    font-size: 1.06rem;
+    line-height: 1.65;
+    color: #5c5d70;
+    margin-bottom: 1.3rem;
+  }
+  .body em { color: #1a1b2e; font-style: italic; }
+  .rule {
+    width: 80px;
+    height: 1.5px;
+    background: #c9a24a;
+    margin: 2.5rem 0 1.5rem;
+  }
+  .pull {
+    font-size: 1.45rem;
+    line-height: 1.35;
+    color: #1a1b2e;
+    margin-bottom: 2rem;
+    font-weight: 400;
+  }
+
+  /* Side card */
+  .side { position: sticky; top: 2rem; }
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 1.5rem;
+    box-shadow: 0 12px 36px rgba(26,27,46,0.08);
+  }
+  .card-eye {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #8e8e9c;
+    margin-bottom: 1rem;
+  }
+  .pillars { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin-bottom: 1.2rem; }
+  .pillar {
+    border-radius: 10px;
+    padding: 0.7rem 0.5rem;
+    text-align: center;
+  }
+  .pillar.hl { box-shadow: 0 0 0 2px #c9a24a inset; }
+  .p-label { font-size: 0.55rem; letter-spacing: 0.18em; color: #5c5d70; margin-bottom: 0.4rem; }
+  .p-stem { font-size: 1.4rem; color: #1a1b2e; line-height: 1; margin-bottom: 0.15rem; }
+  .p-branch { font-size: 1.1rem; color: #1a1b2e; line-height: 1; margin-bottom: 0.4rem; }
+  .p-el { font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: #5c5d70; }
+  .card-foot { font-size: 0.85rem; color: #5c5d70; margin-bottom: 1rem; }
+  .card-foot strong { color: #1a1b2e; }
+  .card-cta {
+    display: block;
+    background: #1a1b2e;
+    color: #fff;
+    text-align: center;
+    padding: 0.75rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    font-weight: 600;
+  }
+</style>

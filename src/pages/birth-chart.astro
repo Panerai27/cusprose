@@ -1,0 +1,240 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+
+// Birth chart — mockup 06
+// 12 zodiac glyphs around outer ring
+const zodiac = ['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓'];
+---
+<BaseLayout title="Your birth chart in 60 seconds · cusprose" path="/birth-chart/" description="Free natal chart — Sun, Moon & Rising plus all twelve houses. No signup.">
+  <Nav current="Birth Chart" />
+
+  <main class="bc">
+    <div class="container">
+      <div class="grid">
+        <!-- Left: form -->
+        <section class="left">
+          <p class="eyebrow"><span class="star">✦</span> YOUR COSMIC FINGERPRINT</p>
+          <h1>Your birth chart,<br/>in 60 seconds.</h1>
+          <p class="lede">Sun, Moon &amp; Rising plus all twelve houses — free, no signup.</p>
+
+          <div class="form-card">
+            <p class="step">STEP 1 OF 1</p>
+            <p class="form-title">Tell us when &amp; where you arrived.</p>
+
+            <form class="form" onsubmit="event.preventDefault();">
+              <label class="field">
+                <span class="lab">YOUR NAME (OPTIONAL)</span>
+                <input type="text" placeholder="Hawaii" />
+              </label>
+              <div class="row-2">
+                <label class="field">
+                  <span class="lab">BIRTH DATE</span>
+                  <input type="text" placeholder="May 14, 1996" />
+                </label>
+                <label class="field">
+                  <span class="lab">EXACT TIME</span>
+                  <input type="text" placeholder="06:47 AM" />
+                  <span class="helper">Not sure? <a href="#">Use sunrise</a></span>
+                </label>
+              </div>
+              <label class="field">
+                <span class="lab">BIRTH PLACE</span>
+                <input type="text" placeholder="Honolulu, Hawaii, USA" />
+              </label>
+
+              <button type="submit" class="cast">CAST MY CHART →</button>
+              <p class="meta-row">Tropical · Placidus · we never store this</p>
+            </form>
+          </div>
+
+          <p class="unlock-head">SAME BIRTH DATA UNLOCKS</p>
+          <p class="unlock-row">
+            <a href="#">Your BaZi (八字) pillars</a> ·
+            <a href="#">Zi Wei Dou Shu chart</a> ·
+            <a href="#">Lunar mansion →</a>
+          </p>
+        </section>
+
+        <!-- Right: chart preview -->
+        <aside class="right">
+          <p class="prev-head">PREVIEW · WHAT YOU'LL GET</p>
+          <div class="wheel-wrap">
+            <svg viewBox="0 0 400 400" class="wheel" aria-label="Sample birth chart wheel">
+              <!-- rings -->
+              <circle cx="200" cy="200" r="190" fill="#faf3e3" stroke="#d9a441" stroke-width="0.6"/>
+              <circle cx="200" cy="200" r="160" fill="none" stroke="#d9a441" stroke-width="0.4" opacity="0.6"/>
+              <circle cx="200" cy="200" r="120" fill="none" stroke="#d9a441" stroke-width="0.4" opacity="0.5"/>
+              <circle cx="200" cy="200" r="80"  fill="#fbf6ea" stroke="#d9a441" stroke-width="0.5"/>
+              <!-- 12 spokes -->
+              {Array.from({length: 12}).map((_, i) => {
+                const a = (i * 30 - 90) * Math.PI / 180;
+                const x1 = 200 + Math.cos(a) * 120;
+                const y1 = 200 + Math.sin(a) * 120;
+                const x2 = 200 + Math.cos(a) * 190;
+                const y2 = 200 + Math.sin(a) * 190;
+                return <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#d9a441" stroke-width="0.4" opacity="0.6"/>;
+              })}
+              <!-- zodiac glyphs -->
+              {zodiac.map((g, i) => {
+                const a = (i * 30 - 75) * Math.PI / 180;
+                const x = 200 + Math.cos(a) * 175;
+                const y = 200 + Math.sin(a) * 175 + 5;
+                return <text x={x} y={y} text-anchor="middle" font-size="16" fill="#d9a441">{g}</text>;
+              })}
+              <!-- planet markers -->
+              <g font-size="13" fill="#16183a">
+                <circle cx="135" cy="140" r="3" />
+                <text x="120" y="128">☽ Moon</text>
+                <circle cx="270" cy="140" r="3" />
+                <text x="278" y="128">☉ Sun</text>
+                <circle cx="135" cy="265" r="3" />
+                <text x="92" y="278">♂ Mars</text>
+                <circle cx="265" cy="265" r="3" />
+                <text x="262" y="285">♀ Venus</text>
+              </g>
+              <!-- Ascendant marker -->
+              <g>
+                <path d="M14 200 L24 195 L24 205 Z" fill="#16183a"/>
+                <text x="30" y="204" font-size="10" fill="#16183a">ASC</text>
+              </g>
+              <!-- Center "big three" -->
+              <text x="200" y="190" text-anchor="middle" font-size="8" fill="#6e6e8f" letter-spacing="2">YOUR BIG THREE</text>
+              <text x="200" y="208" text-anchor="middle" font-size="14" fill="#16183a">Taurus · Pisces · Cancer</text>
+            </svg>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .bc { padding-bottom: 6rem; }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+  }
+  @media (max-width: 960px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+
+  .eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
+  }
+  .eyebrow .star { color: var(--gold); margin-right: 0.4rem; }
+  h1 {
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 500;
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    margin-bottom: 1.1rem;
+  }
+  .lede {
+    font-size: clamp(1rem, 1.2vw, 1.15rem);
+    color: var(--ink-soft);
+    margin-bottom: 2.5rem;
+    max-width: 480px;
+  }
+
+  .form-card {
+    background: var(--surface);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--surface-border);
+    border-radius: 18px;
+    padding: 1.8rem 1.8rem 2rem;
+    box-shadow: 0 18px 50px rgba(22,24,58,0.08);
+    margin-bottom: 2rem;
+  }
+  .step {
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 0.5rem;
+  }
+  .form-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 1.6rem;
+  }
+  .form { display: flex; flex-direction: column; gap: 1.3rem; }
+  .field { display: block; }
+  .field .lab {
+    display: block;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 0.45rem;
+  }
+  .field input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(22,24,58,0.25);
+    padding: 0.4rem 0;
+    font-family: inherit;
+    font-size: 1.05rem;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .field input:focus { border-bottom-color: var(--ink); }
+  .field input::placeholder { color: var(--ink); opacity: 0.55; }
+  .helper { display: block; font-size: 0.72rem; color: var(--ink-soft); margin-top: 0.35rem; }
+  .helper a { color: #d97a2b; border-bottom: 1px solid currentColor; }
+
+  .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+  @media (max-width: 540px) { .row-2 { grid-template-columns: 1fr; } }
+
+  .cast {
+    margin-top: 0.4rem;
+    background: var(--ink);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 1rem 1.5rem;
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .cast:hover { transform: translateY(-1px); }
+  .meta-row {
+    text-align: center;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    margin-top: 0.8rem;
+  }
+
+  .unlock-head {
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 0.5rem;
+  }
+  .unlock-row { font-size: 0.92rem; color: var(--ink); }
+  .unlock-row a { border-bottom: 1px solid currentColor; }
+
+  /* right wheel */
+  .prev-head {
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 1rem;
+  }
+  .wheel-wrap { display: flex; justify-content: center; }
+  .wheel { width: 100%; max-width: 540px; height: auto; }
+</style>

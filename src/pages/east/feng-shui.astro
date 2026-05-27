@@ -1,0 +1,153 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+
+const published = 'May 27, 2026';
+const readTime = '7 min read';
+---
+<BaseLayout title="Feng Shui, Demystified · cusprose" path="/east/feng-shui/" description="Feng Shui isn't about luck charms. It's about how a room talks to your nervous system. A clear guide to the five elements, the bagua, and what actually matters.">
+  <Nav />
+
+  <main class="article">
+    <div class="container">
+      <p class="crumb">EAST / FENG SHUI</p>
+
+      <header class="head">
+        <p class="eyebrow"><span class="star">✦</span> 风水 · A QUIET INTRODUCTION</p>
+        <h1>Feng Shui,<br/>without the fog.</h1>
+        <p class="lede">
+          Strip away the luck charms and superstitions and you're left with something almost embarrassingly
+          practical: a 3,000-year-old theory of how rooms shape the people living in them.
+        </p>
+        <div class="byline">
+          <span>By <strong>The Editors</strong></span>
+          <span>·</span>
+          <span>{published}</span>
+          <span>·</span>
+          <span>{readTime}</span>
+        </div>
+      </header>
+
+      <div class="grid">
+        <article class="body">
+          <h2>1 · What it actually is</h2>
+          <p>
+            Feng (风) means wind. Shui (水) means water. Together they're the two oldest metaphors in Chinese
+            thought for things that flow, move, and shape what they touch. The discipline is the study of how
+            that flow — of light, air, sight-lines, people — interacts with the spaces we build.
+          </p>
+          <p>
+            That's it. There is no spirit, no ghost, no demand that you believe anything. Feng Shui is closer
+            to architecture than to magic.
+          </p>
+
+          <h2>2 · The five elements, briefly</h2>
+          <p>
+            Wood, Fire, Earth, Metal, Water — the same five elements that organize BaZi, traditional Chinese
+            medicine, and every other classical Chinese system. Each one has a season, a direction, a colour,
+            and a kind of energy:
+          </p>
+          <ul>
+            <li><strong>Wood</strong> — east, spring, green. Growth, ambition, new starts.</li>
+            <li><strong>Fire</strong> — south, summer, red. Visibility, recognition, passion.</li>
+            <li><strong>Earth</strong> — center, late summer, yellow. Stability, family, the body.</li>
+            <li><strong>Metal</strong> — west, autumn, white. Clarity, finishing, letting go.</li>
+            <li><strong>Water</strong> — north, winter, deep blue. Career, wisdom, reflection.</li>
+          </ul>
+          <p>
+            A room "balanced" in the Feng Shui sense has all five present — not literally in the décor, but
+            in <em>quality</em>. A bedroom can be very metal (clean lines, white, restful) and still have a wood
+            note (a single plant, a hint of green) without breaking its character.
+          </p>
+
+          <h2>3 · The bagua, in one paragraph</h2>
+          <p>
+            The bagua (八卦) is a nine-square grid you overlay onto a floor plan. Each square corresponds to
+            a life area — wealth, fame, relationships, family, health, creativity, knowledge, career, helpful
+            people. The square in the far back-left of a room is its wealth corner; the front-center is the
+            career area; and so on. Practitioners look at what's in each square and adjust.
+          </p>
+
+          <h2>4 · What modern people actually need to know</h2>
+          <p>
+            For a Western apartment with one bedroom, three rules cover 80% of useful Feng Shui:
+          </p>
+          <ol>
+            <li><strong>Command position.</strong> Your bed and desk should both let you see the door without being directly in line with it. The nervous system relaxes when the entry is in your field of view.</li>
+            <li><strong>Clear the path.</strong> Energy in Feng Shui maps almost perfectly onto air, sight, and foot traffic. If you can't walk a clean path from doorway to window, neither can the qi.</li>
+            <li><strong>Mirror what's missing.</strong> If a room is heavy in one element (all wood, all metal), introduce one small object of its complement. It need not be precious — a smooth stone, a green stem.</li>
+          </ol>
+
+          <h2>5 · What to ignore</h2>
+          <p>
+            Most of what gets sold as Feng Shui online — laughing buddhas, lucky bamboo arrangements,
+            specific crystal placements — is decorative folk practice grafted onto the system. None of it is
+            wrong; almost none of it is essential. If a guide tries to sell you an object before it tries to
+            change your floor plan, the guide is selling, not teaching.
+          </p>
+
+          <hr/>
+
+          <p class="closing">
+            If this resonates, the next step is your <a href="/east/bazi/">BaZi chart</a> — your elements tell us
+            which Feng Shui adjustments will actually move the needle for <em>you</em>, specifically.
+          </p>
+        </article>
+
+        <aside class="side">
+          <div class="panel">
+            <p class="p-head">CONTENTS</p>
+            <ul>
+              <li><a href="#">What it actually is</a></li>
+              <li><a href="#">The five elements</a></li>
+              <li><a href="#">The bagua</a></li>
+              <li><a href="#">Three modern rules</a></li>
+              <li><a href="#">What to ignore</a></li>
+            </ul>
+          </div>
+          <div class="panel">
+            <p class="p-head">READ NEXT</p>
+            <ul>
+              <li><a href="/east/bazi/">Your BaZi chart →</a></li>
+              <li><a href="/iching/">Cast an I Ching reading →</a></li>
+              <li><a href="/east/">Back to East →</a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .article { padding-bottom: 6rem; }
+  .crumb { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 2.5rem; }
+  .head { max-width: 760px; margin-bottom: 3.5rem; }
+  .eyebrow { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1.25rem; }
+  .eyebrow .star { color: var(--gold); margin-right: 0.4rem; }
+  h1 { font-size: clamp(2.6rem, 5.5vw, 4.5rem); font-weight: 500; line-height: 1.05; letter-spacing: -0.025em; margin-bottom: 1.4rem; }
+  .lede { color: var(--ink-soft); font-size: 1.15rem; line-height: 1.55; margin-bottom: 1.5rem; }
+  .byline { display: flex; gap: 0.6rem; font-size: 0.8rem; color: var(--ink-soft); flex-wrap: wrap; }
+  .byline strong { color: var(--ink); font-weight: 600; }
+
+  .grid { display: grid; grid-template-columns: 1fr 280px; gap: 3rem; align-items: start; }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+
+  .body h2 { font-size: 1.4rem; font-weight: 500; letter-spacing: -0.01em; margin: 2.4rem 0 1rem; }
+  .body h2:first-child { margin-top: 0; }
+  .body p { font-size: 1.05rem; line-height: 1.75; color: var(--ink); margin-bottom: 1.2rem; }
+  .body em { font-style: italic; color: var(--ink-soft); }
+  .body ul, .body ol { padding-left: 1.4rem; margin-bottom: 1.4rem; }
+  .body li { font-size: 1.02rem; line-height: 1.7; margin-bottom: 0.55rem; color: var(--ink); }
+  .body strong { font-weight: 600; }
+  .body a { color: var(--ink); border-bottom: 1px solid var(--gold); }
+  hr { border: none; height: 1px; background: rgba(22,24,58,0.15); margin: 2.5rem 0; }
+  .closing { font-style: italic; color: var(--ink-soft); }
+
+  .side { position: sticky; top: 2rem; display: flex; flex-direction: column; gap: 1.2rem; }
+  .panel { background: var(--surface); border: 1px solid var(--surface-border); border-radius: 18px; padding: 1.3rem 1.5rem; }
+  .p-head { font-size: 0.66rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 0.8rem; }
+  .panel ul { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+  .panel a { font-size: 0.92rem; color: var(--ink); border-bottom: 1px solid transparent; transition: border-color 0.18s; }
+  .panel a:hover { border-color: var(--ink); }
+</style>

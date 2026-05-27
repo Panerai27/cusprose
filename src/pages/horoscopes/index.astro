@@ -1,0 +1,97 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+
+const signs = [
+  { name: 'Aries',       glyph: '♈', dates: 'Mar 21 – Apr 19', element: 'Fire',  slug: 'aries' },
+  { name: 'Taurus',      glyph: '♉', dates: 'Apr 20 – May 20', element: 'Earth', slug: 'taurus' },
+  { name: 'Gemini',      glyph: '♊', dates: 'May 21 – Jun 20', element: 'Air',   slug: 'gemini' },
+  { name: 'Cancer',      glyph: '♋', dates: 'Jun 21 – Jul 22', element: 'Water', slug: 'cancer' },
+  { name: 'Leo',         glyph: '♌', dates: 'Jul 23 – Aug 22', element: 'Fire',  slug: 'leo' },
+  { name: 'Virgo',       glyph: '♍', dates: 'Aug 23 – Sep 22', element: 'Earth', slug: 'virgo' },
+  { name: 'Libra',       glyph: '♎', dates: 'Sep 23 – Oct 22', element: 'Air',   slug: 'libra' },
+  { name: 'Scorpio',     glyph: '♏', dates: 'Oct 23 – Nov 21', element: 'Water', slug: 'scorpio' },
+  { name: 'Sagittarius', glyph: '♐', dates: 'Nov 22 – Dec 21', element: 'Fire',  slug: 'sagittarius' },
+  { name: 'Capricorn',   glyph: '♑', dates: 'Dec 22 – Jan 19', element: 'Earth', slug: 'capricorn' },
+  { name: 'Aquarius',    glyph: '♒', dates: 'Jan 20 – Feb 18', element: 'Air',   slug: 'aquarius' },
+  { name: 'Pisces',      glyph: '♓', dates: 'Feb 19 – Mar 20', element: 'Water', slug: 'pisces' },
+];
+---
+<BaseLayout title="Daily Horoscopes · 12 Signs · cusprose" path="/horoscopes/" description="Daily, weekly, and monthly horoscopes for all 12 zodiac signs — written, not generated.">
+  <Nav current="Horoscopes" />
+
+  <main class="hub">
+    <div class="container">
+      <p class="crumb">HOROSCOPES</p>
+
+      <header class="head">
+        <p class="eyebrow"><span class="star">✦</span> DAILY · WEEKLY · MONTHLY</p>
+        <h1>Read your sky.</h1>
+        <p class="lede">Twelve signs, one honest paragraph each. Updated every morning — written by humans who notice the sky.</p>
+      </header>
+
+      <ul class="grid">
+        {signs.map((s) => (
+          <li>
+            <a class="sign" href={`/horoscopes/${s.slug}/`}>
+              <span class="glyph" aria-hidden="true">{s.glyph}</span>
+              <div class="meta">
+                <p class="name">{s.name}</p>
+                <p class="dates">{s.dates}</p>
+              </div>
+              <span class={`elem ${s.element.toLowerCase()}`}>{s.element}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .hub { padding-bottom: 6rem; }
+  .crumb { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 2.5rem; }
+  .head { text-align: center; max-width: 640px; margin: 0 auto 3.5rem; }
+  .eyebrow { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1.25rem; }
+  .eyebrow .star { color: var(--gold); margin-right: 0.4rem; }
+  h1 { font-size: clamp(2.5rem, 5.5vw, 4.5rem); font-weight: 500; line-height: 1.05; letter-spacing: -0.025em; margin-bottom: 1.4rem; }
+  .lede { color: var(--ink-soft); font-size: 1.05rem; line-height: 1.55; }
+
+  .grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
+
+  .sign {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    padding: 1.2rem 1.3rem;
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
+    border-radius: 18px;
+    transition: transform 0.18s, box-shadow 0.18s;
+  }
+  .sign:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(22,24,58,0.08); }
+  .glyph { font-size: 1.9rem; color: var(--ink); width: 42px; text-align: center; }
+  .meta { flex: 1; }
+  .name { font-size: 1.05rem; font-weight: 600; letter-spacing: -0.01em; }
+  .dates { font-size: 0.78rem; color: var(--ink-soft); margin-top: 0.15rem; }
+  .elem {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.6rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.55);
+    color: var(--ink-soft);
+  }
+  .elem.fire  { color: #b8542a; }
+  .elem.earth { color: #6a7d3a; }
+  .elem.air   { color: #5a6b9a; }
+  .elem.water { color: #4b6e8a; }
+</style>

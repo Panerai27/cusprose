@@ -1,0 +1,229 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+
+// Compatibility — mockup 04 — sample pair: Leo × Libra
+const breakdown = [
+  { label: 'Love',          score: 88 },
+  { label: 'Friendship',    score: 92 },
+  { label: 'Communication', score: 75 },
+  { label: 'Trust',         score: 67 },
+  { label: 'Intimacy',      score: 85 },
+];
+---
+<BaseLayout title="Leo & Libra · Compatibility · cusprose" path="/compatibility/" description="Fire meets air. Cosmic compatibility decoded.">
+  <Nav current="Compatibility" />
+
+  <main class="compat">
+    <div class="container">
+      <p class="crumb">COMPATIBILITY / LEO ♌ × LIBRA ♎</p>
+
+      <header class="hero">
+        <p class="eyebrow"><span class="star">✦</span> A COSMIC PAIRING</p>
+        <h1>Leo &amp; Libra</h1>
+        <p class="tagline">Fire meets air. The room gets warmer when you walk in together.</p>
+      </header>
+
+      <section class="signs" aria-label="Sign comparison">
+        <div class="sign-cell">
+          <button class="emblem" type="button" aria-label="Change first sign">
+            <svg viewBox="0 0 80 80" aria-hidden="true">
+              <circle cx="40" cy="40" r="38" fill="none" stroke="#d9a441" stroke-width="0.6"/>
+              <!-- Leo glyph -->
+              <path d="M30 32 q-6 12 4 18 q10 6 16 -4 q4 -7 -2 -10 q-6 -3 -10 2 q-3 4 0 7" fill="none" stroke="#d9a441" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="42" cy="32" r="2.5" fill="none" stroke="#d9a441" stroke-width="1.5"/>
+            </svg>
+          </button>
+          <p class="cap-1">LEO · JUL 23 — AUG 22</p>
+          <p class="cap-2">FIRE · FIXED</p>
+        </div>
+
+        <div class="amp">&amp;</div>
+
+        <div class="sign-cell">
+          <button class="emblem" type="button" aria-label="Change second sign">
+            <svg viewBox="0 0 80 80" aria-hidden="true">
+              <circle cx="40" cy="40" r="38" fill="none" stroke="#d9a441" stroke-width="0.6"/>
+              <!-- Libra glyph -->
+              <path d="M20 52 h40 M22 44 h36" stroke="#d9a441" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M28 44 q2 -10 12 -10 q10 0 12 10" fill="none" stroke="#d9a441" stroke-width="1.5"/>
+            </svg>
+          </button>
+          <p class="cap-1">LIBRA · SEP 23 — OCT 22</p>
+          <p class="cap-2">AIR · CARDINAL</p>
+        </div>
+      </section>
+
+      <section class="breakdown" aria-label="Compatibility breakdown">
+        <p class="b-head">THE BREAKDOWN</p>
+        <div class="rows">
+          {breakdown.map((m) => (
+            <div class="row">
+              <span class="m-label">{m.label}</span>
+              <div class="bar"><div class="fill" style={`width:${m.score}%`}></div></div>
+              <span class="m-score">{m.score}%</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <aside class="cta-card">
+        <p class="cta-eye">READ THE FULL REPORT</p>
+        <p class="cta-title">8-page deep dive</p>
+        <p class="cta-sub">Personalized with your charts</p>
+        <a href="#" class="cta-btn">UNLOCK · <span class="price">$9.99</span></a>
+      </aside>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .compat { padding-bottom: 6rem; position: relative; }
+  .crumb {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 2.5rem;
+  }
+
+  .hero { text-align: center; margin-bottom: 4rem; }
+  .eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 1.2rem;
+  }
+  .eyebrow .star { color: var(--gold); margin-right: 0.4rem; }
+  h1 {
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.025em;
+    margin-bottom: 1rem;
+  }
+  .tagline {
+    font-size: clamp(1rem, 1.3vw, 1.18rem);
+    color: var(--ink-soft);
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  .signs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(2rem, 6vw, 5rem);
+    margin: 4rem 0 4.5rem;
+  }
+  .sign-cell { text-align: center; }
+  .emblem {
+    width: clamp(180px, 18vw, 240px);
+    aspect-ratio: 1;
+    background: #f5ebdd;
+    border: none;
+    border-radius: 50%;
+    padding: 0;
+    cursor: pointer;
+    box-shadow: 0 20px 40px rgba(22,24,58,0.1);
+    transition: transform 0.25s;
+  }
+  .emblem:hover { transform: translateY(-3px); }
+  .emblem svg { width: 70%; height: 70%; }
+
+  .cap-1 {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-top: 1.25rem;
+  }
+  .cap-2 {
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: 0.35rem;
+  }
+  .amp {
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    color: var(--gold);
+    font-family: Georgia, serif;
+    align-self: center;
+    margin-top: -1.5rem;
+  }
+
+  .breakdown { max-width: 760px; margin: 0 auto; }
+  .b-head {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  .rows { display: flex; flex-direction: column; gap: 1.1rem; }
+  .row {
+    display: grid;
+    grid-template-columns: 130px 1fr 50px;
+    align-items: center;
+    gap: 1.2rem;
+  }
+  .m-label { font-size: 0.95rem; color: var(--ink); }
+  .bar {
+    height: 8px;
+    background: #efe6d6;
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .fill {
+    height: 100%;
+    background: linear-gradient(90deg, #d9a441, #c9a856);
+    border-radius: 999px;
+  }
+  .m-score {
+    font-size: 0.85rem;
+    color: var(--gold);
+    font-weight: 600;
+    text-align: right;
+    letter-spacing: 0.05em;
+  }
+
+  .cta-card {
+    position: fixed;
+    right: clamp(1rem, 3vw, 2.5rem);
+    bottom: clamp(1rem, 3vw, 2.5rem);
+    background: #fbf6ea;
+    border-radius: 18px;
+    padding: 1.4rem 1.6rem;
+    box-shadow: 0 20px 50px rgba(22,24,58,0.18);
+    max-width: 280px;
+    z-index: 10;
+  }
+  .cta-eye {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 0.4rem;
+  }
+  .cta-title { font-size: 1.15rem; font-weight: 600; color: var(--ink); margin-bottom: 0.2rem; }
+  .cta-sub { font-size: 0.78rem; color: var(--ink-soft); margin-bottom: 0.9rem; }
+  .cta-btn {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--gold);
+    padding: 0.7rem 1.2rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+  }
+  .cta-btn .price { color: #fff; margin-left: 0.2rem; }
+
+  @media (max-width: 640px) {
+    .cta-card { position: static; max-width: 100%; margin-top: 3rem; }
+    .row { grid-template-columns: 100px 1fr 44px; gap: 0.8rem; }
+  }
+</style>
