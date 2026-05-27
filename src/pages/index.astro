@@ -1,0 +1,82 @@
+---
+const title = 'cusprose — coming soon';
+const description = 'A modern divination & astrology hub. East meets West. Launching soon.';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href="https://cusprose.com/" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content="https://cusprose.com/" />
+    <meta property="og:type" content="website" />
+    <style>
+      :root {
+        --bg: #1a1530;
+        --fg: #f5ecd9;
+        --accent: #e8b4d2;
+        --muted: #a89cc8;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body { height: 100%; }
+      body {
+        background: radial-gradient(ellipse at top, #2a1f4a 0%, var(--bg) 60%);
+        color: var(--fg);
+        font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+        display: grid;
+        place-items: center;
+        min-height: 100vh;
+        padding: 2rem;
+      }
+      main {
+        max-width: 36rem;
+        text-align: center;
+      }
+      .mark {
+        font-size: clamp(3rem, 9vw, 5.5rem);
+        font-weight: 300;
+        letter-spacing: 0.08em;
+        color: var(--accent);
+        margin-bottom: 1rem;
+      }
+      .mark .dot { color: var(--fg); }
+      .tag {
+        font-size: 1.15rem;
+        font-style: italic;
+        color: var(--muted);
+        margin-bottom: 2.5rem;
+        letter-spacing: 0.04em;
+      }
+      .copy {
+        font-size: 1.05rem;
+        line-height: 1.7;
+        color: var(--fg);
+        opacity: 0.85;
+        margin-bottom: 2rem;
+      }
+      .footer {
+        margin-top: 4rem;
+        font-size: 0.85rem;
+        color: var(--muted);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1 class="mark">cusprose<span class="dot">.</span></h1>
+      <p class="tag">east meets west · written in the stars</p>
+      <p class="copy">
+        A modern hub for tarot, astrology, I&nbsp;Ching, and the quiet arts of knowing.
+        Launching soon.
+      </p>
+      <p class="footer">— coming soon —</p>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "name": "cusprose",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev --host 127.0.0.1 --port 3045",
+    "build": "astro build",
+    "preview": "astro preview --host 127.0.0.1 --port 3046",
+    "check": "astro check",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/mdx": "^4.3.5",
+    "@astrojs/sitemap": "^3.6.0",
+    "astro": "^5.16.1",
+    "typescript": "^5.9.3"
+  }
+}
