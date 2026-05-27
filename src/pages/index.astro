@@ -1,6 +1,21 @@
 ---
-const title = 'cusprose — coming soon';
-const description = 'A modern divination & astrology hub. East meets West. Launching soon.';
+const title = 'cusprose — daily divination for the modern soul';
+const description = 'Tarot, horoscopes & cosmic insights — designed for who you are now.';
+
+const navLinks = ['Today', 'Tarot', 'Horoscopes', 'Compatibility', 'Birth Chart', 'Shop'];
+
+const cards = [
+  { roman: 'XVII', name: 'The Star', keywords: 'HOPE · RENEWAL', bg: '#DCD4E8', symbol: 'star',     rotate: -8 },
+  { roman: 'XVIII', name: 'The Moon', keywords: 'INTUITION · DREAMS', bg: '#F5C9A8', symbol: 'moon',  rotate: 0 },
+  { roman: 'XIX', name: 'The Sun',   keywords: 'JOY · VITALITY',     bg: '#C9DCB8', symbol: 'sun',   rotate: 10 },
+];
+
+const features = [
+  { tag: 'TAROT',         title: '78 cards, infinite stories.',     meta: 'Major & Minor Arcana, upright & reversed' },
+  { tag: 'HOROSCOPE',     title: 'Daily, weekly, just for you.',    meta: '12 signs · written, not generated' },
+  { tag: 'COMPATIBILITY', title: 'Lovers, friends, cosmic matches.',meta: '144 sign pairings, decoded' },
+  { tag: 'BIRTH CHART',   title: 'A portrait of you.',              meta: 'Free natal chart · in 60 seconds' },
+];
 ---
 <!doctype html>
 <html lang="en">
@@ -15,68 +30,331 @@ const description = 'A modern divination & astrology hub. East meets West. Launc
     <meta property="og:description" content={description} />
     <meta property="og:url" content="https://cusprose.com/" />
     <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <style>
       :root {
-        --bg: #1a1530;
-        --fg: #f5ecd9;
-        --accent: #e8b4d2;
-        --muted: #a89cc8;
+        --ink: #16172F;
+        --muted: #6B6B7B;
+        --accent: #5B5BD6;
+        --gold: #C9A24A;
+        --sun: #E89B5C;
+        --card-bg: rgba(255, 255, 255, 0.55);
+        --card-border: rgba(255, 255, 255, 0.7);
       }
       * { box-sizing: border-box; margin: 0; padding: 0; }
-      html, body { height: 100%; }
+      html { -webkit-text-size-adjust: 100%; }
       body {
-        background: radial-gradient(ellipse at top, #2a1f4a 0%, var(--bg) 60%);
-        color: var(--fg);
-        font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
-        display: grid;
-        place-items: center;
+        font-family: 'Inter', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+        color: var(--ink);
+        background: linear-gradient(135deg, #E8DCEC 0%, #F2C9B0 50%, #CDE0B8 100%);
         min-height: 100vh;
-        padding: 2rem;
+        background-attachment: fixed;
+        -webkit-font-smoothing: antialiased;
+        position: relative;
+        overflow-x: hidden;
       }
-      main {
-        max-width: 36rem;
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background-image:
+          radial-gradient(circle at 12% 20%, rgba(91, 91, 214, 0.18) 1px, transparent 1.5px),
+          radial-gradient(circle at 78% 14%, rgba(91, 91, 214, 0.14) 1px, transparent 1.5px),
+          radial-gradient(circle at 22% 78%, rgba(91, 91, 214, 0.12) 1px, transparent 1.5px),
+          radial-gradient(circle at 88% 64%, rgba(91, 91, 214, 0.16) 1px, transparent 1.5px),
+          radial-gradient(circle at 50% 92%, rgba(91, 91, 214, 0.10) 1px, transparent 1.5px);
+        pointer-events: none;
+        z-index: 0;
+      }
+      .container {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 clamp(20px, 4vw, 64px);
+        position: relative;
+        z-index: 1;
+      }
+
+      /* nav */
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 28px 0;
+        gap: 24px;
+      }
+      .logo {
+        font-size: 22px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        color: var(--ink);
+        text-decoration: none;
+      }
+      .logo .dot { color: var(--accent); }
+      .nav-links {
+        display: flex;
+        gap: 32px;
+        list-style: none;
+      }
+      .nav-links a {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--ink);
+        text-decoration: none;
+        opacity: 0.85;
+        transition: opacity 0.2s;
+      }
+      .nav-links a:hover { opacity: 1; }
+      .sign-in {
+        background: var(--ink);
+        color: #fff;
+        padding: 12px 22px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: transform 0.2s;
+      }
+      .sign-in:hover { transform: translateY(-1px); }
+      @media (max-width: 900px) {
+        .nav-links { display: none; }
+      }
+
+      /* hero */
+      .hero {
+        display: grid;
+        grid-template-columns: 1.05fr 1fr;
+        gap: 64px;
+        align-items: center;
+        padding: clamp(60px, 9vw, 120px) 0 clamp(80px, 10vw, 140px);
+      }
+      .eyebrow {
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 28px;
+      }
+      h1 {
+        font-size: clamp(48px, 7.5vw, 88px);
+        font-weight: 600;
+        line-height: 1.02;
+        letter-spacing: -0.025em;
+        color: var(--ink);
+        margin-bottom: 28px;
+      }
+      .lede {
+        font-size: clamp(16px, 1.4vw, 19px);
+        line-height: 1.55;
+        color: var(--muted);
+        max-width: 480px;
+        margin-bottom: 40px;
+      }
+      .cta-row {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        flex-wrap: wrap;
+      }
+      .btn-primary {
+        background: var(--ink);
+        color: #fff;
+        padding: 18px 32px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-decoration: none;
+        transition: transform 0.2s;
+      }
+      .btn-primary:hover { transform: translateY(-1px); }
+      .link-secondary {
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--ink);
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+      }
+      .link-secondary:hover { border-bottom-color: var(--ink); }
+
+      /* card cluster */
+      .cards {
+        position: relative;
+        height: clamp(360px, 42vw, 480px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .card {
+        position: absolute;
+        width: clamp(150px, 16vw, 200px);
+        aspect-ratio: 2 / 3;
+        border-radius: 18px;
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow:
+          0 20px 50px rgba(22, 23, 47, 0.15),
+          0 8px 20px rgba(22, 23, 47, 0.08);
         text-align: center;
       }
-      .mark {
-        font-size: clamp(3rem, 9vw, 5.5rem);
-        font-weight: 300;
-        letter-spacing: 0.08em;
-        color: var(--accent);
-        margin-bottom: 1rem;
+      .card-left   { transform: translateX(-65%) rotate(-8deg); z-index: 1; }
+      .card-center { transform: translateY(-8%) rotate(0deg);   z-index: 3; }
+      .card-right  { transform: translateX(65%)  rotate(10deg); z-index: 2; }
+      .card-roman {
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        color: var(--gold);
       }
-      .mark .dot { color: var(--fg); }
-      .tag {
-        font-size: 1.15rem;
+      .card-symbol {
+        font-size: clamp(48px, 5.5vw, 64px);
+        line-height: 1;
+        color: var(--gold);
+      }
+      .card-right .card-symbol { color: var(--sun); }
+      .card-name {
+        font-size: 14px;
+        font-weight: 600;
         font-style: italic;
-        color: var(--muted);
-        margin-bottom: 2.5rem;
-        letter-spacing: 0.04em;
+        color: var(--ink);
+        margin-bottom: 4px;
       }
-      .copy {
-        font-size: 1.05rem;
-        line-height: 1.7;
-        color: var(--fg);
-        opacity: 0.85;
-        margin-bottom: 2rem;
+      .card-keywords {
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        color: var(--ink);
+        opacity: 0.55;
       }
-      .footer {
-        margin-top: 4rem;
-        font-size: 0.85rem;
+      @media (max-width: 860px) {
+        .hero { grid-template-columns: 1fr; gap: 40px; }
+        .cards { order: -1; height: 340px; }
+        .card-left   { transform: translateX(-50%) rotate(-8deg); }
+        .card-right  { transform: translateX(50%)  rotate(10deg); }
+      }
+
+      /* explore */
+      .explore { padding-bottom: clamp(80px, 10vw, 140px); }
+      .explore .eyebrow { margin-bottom: 36px; }
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+      }
+      .feature {
+        background: var(--card-bg);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border: 1px solid var(--card-border);
+        border-radius: 22px;
+        padding: 32px 28px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 240px;
+        transition: transform 0.25s, box-shadow 0.25s;
+      }
+      .feature:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 16px 40px rgba(22, 23, 47, 0.08);
+      }
+      .feature-tag {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        color: var(--accent);
+        margin-bottom: 24px;
+      }
+      .feature-title {
+        font-size: clamp(22px, 2vw, 28px);
+        font-weight: 600;
+        line-height: 1.18;
+        letter-spacing: -0.015em;
+        color: var(--ink);
+        margin-bottom: 28px;
+      }
+      .feature-meta {
+        font-size: 13px;
         color: var(--muted);
-        letter-spacing: 0.1em;
+        line-height: 1.45;
+      }
+      @media (max-width: 980px) { .feature-grid { grid-template-columns: repeat(2, 1fr); } }
+      @media (max-width: 540px) { .feature-grid { grid-template-columns: 1fr; } }
+
+      /* footer */
+      footer {
+        padding: 40px 0 60px;
+        text-align: center;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        color: var(--muted);
         text-transform: uppercase;
       }
     </style>
   </head>
   <body>
-    <main>
-      <h1 class="mark">cusprose<span class="dot">.</span></h1>
-      <p class="tag">east meets west · written in the stars</p>
-      <p class="copy">
-        A modern hub for tarot, astrology, I&nbsp;Ching, and the quiet arts of knowing.
-        Launching soon.
-      </p>
-      <p class="footer">— coming soon —</p>
-    </main>
+    <div class="container">
+      <nav>
+        <a href="/" class="logo">cusprose<span class="dot">.</span></a>
+        <ul class="nav-links">
+          {navLinks.map((l) => <li><a href="#">{l}</a></li>)}
+        </ul>
+        <a href="#" class="sign-in">SIGN IN →</a>
+      </nav>
+
+      <section class="hero">
+        <div>
+          <p class="eyebrow">✦ Daily Divination for the Modern Soul</p>
+          <h1>Your stars,<br/>softly spoken.</h1>
+          <p class="lede">Tarot, horoscopes &amp; cosmic insights — designed for who you are now.</p>
+          <div class="cta-row">
+            <a href="#" class="btn-primary">PULL TODAY'S CARD</a>
+            <a href="#" class="link-secondary">Read horoscope →</a>
+          </div>
+        </div>
+
+        <div class="cards">
+          {cards.map((c, i) => (
+            <div class={`card card-${['left','center','right'][i]}`} style={`background:${c.bg};`}>
+              <span class="card-roman">{c.roman}</span>
+              <span class="card-symbol">
+                {c.symbol === 'star' && '✦'}
+                {c.symbol === 'moon' && '☾'}
+                {c.symbol === 'sun' && '☼'}
+              </span>
+              <div>
+                <div class="card-name">{c.name}</div>
+                <div class="card-keywords">{c.keywords}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="explore">
+        <p class="eyebrow">✦ Explore</p>
+        <div class="feature-grid">
+          {features.map((f) => (
+            <article class="feature">
+              <div>
+                <p class="feature-tag">{f.tag}</p>
+                <h2 class="feature-title">{f.title}</h2>
+              </div>
+              <p class="feature-meta">{f.meta}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <footer>— coming soon · launching 2026 —</footer>
+    </div>
   </body>
 </html>

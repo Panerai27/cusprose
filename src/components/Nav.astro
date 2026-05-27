@@ -1,0 +1,63 @@
+---
+const links = ['Today', 'Tarot', 'Horoscopes', 'Compatibility', 'Birth Chart', 'Shop'];
+---
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="/" class="logo">cusprose<span class="dot">.</span></a>
+    <ul class="links">
+      {links.map((label) => (
+        <li><a href="#" aria-disabled="true">{label}</a></li>
+      ))}
+    </ul>
+    <a href="#" class="signin" aria-disabled="true">SIGN IN <span class="arrow">→</span></a>
+  </div>
+</nav>
+
+<style>
+  .nav {
+    padding: 1.75rem 0;
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+  .logo {
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .logo .dot { color: var(--gold); }
+  .links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+  .links a {
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--ink);
+    opacity: 0.85;
+    cursor: default;
+  }
+  .links a:hover { opacity: 1; }
+  .signin {
+    background: var(--ink);
+    color: #fff;
+    padding: 0.7rem 1.25rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: default;
+  }
+  .signin .arrow { transform: translateY(-0.5px); }
+  @media (max-width: 900px) {
+    .links { display: none; }
+  }
+</style>

@@ -1,0 +1,119 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+  path?: string;
+}
+const {
+  title = 'cusprose — daily divination for the modern soul',
+  description = 'Tarot, horoscopes & cosmic insights — designed for who you are now.',
+  path = '/',
+} = Astro.props;
+const canonical = `https://cusprose.com${path}`;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style is:global>
+      :root {
+        /* Brand pastel gradient */
+        --grad-lavender: #e8d4e4;
+        --grad-peach: #f5d5c0;
+        --grad-sage: #d4e0c8;
+
+        /* Tarot card surfaces */
+        --card-lavender: #d9cceb;
+        --card-peach: #f2c9a8;
+        --card-sage: #c8ddb9;
+
+        /* Text */
+        --ink: #16183a;
+        --ink-soft: #6e6e8f;
+        --gold: #d9a441;
+
+        /* Surfaces */
+        --surface: rgba(255, 255, 255, 0.55);
+        --surface-border: rgba(255, 255, 255, 0.7);
+
+        /* Typography */
+        --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+        /* Layout */
+        --container: 1240px;
+        --pad-x: clamp(1.25rem, 4vw, 4rem);
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      html {
+        font-family: var(--font-sans);
+        color: var(--ink);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      body {
+        min-height: 100vh;
+        background:
+          /* sparkle dots layer */
+          radial-gradient(circle at 12% 18%, rgba(255,255,255,0.9) 0.5px, transparent 1px),
+          radial-gradient(circle at 78% 24%, rgba(255,255,255,0.7) 0.5px, transparent 1px),
+          radial-gradient(circle at 22% 72%, rgba(255,255,255,0.8) 0.5px, transparent 1px),
+          radial-gradient(circle at 88% 64%, rgba(255,255,255,0.6) 0.5px, transparent 1px),
+          radial-gradient(circle at 45% 32%, rgba(255,255,255,0.7) 0.5px, transparent 1px),
+          radial-gradient(circle at 62% 82%, rgba(255,255,255,0.6) 0.5px, transparent 1px),
+          radial-gradient(circle at 8% 48%, rgba(255,255,255,0.5) 0.5px, transparent 1px),
+          radial-gradient(circle at 95% 90%, rgba(255,255,255,0.6) 0.5px, transparent 1px),
+          radial-gradient(circle at 35% 92%, rgba(255,255,255,0.6) 0.5px, transparent 1px),
+          /* main pastel gradient */
+          linear-gradient(135deg, var(--grad-lavender) 0%, var(--grad-peach) 52%, var(--grad-sage) 100%);
+        background-size:
+          400px 400px, 400px 400px, 400px 400px,
+          400px 400px, 400px 400px, 400px 400px,
+          400px 400px, 400px 400px, 400px 400px,
+          100% 100%;
+      }
+
+      a { color: inherit; text-decoration: none; }
+
+      .container {
+        max-width: var(--container);
+        margin: 0 auto;
+        padding-left: var(--pad-x);
+        padding-right: var(--pad-x);
+      }
+
+      .eyebrow {
+        font-size: 0.72rem;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+      }
+
+      .eyebrow .star {
+        color: var(--gold);
+        margin-right: 0.35rem;
+      }
+    </style>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
