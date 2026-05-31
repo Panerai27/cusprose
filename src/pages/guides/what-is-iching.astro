@@ -1,0 +1,282 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+
+// Article — mockup 07 — editorial / cream canvas
+const toc = [
+  { n: '01', label: 'Sixty-four hexagrams', active: true, href: '#s1' },
+  { n: '02', label: 'Yin, yang, and the eight trigrams', href: '#s2' },
+  { n: '03', label: 'How you consult it', href: '#s3' },
+  { n: '04', label: 'Reading the changing lines', href: '#s4' },
+  { n: '05', label: 'How it differs from Western divination', href: '#s5' },
+  { n: '06', label: 'Try it →', href: '/iching/' },
+];
+// The eight trigrams (八卦): symbol, Chinese name, romanisation, natural image
+const trigrams = [
+  { glyph: '☰', name: '乾', roman: 'Qián',  image: 'Heaven', color: '#e8ddf0' },
+  { glyph: '☷', name: '坤', roman: 'Kūn',   image: 'Earth',  color: '#f4ddc9' },
+  { glyph: '☵', name: '坎', roman: 'Kǎn',   image: 'Water',  color: '#d9e7ce' },
+  { glyph: '☲', name: '離', roman: 'Lí',    image: 'Fire',   color: '#e0d5ea' },
+  { glyph: '☳', name: '震', roman: 'Zhèn',  image: 'Thunder',color: '#f4ddc9' },
+  { glyph: '☶', name: '艮', roman: 'Gèn',   image: 'Mountain',color: '#d9e7ce' },
+  { glyph: '☴', name: '巽', roman: 'Xùn',   image: 'Wind',   color: '#e8ddf0' },
+  { glyph: '☱', name: '兌', roman: 'Duì',   image: 'Lake',   color: '#e0d5ea' },
+];
+---
+<BaseLayout title="What is the I Ching · The Beginner's Guide · cusprose" path="/guides/what-is-iching/" description="The I Ching, or Book of Changes, is the world's oldest oracle — 64 hexagrams built from yin and yang. Here's what it is, how to consult it, and why it answers a different question than the cards.">
+  <body class="cream"> <!-- noop wrapper for selector readability -->
+  </body>
+  <Nav />
+
+  <article class="art">
+    <div class="container">
+      <header class="hero">
+        <p class="crumb">EAST / I CHING / GUIDE</p>
+        <p class="eyebrow"><span class="star">✦</span> THE BEGINNER'S GUIDE</p>
+        <h1>What is the<br/>I Ching, the<br/>Book of Changes.</h1>
+        <p class="byline">BY THE CUSPROSE EDITORS · 14 MIN READ · UPDATED MAY 2026</p>
+      </header>
+
+      <div class="grid">
+        <!-- TOC -->
+        <aside class="toc">
+          <p class="toc-head">ON THIS PAGE</p>
+          <ol>
+            {toc.map((t) => (
+              <li class={t.active ? 'active' : ''}>
+                <a href={t.href}><span class="n">{t.n}</span> · {t.label}</a>
+              </li>
+            ))}
+          </ol>
+        </aside>
+
+        <!-- Body -->
+        <section class="body">
+          <p class="anchor" id="s1">01 — SIXTY-FOUR HEXAGRAMS</p>
+          <h2>An oracle built from two kinds of line.</h2>
+          <p>The I Ching (易经, <em>Yìjīng</em> — the "Book of Changes") is older than almost anything else you'll meet in this corner of the world: a Chinese oracle assembled, layer by layer, over three thousand years. At its base are just two marks. A solid line — yang. A broken line — yin. Stack six of them, one above the other, and you have a <em>hexagram</em>. There are sixty-four ways to do it, and those sixty-four figures are the whole vocabulary of the book.</p>
+
+          <p>Each hexagram has a name, an image, and a short, gnomic text — a judgement and a commentary on each line. Together they don't describe a thing so much as a <em>situation</em>: a configuration of forces, a moment caught mid-turn. The book's deep claim is that reality is always changing, and that change moves in patterns. Read the pattern you're standing in, and you read where it tends.</p>
+
+          <div class="rule"></div>
+          <blockquote class="pull">
+            "The I Ching doesn't tell you what will happen. It tells you what the moment is asking of you."
+          </blockquote>
+
+          <p class="anchor" id="s2">02 — YIN, YANG, AND THE EIGHT TRIGRAMS</p>
+          <h3>Three lines make an element of the world.</h3>
+          <p>Between the single line and the full hexagram sits a middle unit: the <em>trigram</em> (八卦, <em>bāguà</em> — the "eight symbols"). Three lines, eight possible combinations, and each one stands for a force of nature — Heaven and Earth, Water and Fire, Thunder and Wind, Mountain and Lake. Every hexagram is two trigrams, one set over the other. So a reading is never just a symbol; it's a small weather system — Fire over Water, Wind over Mountain — and the relationship between the two halves is half the meaning.</p>
+
+          <p>Yin and yang aren't good and evil, or female and male, though they're often flattened into both. They're the receptive and the active, the dark side of the hill and the lit one, the inward gathering and the outward push. Neither is complete without the other, and neither holds still — yang at its height becomes yin, yin at its fullness turns back toward yang. The trigrams are simply the first stable shapes that emerge when those two principles start to combine.</p>
+
+          <p class="anchor" id="s3">03 — HOW YOU CONSULT IT</p>
+          <h3>Coins, stalks, and a question worth asking.</h3>
+          <p>You don't read the I Ching cold. You build a hexagram in answer to a question, one line at a time, from the bottom up. The classical method uses fifty yarrow stalks, divided and counted in a slow, deliberate ritual that takes the better part of an hour and yields one of four values for each line. Most people today use three coins instead: toss them six times, let heads and tails decide each line, and you have your figure in minutes.</p>
+
+          <p>The mechanism matters less than the posture. Whether stalk or coin, the act asks you to hold a real question — not "will I be rich," but "what is the nature of this thing I'm walking into?" — and then to let chance speak into it. The randomness isn't noise to be corrected. It's the channel. You're not engineering an answer; you're agreeing to receive one, and then to sit with it honestly.</p>
+
+          <div class="rule"></div>
+          <blockquote class="pull">
+            "The coins are not magic. The attention you bring to them is the whole instrument."
+          </blockquote>
+
+          <p class="anchor" id="s4">04 — READING THE CHANGING LINES</p>
+          <h3>The hexagram that becomes another.</h3>
+          <p>Here is where the I Ching stops being a deck of sixty-four fixed cards and becomes the Book of <em>Changes</em>. When you cast a hexagram, some of its lines come up <em>moving</em> — yin that is about to turn yang, yang about to turn yin. These changing lines do two things at once. First, their individual texts speak most directly to your question; they're the lines the oracle is underlining. Second, if you flip each moving line to its opposite, you arrive at a <em>second</em> hexagram.</p>
+
+          <p>So a full reading is rarely a single picture. It's a pair: the situation as it stands, and the situation it is ripening into. The first hexagram is where you are. The changing lines are the pressure points, the places already in motion. The second hexagram is the direction of travel — not a fixed destination, but the tendency of the present if it keeps doing what it's doing. To read well is to read the relationship between the two: what is leaving, what is arriving, and what you might do in the gap.</p>
+
+          <p>This is why the same hexagram can mean different things on different days. A figure with no moving lines is a steady state — sit still, the situation isn't turning yet. A figure with five moving lines is almost pure transition, barely itself before it's something else. The number and placement of the changing lines is its own layer of meaning, and learning to weigh them is most of what separates a glance from a reading.</p>
+
+          <div class="rule"></div>
+          <p>None of this is meant to be memorised before you begin. You learn the I Ching by consulting it — by bringing it a real question, casting honestly, and letting the answer be stranger and more exact than you expected.</p>
+
+          <p class="anchor" id="s5">05 — HOW IT DIFFERS FROM WESTERN DIVINATION</p>
+          <h3>A different question entirely.</h3>
+          <p>Western fortune-telling, at its most popular, tends to ask <em>what will happen</em> — and to imagine the future as a thing already written, waiting to be glimpsed. The tarot reader names the outcome; the crystal ball shows the event. Even when it's gentler than that, the implied grammar is prediction: there is a future, and the oracle peeks ahead.</p>
+
+          <p>The I Ching is built on a different sentence. It assumes the future is not fixed but <em>forming</em> — and that the most useful thing an oracle can do is describe the present situation so precisely that the right action becomes visible. It doesn't tell you that you will get the job. It tells you that you are standing in <em>Waiting</em>, or in <em>Difficulty at the Beginning</em>, or in <em>Retreat</em> — and what disposition that moment rewards. The question shifts from "what is coming for me?" to "what is this moment asking of me, and how should I meet it?"</p>
+
+          <p>That's a quieter promise, and a more demanding one. It hands the responsibility back to you. The book gives you the shape of the time; the choice of how to move within it stays yours. Which is, in the end, the most honest thing a three-thousand-year-old oracle can say — not <em>this is your fate</em>, but <em>this is the weather; now decide how to walk in it</em>.</p>
+
+          <div class="rule"></div>
+          <p>None of this lands fully until you cast your own — your question, your six lines, the figure that is yours in this particular hour. That's where the I Ching stops being a curiosity and starts being a conversation.</p>
+        </section>
+
+        <!-- Sidebar card -->
+        <aside class="side">
+          <div class="card">
+            <p class="card-eye">THE EIGHT TRIGRAMS · 八卦</p>
+            <div class="pillars">
+              {trigrams.map((t) => (
+                <div class="pillar" style={`background:${t.color}`}>
+                  <p class="p-stem">{t.glyph}</p>
+                  <p class="p-branch">{t.name}</p>
+                  <p class="p-el">{t.image}</p>
+                </div>
+              ))}
+            </div>
+            <p class="card-foot">Two trigrams stacked make one <strong>hexagram</strong> — 64 in all.</p>
+            <a href="/iching/" class="card-cta">Cast a reading →</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style is:global>
+  /* Override page background for cream editorial canvas */
+  body { background: #f4ecdc !important; }
+</style>
+
+<style>
+  .art { padding-bottom: 6rem; color: #1a1b2e; }
+  .hero { max-width: 1100px; margin: 0 auto 3.5rem; }
+  .crumb {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #8e8e9c;
+    margin-bottom: 1rem;
+  }
+  .eyebrow {
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #c9a24a;
+    margin-bottom: 1.2rem;
+  }
+  .eyebrow .star { margin-right: 0.4rem; }
+
+  h1 {
+    font-size: clamp(3rem, 7.5vw, 6rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.025em;
+    margin-bottom: 1.5rem;
+    color: #1a1b2e;
+  }
+  .byline {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #8e8e9c;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 200px 1fr 320px;
+    gap: clamp(2rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+  @media (max-width: 1080px) {
+    .grid { grid-template-columns: 1fr; }
+    .toc, .side { position: static; }
+  }
+
+  /* TOC */
+  .toc { position: sticky; top: 2rem; }
+  .toc-head {
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #8e8e9c;
+    margin-bottom: 1.2rem;
+  }
+  .toc ol { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+  .toc li a {
+    display: block;
+    font-size: 0.92rem;
+    color: #5c5d70;
+    padding-left: 0.6rem;
+    border-left: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .toc li.active a { color: #1a1b2e; border-left-color: #c9a24a; }
+  .toc .n { color: #8e8e9c; font-feature-settings: 'tnum'; margin-right: 0.3rem; }
+
+  /* Body */
+  .body { max-width: 660px; }
+  .anchor {
+    font-size: 0.74rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #c9a24a;
+    margin: 3rem 0 1rem;
+  }
+  .body h2 {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 500;
+    line-height: 1.15;
+    color: #1a1b2e;
+    margin-bottom: 1.4rem;
+  }
+  .body h3 {
+    font-size: 1.35rem;
+    font-weight: 500;
+    color: #1a1b2e;
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+  }
+  .body p {
+    font-size: 1.06rem;
+    line-height: 1.65;
+    color: #5c5d70;
+    margin-bottom: 1.3rem;
+  }
+  .body em { color: #1a1b2e; font-style: italic; }
+  .rule {
+    width: 80px;
+    height: 1.5px;
+    background: #c9a24a;
+    margin: 2.5rem 0 1.5rem;
+  }
+  .pull {
+    font-size: 1.45rem;
+    line-height: 1.35;
+    color: #1a1b2e;
+    margin-bottom: 2rem;
+    font-weight: 400;
+  }
+
+  /* Side card */
+  .side { position: sticky; top: 2rem; }
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 1.5rem;
+    box-shadow: 0 12px 36px rgba(26,27,46,0.08);
+  }
+  .card-eye {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #8e8e9c;
+    margin-bottom: 1rem;
+  }
+  .pillars { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin-bottom: 1.2rem; }
+  .pillar {
+    border-radius: 10px;
+    padding: 0.7rem 0.5rem;
+    text-align: center;
+  }
+  .pillar.hl { box-shadow: 0 0 0 2px #c9a24a inset; }
+  .p-label { font-size: 0.55rem; letter-spacing: 0.18em; color: #5c5d70; margin-bottom: 0.4rem; }
+  .p-stem { font-size: 1.4rem; color: #1a1b2e; line-height: 1; margin-bottom: 0.15rem; }
+  .p-branch { font-size: 1.1rem; color: #1a1b2e; line-height: 1; margin-bottom: 0.4rem; }
+  .p-el { font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: #5c5d70; }
+  .card-foot { font-size: 0.85rem; color: #5c5d70; margin-bottom: 1rem; }
+  .card-foot strong { color: #1a1b2e; }
+  .card-cta {
+    display: block;
+    background: #1a1b2e;
+    color: #fff;
+    text-align: center;
+    padding: 0.75rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    font-weight: 600;
+  }
+</style>

@@ -1,0 +1,290 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+
+// Article — mockup 07 — editorial / cream canvas
+const toc = [
+  { n: '01', label: 'Wind and water', active: true, href: '#s1' },
+  { n: '02', label: 'The bagua map', href: '#s2' },
+  { n: '03', label: 'The five elements', href: '#s3' },
+  { n: '04', label: 'The commanding position', href: '#s4' },
+  { n: '05', label: 'Common myths', href: '#s5' },
+  { n: '06', label: 'Try yours →', href: '/east/feng-shui/' },
+];
+const areas = [
+  { label: 'WEALTH',    glyph: '巽', element: 'Wood',  color: '#d9e7ce' },
+  { label: 'FAME',      glyph: '離', element: 'Fire',  color: '#f4ddc9' },
+  { label: 'LOVE',      glyph: '坤', element: 'Earth', color: '#f0e6cf' },
+  { label: 'FAMILY',    glyph: '震', element: 'Wood',  color: '#d9e7ce' },
+  { label: 'CENTRE',    glyph: '中', element: 'Earth', color: '#e9dcc4', highlight: true },
+  { label: 'CHILDREN',  glyph: '兌', element: 'Metal', color: '#e8e4ec' },
+  { label: 'KNOWLEDGE', glyph: '艮', element: 'Earth', color: '#f0e6cf' },
+  { label: 'CAREER',    glyph: '坎', element: 'Water', color: '#d6e4ea' },
+  { label: 'HELPERS',   glyph: '乾', element: 'Metal', color: '#e8e4ec' },
+];
+---
+<BaseLayout title="What is Feng Shui · The Beginner's Guide · cusprose" path="/guides/what-is-feng-shui/" description="Feng shui is the Chinese art of arranging space so energy moves well through it. Here's what it is — the bagua, the five elements, qi — demystified, not superstitious.">
+  <body class="cream"> <!-- noop wrapper for selector readability -->
+  </body>
+  <Nav />
+
+  <article class="art">
+    <div class="container">
+      <header class="hero">
+        <p class="crumb">EAST / FENG SHUI / GUIDE</p>
+        <p class="eyebrow"><span class="star">✦</span> THE BEGINNER'S GUIDE</p>
+        <h1>What is feng shui,<br/>and why it's not<br/>about luck.</h1>
+        <p class="byline">BY THE CUSPROSE EDITORS · 14 MIN READ · UPDATED MAY 2026</p>
+      </header>
+
+      <div class="grid">
+        <!-- TOC -->
+        <aside class="toc">
+          <p class="toc-head">ON THIS PAGE</p>
+          <ol>
+            {toc.map((t) => (
+              <li class={t.active ? 'active' : ''}>
+                <a href={t.href}><span class="n">{t.n}</span> · {t.label}</a>
+              </li>
+            ))}
+          </ol>
+        </aside>
+
+        <!-- Body -->
+        <section class="body">
+          <p class="anchor" id="s1">01 — WIND AND WATER</p>
+          <h2>The name is the whole idea.</h2>
+          <p>Feng shui (風水) translates, plainly, as "wind-water" — the two things that carry energy across a landscape and decide where it gathers and where it scatters. The practice began as a way of siting things: where to build a house, where to lay a tomb, which slope held the warmth and which the cold wind. Before it was ever about your bedroom, it was about reading the land the way a farmer reads a sky.</p>
+
+          <p>What it watches for is <em>qi</em> (氣) — the current of energy that moves through a place. Good feng shui doesn't trap qi or chase it away. It lets it meander, the way a river slows and deepens before it moves on. The whole art is arranging space so that this current flows well through it — and so that you flow well within the space.</p>
+
+          <div class="rule"></div>
+          <blockquote class="pull">
+            "Feng shui isn't about attracting luck. It's about removing the friction between you and the room you live in."
+          </blockquote>
+
+          <p class="anchor" id="s2">02 — THE BAGUA MAP</p>
+          <h3>Nine areas, laid over a home.</h3>
+          <p>The bagua (八卦, "eight trigrams") is the map feng shui works from. Picture a three-by-three grid laid over your floor plan — nine zones, each governing a different province of a life: wealth, fame, love, family, children, knowledge, career, helpful people, and the still centre that holds them. Walk in through your front door, and the grid orients itself to that threshold. The far-left corner becomes wealth; the far-right, love; the centre, your health and balance.</p>
+
+          <p>The point of the map isn't to assign blame to a cluttered corner. It's to notice. The area you've turned into a junk drawer of a room, the corner where nothing lives — the bagua asks you to read those as questions rather than failures. What part of your life has gone quiet, and what part of your home has gone quiet with it?</p>
+
+          <p class="anchor" id="s3">03 — THE FIVE ELEMENTS</p>
+          <h3>Wood feeds fire. Fire makes earth.</h3>
+          <p>The five elements — wood, fire, earth, metal, water — are the vocabulary of balance inside a space. Each carries a quality, a colour, a direction, a mood. Wood is growth and the upward green of new leaves; fire is warmth, visibility, the social hearth; earth is grounding and the centre that steadies; metal is clarity, precision, the clean edge; water is depth, stillness, the dark that holds movement.</p>
+
+          <p>They move into and away from each other in two cycles: generation (生), where each element feeds the next — wood feeds fire, fire makes earth, earth bears metal, metal carries water, water grows wood — and control (克), where each tempers another. A room that runs too hot with fire — all reds, all screens, all stimulation — can be cooled with water and earth. A room that feels cold and inert can be lifted with wood and warmth. You aren't decorating. You're tuning.</p>
+
+          <div class="rule"></div>
+          <blockquote class="pull">
+            "A room is never neutral. It is always doing something to the body that lives in it."
+          </blockquote>
+
+          <p class="anchor" id="s4">04 — THE COMMANDING POSITION</p>
+          <h3>Where you sit, and what you can see.</h3>
+          <p>If you remember a single rule from feng shui, make it this one. The <em>commanding position</em> governs how you place the three things you spend your life on: your bed, your desk, and your stove — sleep, work, and nourishment. The principle is the same for all three. You should be able to see the door without being directly in line with it, with a solid wall behind you and the widest possible view of the room in front.</p>
+
+          <p>There's nothing mystical in why this works, and that's the quiet argument of modern feng shui. A body that can see the entrance to its own room stops bracing. The oldest part of your nervous system — the part that kept watch on the savannah — relaxes only when it knows what's behind it and what's coming through the door. Put your back to an open doorway and some low circuit stays half-awake all night, scanning. Turn the bed so you can see who enters, and it finally stands down.</p>
+
+          <p>This is the reframing that makes feng shui legible to a sceptic. The "energy" the old texts describe is, in large part, the felt sense of a space acting on the body — attention, safety, alertness, calm. A cluttered hallway slows you because you must literally navigate it; a sharp corner aimed at your favourite chair registers, faintly, as a thing pointed at you. Built space is never passive. It is a set of instructions your body reads before your mind catches up.</p>
+
+          <p>Once you see space this way, the rules stop feeling like superstition and start feeling like ergonomics for the whole self. Light, sightlines, flow, the weight of what's behind you — these are not luck. They are the conditions under which a nervous system settles or stays on guard. Feng shui is the oldest catalogue we have of which conditions are which.</p>
+
+          <div class="rule"></div>
+          <blockquote class="pull">
+            "Command isn't control of the room. It's the room no longer asking anything of you while you rest."
+          </blockquote>
+
+          <p>And the commanding position scales. The same logic that places a bed places a seat at a meeting, a chair in a café, the side of the table you choose without thinking. Notice where you feel at ease and where you feel exposed, and you'll find you've been practising feng shui your whole life without the name.</p>
+
+          <p class="anchor" id="s5">05 — COMMON MYTHS</p>
+          <h3>What feng shui isn't.</h3>
+          <p>The first myth is the heaviest: that feng shui is a luck machine — hang the right mirror, set out the right coin, and money arrives. It doesn't work like that, and the better practitioners never promised it would. Feng shui changes the conditions you live in, not the lottery you enter. A desk in command won't make you rich. It will make you the kind of person who works calmly, sees clearly, and isn't quietly braced all day — and over years, that compounds. The object is never the point. The arrangement is.</p>
+
+          <p>The second is that you must buy something — a crystal grid, a brass toad, a jade plant in the wealth corner. Authentic feng shui is overwhelmingly about subtraction: clearing what blocks a path, opening a sightline, letting light into a dark zone, moving a bed eighteen inches. The most powerful change in most rooms costs nothing and is mostly the removal of things. A practice that keeps asking you to purchase has usually stopped being feng shui and started being retail.</p>
+
+          <p>The third myth treats the bagua as a horoscope for your house — a fixed verdict about a corner that's "bad" and a corner that's "blessed." No area is good or bad in the abstract. A "missing" corner in a floor plan isn't a curse; it's information, a place to bring a little intention. The map is diagnostic, not deterministic. It tells you where to look, not what your fate is.</p>
+
+          <p>And the fourth, quieter than the rest: that feng shui is at odds with reason — incense and intuition versus measurable life. The opposite is closer to true. Strip away the folklore and what remains is a remarkably durable account of how built space acts on a body: where we feel safe, where we feel watched, how light and flow and orientation move us. You don't have to believe in qi to feel the difference between a room that holds you and one that won't. Feng shui simply noticed it first.</p>
+
+          <div class="rule"></div>
+          <p>None of this lands fully until you stand in your own rooms and feel it — your door, your light, the corner that's gone quiet, the wall your bed should be against. That's where feng shui stops being theory and starts being the place you actually live.</p>
+        </section>
+
+        <!-- Sidebar card -->
+        <aside class="side">
+          <div class="card">
+            <p class="card-eye">THE BAGUA MAP · NINE AREAS</p>
+            <div class="pillars">
+              {areas.map((a) => (
+                <div class={`pillar ${a.highlight ? 'hl' : ''}`} style={`background:${a.color}`}>
+                  <p class="p-stem">{a.glyph}</p>
+                  <p class="p-label">{a.label}</p>
+                  <p class="p-el">{a.element}</p>
+                </div>
+              ))}
+            </div>
+            <p class="card-foot">Front door enters along the <strong>bottom row</strong></p>
+            <a href="/east/feng-shui/" class="card-cta">Map your space →</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style is:global>
+  /* Override page background for cream editorial canvas */
+  body { background: #f4ecdc !important; }
+</style>
+
+<style>
+  .art { padding-bottom: 6rem; color: #1a1b2e; }
+  .hero { max-width: 1100px; margin: 0 auto 3.5rem; }
+  .crumb {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #8e8e9c;
+    margin-bottom: 1rem;
+  }
+  .eyebrow {
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #c9a24a;
+    margin-bottom: 1.2rem;
+  }
+  .eyebrow .star { margin-right: 0.4rem; }
+
+  h1 {
+    font-size: clamp(3rem, 7.5vw, 6rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.025em;
+    margin-bottom: 1.5rem;
+    color: #1a1b2e;
+  }
+  .byline {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #8e8e9c;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 200px 1fr 320px;
+    gap: clamp(2rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+  @media (max-width: 1080px) {
+    .grid { grid-template-columns: 1fr; }
+    .toc, .side { position: static; }
+  }
+
+  /* TOC */
+  .toc { position: sticky; top: 2rem; }
+  .toc-head {
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #8e8e9c;
+    margin-bottom: 1.2rem;
+  }
+  .toc ol { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+  .toc li a {
+    display: block;
+    font-size: 0.92rem;
+    color: #5c5d70;
+    padding-left: 0.6rem;
+    border-left: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .toc li.active a { color: #1a1b2e; border-left-color: #c9a24a; }
+  .toc .n { color: #8e8e9c; font-feature-settings: 'tnum'; margin-right: 0.3rem; }
+
+  /* Body */
+  .body { max-width: 660px; }
+  .anchor {
+    font-size: 0.74rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #c9a24a;
+    margin: 3rem 0 1rem;
+  }
+  .body h2 {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 500;
+    line-height: 1.15;
+    color: #1a1b2e;
+    margin-bottom: 1.4rem;
+  }
+  .body h3 {
+    font-size: 1.35rem;
+    font-weight: 500;
+    color: #1a1b2e;
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+  }
+  .body p {
+    font-size: 1.06rem;
+    line-height: 1.65;
+    color: #5c5d70;
+    margin-bottom: 1.3rem;
+  }
+  .body em { color: #1a1b2e; font-style: italic; }
+  .rule {
+    width: 80px;
+    height: 1.5px;
+    background: #c9a24a;
+    margin: 2.5rem 0 1.5rem;
+  }
+  .pull {
+    font-size: 1.45rem;
+    line-height: 1.35;
+    color: #1a1b2e;
+    margin-bottom: 2rem;
+    font-weight: 400;
+  }
+
+  /* Side card */
+  .side { position: sticky; top: 2rem; }
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 1.5rem;
+    box-shadow: 0 12px 36px rgba(26,27,46,0.08);
+  }
+  .card-eye {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #8e8e9c;
+    margin-bottom: 1rem;
+  }
+  .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-bottom: 1.2rem; }
+  .pillar {
+    border-radius: 10px;
+    padding: 0.7rem 0.5rem;
+    text-align: center;
+  }
+  .pillar.hl { box-shadow: 0 0 0 2px #c9a24a inset; }
+  .p-label { font-size: 0.55rem; letter-spacing: 0.14em; color: #5c5d70; margin-bottom: 0.4rem; }
+  .p-stem { font-size: 1.4rem; color: #1a1b2e; line-height: 1; margin-bottom: 0.35rem; }
+  .p-branch { font-size: 1.1rem; color: #1a1b2e; line-height: 1; margin-bottom: 0.4rem; }
+  .p-el { font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: #5c5d70; }
+  .card-foot { font-size: 0.85rem; color: #5c5d70; margin-bottom: 1rem; }
+  .card-foot strong { color: #1a1b2e; }
+  .card-cta {
+    display: block;
+    background: #1a1b2e;
+    color: #fff;
+    text-align: center;
+    padding: 0.75rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    font-weight: 600;
+  }
+</style>

@@ -1,0 +1,128 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+
+const guides = [
+  {
+    tag: 'BAZI',
+    cn: '八字',
+    title: 'What is BaZi,\nand why it\'s not\njust astrology.',
+    meta: 'The four pillars · five elements · your day master',
+    read: '14 MIN',
+    href: '/guides/what-is-bazi/',
+  },
+  {
+    tag: 'I CHING',
+    cn: '易经',
+    title: 'The Book of Changes,\nin plain English.',
+    meta: '64 hexagrams · the eight trigrams · coin & yarrow',
+    read: '14 MIN',
+    href: '/guides/what-is-iching/',
+  },
+  {
+    tag: 'FENG SHUI',
+    cn: '风水',
+    title: 'How a room\ntalks to you.',
+    meta: 'The bagua map · five elements · the commanding position',
+    read: '14 MIN',
+    href: '/guides/what-is-feng-shui/',
+  },
+  {
+    tag: 'ZI WEI DOU SHU',
+    cn: '紫微斗数',
+    title: 'The emperor\'s\ncelestial court.',
+    meta: '12 palaces · 14 major stars · the Purple Star',
+    read: '14 MIN',
+    href: '/guides/what-is-zi-wei/',
+  },
+];
+---
+<BaseLayout title="Guides · Eastern Metaphysics, Explained · cusprose" path="/guides/" description="Beginner's guides to Eastern divination — BaZi, the I Ching, Feng Shui, and Zi Wei Dou Shu — written in clear English, without the mystic fog.">
+  <Nav />
+
+  <main class="guides">
+    <div class="container">
+      <p class="crumb">GUIDES</p>
+
+      <header class="head">
+        <p class="eyebrow"><span class="star">✦</span> 入门指南 · THE BEGINNER'S GUIDES</p>
+        <h1>Old systems,<br/>read slowly.</h1>
+        <p class="lede">
+          Each guide is a long, careful read — what the system actually is, where it came from,
+          how to read your own, and what it isn't. No fog, no fortune-telling. Just the structure,
+          in clear English.
+        </p>
+      </header>
+
+      <ul class="grid">
+        {guides.map((g) => (
+          <li>
+            <a class="card" href={g.href}>
+              <div class="card-head">
+                <span class="tag">{g.tag}</span>
+                <span class="cn" aria-hidden="true">{g.cn}</span>
+              </div>
+              <h2>{g.title}</h2>
+              <p class="meta">{g.meta}</p>
+              <div class="foot">
+                <span class="read">{g.read} READ</span>
+                <span class="arrow" aria-hidden="true">→</span>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <section class="why">
+        <p class="why-head">WHERE TO START</p>
+        <p class="why-body">
+          New to all of this? Begin with <a href="/guides/what-is-bazi/">BaZi</a> — it reads your birth
+          like a chemistry set and sets the vocabulary for everything else. Then let curiosity lead.
+          Each guide stands on its own.
+        </p>
+      </section>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .guides { padding-bottom: 6rem; }
+  .crumb { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 2.5rem; }
+  .head { max-width: 680px; margin-bottom: 4rem; }
+  .eyebrow { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1.25rem; }
+  .eyebrow .star { color: var(--gold); margin-right: 0.4rem; }
+  h1 { font-size: clamp(2.8rem, 6vw, 5rem); font-weight: 500; line-height: 1.05; letter-spacing: -0.025em; margin-bottom: 1.4rem; }
+  .lede { color: var(--ink-soft); font-size: 1.05rem; line-height: 1.6; }
+
+  .grid { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; margin-bottom: 4rem; }
+  @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+
+  .card {
+    position: relative;
+    display: block;
+    padding: 2rem 2.2rem 2rem;
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
+    border-radius: 22px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    min-height: 240px;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 18px 40px rgba(22,24,58,0.10); }
+  .card-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.2rem; }
+  .tag { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-soft); }
+  .cn { font-size: 1.4rem; color: var(--gold); letter-spacing: 0.1em; }
+  h2 { font-size: 1.55rem; font-weight: 500; line-height: 1.15; letter-spacing: -0.015em; margin-bottom: 1rem; white-space: pre-line; }
+  .meta { font-size: 0.85rem; color: var(--ink-soft); margin-bottom: 1.5rem; }
+  .foot { display: flex; justify-content: space-between; align-items: center; position: absolute; left: 2.2rem; right: 2.2rem; bottom: 1.7rem; }
+  .read { font-size: 0.66rem; letter-spacing: 0.18em; color: var(--ink-soft); }
+  .arrow { font-size: 1.1rem; color: var(--ink); }
+
+  .why {
+    max-width: 720px;
+    padding: 2rem 0;
+    border-top: 1px solid rgba(22,24,58,0.12);
+  }
+  .why-head { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .why-body { font-size: 1.05rem; line-height: 1.65; color: var(--ink); }
+  .why-body a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+</style>

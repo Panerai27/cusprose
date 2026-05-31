@@ -1,0 +1,278 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+
+// Article — mockup 07 — editorial / cream canvas
+const toc = [
+  { n: '01', label: 'The twelve palaces', active: true, href: '#s1' },
+  { n: '02', label: 'The fourteen major stars', href: '#s2' },
+  { n: '03', label: 'How it differs from BaZi', href: '#s3' },
+  { n: '04', label: 'Reading your celestial court', href: '#s4' },
+  { n: '05', label: 'Common myths', href: '#s5' },
+  { n: '06', label: 'Try yours →', href: '/birth-chart/' },
+];
+const palaces = [
+  { label: 'LIFE',     han: '命宮',   meaning: 'Self',     color: '#e8ddf0', highlight: true },
+  { label: 'WEALTH',   han: '財帛宮', meaning: 'Money',    color: '#f4ddc9' },
+  { label: 'CAREER',   han: '官祿宮', meaning: 'Work',     color: '#d9e7ce' },
+  { label: 'MARRIAGE', han: '夫妻宮', meaning: 'Partner',  color: '#e0d5ea' },
+];
+---
+<BaseLayout title="What is Zi Wei Dou Shu · The Beginner's Guide · cusprose" path="/guides/what-is-zi-wei/" description="Zi Wei Dou Shu, Purple Star Astrology, maps your life onto twelve palaces ruled by fourteen major stars. Here's what it is, and how it reads your fate as a celestial court.">
+  <body class="cream"> <!-- noop wrapper for selector readability -->
+  </body>
+  <Nav />
+
+  <article class="art">
+    <div class="container">
+      <header class="hero">
+        <p class="crumb">EAST / ZI WEI DOU SHU / GUIDE</p>
+        <p class="eyebrow"><span class="star">✦</span> THE BEGINNER'S GUIDE</p>
+        <h1>What is Zi Wei<br/>Dou Shu, the<br/>celestial court.</h1>
+        <p class="byline">BY THE CUSPROSE EDITORS · 14 MIN READ · UPDATED MAY 2026</p>
+      </header>
+
+      <div class="grid">
+        <!-- TOC -->
+        <aside class="toc">
+          <p class="toc-head">ON THIS PAGE</p>
+          <ol>
+            {toc.map((t) => (
+              <li class={t.active ? 'active' : ''}>
+                <a href={t.href}><span class="n">{t.n}</span> · {t.label}</a>
+              </li>
+            ))}
+          </ol>
+        </aside>
+
+        <!-- Body -->
+        <section class="body">
+          <p class="anchor" id="s1">01 — THE TWELVE PALACES</p>
+          <h2>A chart shaped like a court.</h2>
+          <p>Zi Wei Dou Shu (紫微斗数, "Purple Star Astrology") doesn't draw a circle of houses or a column of glyphs. It draws a court. The moment you were born sets twelve palaces in a ring, and each palace governs one province of a life: the self, wealth, career, marriage, travel, health, friends, parents, children, property, fortune, and the unseen forces working behind it all.</p>
+
+          <p>Into those palaces fall the stars. Where each star lands — and which palace it lands in — is the whole art. Your <em>life palace</em> (命宮) sits at the centre of the reading, the throne room everyone else attends. The other eleven are its ministers, its borders, its weather. Read together, they form a map not of the sky but of your domains.</p>
+
+          <div class="rule"></div>
+          <blockquote class="pull">
+            "Zi Wei doesn't ask what kind of time you were born into. It asks which star is standing in which room of your life."
+          </blockquote>
+
+          <p class="anchor" id="s2">02 — THE FOURTEEN MAJOR STARS</p>
+          <h3>The emperor and his ministers.</h3>
+          <p>Fourteen major stars do the heavy work of the chart, led by <em>Zi Wei</em> (紫微) itself — the emperor star, the purple star that gives the system its name. Zi Wei is dignity, leadership, the steadying centre; wherever it sits, it rules. Around it move the rest: <em>Tian Fu</em> the treasurer, <em>Tian Ji</em> the strategist, <em>Tai Yang</em> the sun, <em>Wu Qu</em> the general of wealth, <em>Tian Tong</em> the gentle child, <em>Lian Zhen</em> the complicated official. Each carries a temperament, and each colours whichever palace it occupies.</p>
+
+          <p>A star is never read in isolation. The emperor in your career palace reads differently from the emperor in your marriage palace; a wealth star in the travel palace tells a different story than the same star at the throne. The fourteen are characters, and the twelve palaces are the rooms they walk into. The reading is simply watching who stands where.</p>
+
+          <p class="anchor" id="s3">03 — HOW IT DIFFERS FROM BAZI</p>
+          <h3>A map of places, not of weather.</h3>
+          <p>BaZi and Zi Wei are siblings from the same tradition, but they look at you from opposite angles. BaZi is an <em>elemental-temporal</em> portrait: it reads the kind of time you were born into — wood and fire and water in season, balanced or not — and describes the climate you carry. Zi Wei is a <em>positional star-map</em>: it cares less about what element you are and more about <em>where</em> things sit. It places stars into named life domains and reads the geography.</p>
+
+          <p>So BaZi answers <em>what are you made of, and what weather favours it.</em> Zi Wei answers <em>which areas of your life are lit, which are crowded, which stand quiet.</em> Western astrology, for its part, asks where the planets hung in the sky at your birth — a third geometry again, spatial in a different sense. None of the three contradicts the others. They are three traditions of looking up, each fluent in a vocabulary the others don't speak.</p>
+
+          <p class="anchor" id="s4">04 — READING YOUR CELESTIAL COURT</p>
+          <h3>Begin at the throne.</h3>
+          <p>Every reading starts at the life palace. Which of the fourteen major stars sits there — or whether it sits empty, borrowing light from the palace opposite — sets the tone for the whole court. An emperor at the throne reads one way; a strategist or a sun reads another. This single placement is the closest Zi Wei comes to a "sign," and even then it's only the first sentence.</p>
+
+          <p>From there you read outward, palace by palace. A bright, well-placed star in the wealth palace speaks to how money moves through your life; a troubled star in the marriage palace asks for attention there, not elsewhere. The skill is in the relationships — palaces sit opposite one another and across triangles, and a star in one sends its influence to the three it faces. Nothing in the court acts alone.</p>
+
+          <p>Then comes brightness. Each star has a <em>dignity</em> — a measure of how strongly it shines in the position it landed in, from radiant to dim. A powerful star in a weak position is a capable minister given a poor office; a modest star shining brightly can outperform a greater one placed badly. This is why two people can share the same emperor at the throne and live entirely different lives: it is not only which star, but how brightly, and in which room.</p>
+
+          <div class="rule"></div>
+          <blockquote class="pull">
+            "A bright star in the right palace is a minister in his element. The same star, dimmed and misplaced, is talent without a post."
+          </blockquote>
+
+          <p>This is what makes the court a working instrument rather than a portrait to admire. Once you know which stars hold which palaces and how brightly they burn, you know where your life has support and where it asks for care — which domains move with ease, and which need tending before they yield.</p>
+
+          <p class="anchor" id="s5">05 — COMMON MYTHS</p>
+          <h3>What Zi Wei isn't.</h3>
+          <p>The first myth is the heaviest: that the chart fixes your fate, that the stars decree and you obey. They don't. Zi Wei describes arrangement, not sentence — which palaces are crowded with light, which stand quiet, where your life is naturally inclined to flourish. Arrangement shapes the path of least resistance, but you still walk it. The court maps your terrain; it doesn't choose your steps.</p>
+
+          <p>The second is mistaking the life-palace star for your whole nature, the way people reduce a chart to a single sign. The emperor at your throne is one star in one of twelve palaces. To read your entire life from it is to describe a court by its monarch and ignore the eleven rooms where everything actually happens. The richness of Zi Wei lives in the full ring, not the throne alone.</p>
+
+          <p>The third myth sorts the stars into lucky and cursed — the emperor blessed, some shadowed star a misfortune. It isn't so. A star's worth depends on its palace and its brightness, not its name. The grandest star, dimmed and misplaced, can trouble a chart; a humbler one, well-positioned and bright, can carry it. There are no purely fortunate stars and no purely unfortunate ones, only stars in the right room or the wrong one.</p>
+
+          <p>And the fourth, quieter than the rest: that a "difficult" palace is bad news. There are no bad charts, only courts that ask more of certain rooms. A demanding marriage palace, a crowded wealth palace — these are not verdicts but invitations to pay attention where attention is owed. The reading isn't a grade. It's a map of which doors swing easily and which need a hand.</p>
+
+          <div class="rule"></div>
+          <p>None of this lands fully until you see it in your own court — your twelve palaces, your fourteen stars, the throne that is yours and no one else's. That's where the reading stops being theory and starts being a mirror.</p>
+        </section>
+
+        <!-- Sidebar card -->
+        <aside class="side">
+          <div class="card">
+            <p class="card-eye">YOUR TWELVE PALACES · EXAMPLE</p>
+            <div class="pillars">
+              {palaces.map((p) => (
+                <div class={`pillar ${p.highlight ? 'hl' : ''}`} style={`background:${p.color}`}>
+                  <p class="p-label">{p.label}</p>
+                  <p class="p-stem">{p.han}</p>
+                  <p class="p-el">{p.meaning}</p>
+                </div>
+              ))}
+            </div>
+            <p class="card-foot">Throne star: <strong>紫微 · Zi Wei, the Emperor</strong></p>
+            <a href="/birth-chart/" class="card-cta">Generate yours →</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style is:global>
+  /* Override page background for cream editorial canvas */
+  body { background: #f4ecdc !important; }
+</style>
+
+<style>
+  .art { padding-bottom: 6rem; color: #1a1b2e; }
+  .hero { max-width: 1100px; margin: 0 auto 3.5rem; }
+  .crumb {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #8e8e9c;
+    margin-bottom: 1rem;
+  }
+  .eyebrow {
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #c9a24a;
+    margin-bottom: 1.2rem;
+  }
+  .eyebrow .star { margin-right: 0.4rem; }
+
+  h1 {
+    font-size: clamp(3rem, 7.5vw, 6rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.025em;
+    margin-bottom: 1.5rem;
+    color: #1a1b2e;
+  }
+  .byline {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #8e8e9c;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 200px 1fr 320px;
+    gap: clamp(2rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+  @media (max-width: 1080px) {
+    .grid { grid-template-columns: 1fr; }
+    .toc, .side { position: static; }
+  }
+
+  /* TOC */
+  .toc { position: sticky; top: 2rem; }
+  .toc-head {
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #8e8e9c;
+    margin-bottom: 1.2rem;
+  }
+  .toc ol { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+  .toc li a {
+    display: block;
+    font-size: 0.92rem;
+    color: #5c5d70;
+    padding-left: 0.6rem;
+    border-left: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .toc li.active a { color: #1a1b2e; border-left-color: #c9a24a; }
+  .toc .n { color: #8e8e9c; font-feature-settings: 'tnum'; margin-right: 0.3rem; }
+
+  /* Body */
+  .body { max-width: 660px; }
+  .anchor {
+    font-size: 0.74rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #c9a24a;
+    margin: 3rem 0 1rem;
+  }
+  .body h2 {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 500;
+    line-height: 1.15;
+    color: #1a1b2e;
+    margin-bottom: 1.4rem;
+  }
+  .body h3 {
+    font-size: 1.35rem;
+    font-weight: 500;
+    color: #1a1b2e;
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+  }
+  .body p {
+    font-size: 1.06rem;
+    line-height: 1.65;
+    color: #5c5d70;
+    margin-bottom: 1.3rem;
+  }
+  .body em { color: #1a1b2e; font-style: italic; }
+  .rule {
+    width: 80px;
+    height: 1.5px;
+    background: #c9a24a;
+    margin: 2.5rem 0 1.5rem;
+  }
+  .pull {
+    font-size: 1.45rem;
+    line-height: 1.35;
+    color: #1a1b2e;
+    margin-bottom: 2rem;
+    font-weight: 400;
+  }
+
+  /* Side card */
+  .side { position: sticky; top: 2rem; }
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 1.5rem;
+    box-shadow: 0 12px 36px rgba(26,27,46,0.08);
+  }
+  .card-eye {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #8e8e9c;
+    margin-bottom: 1rem;
+  }
+  .pillars { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin-bottom: 1.2rem; }
+  .pillar {
+    border-radius: 10px;
+    padding: 0.7rem 0.5rem;
+    text-align: center;
+  }
+  .pillar.hl { box-shadow: 0 0 0 2px #c9a24a inset; }
+  .p-label { font-size: 0.55rem; letter-spacing: 0.18em; color: #5c5d70; margin-bottom: 0.4rem; }
+  .p-stem { font-size: 1.4rem; color: #1a1b2e; line-height: 1; margin-bottom: 0.15rem; }
+  .p-branch { font-size: 1.1rem; color: #1a1b2e; line-height: 1; margin-bottom: 0.4rem; }
+  .p-el { font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: #5c5d70; }
+  .card-foot { font-size: 0.85rem; color: #5c5d70; margin-bottom: 1rem; }
+  .card-foot strong { color: #1a1b2e; }
+  .card-cta {
+    display: block;
+    background: #1a1b2e;
+    color: #fff;
+    text-align: center;
+    padding: 0.75rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    font-weight: 600;
+  }
+</style>
