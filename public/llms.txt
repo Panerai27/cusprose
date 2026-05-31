@@ -1,0 +1,25 @@
+# cusprose
+
+> Daily divination for the modern soul — tarot, horoscopes, and Eastern metaphysics (I Ching, BaZi, Zi Wei Dou Shu, Feng Shui) written for an English-speaking Gen Z audience. East-meets-West, editorial quality, designed for who you are now.
+
+cusprose is a content site blending Western divination (tarot, Western astrology, compatibility, birth charts) with Eastern systems that are underserved in quality English content (I Ching, Chinese BaZi 八字, Zi Wei Dou Shu 紫微斗数, Feng Shui). The voice is warm, literate, and modern — not "witchy" or sensational.
+
+## Core sections
+
+- [Tarot](https://cusprose.com/tarot): 78-card Major & Minor Arcana, upright & reversed meanings, daily card draw.
+- [Horoscopes](https://cusprose.com/horoscopes): Daily and weekly horoscopes for all 12 zodiac signs, written rather than auto-generated.
+- [Compatibility](https://cusprose.com/compatibility): 144 sign pairings decoded for love, friendship, and work.
+- [Birth Chart](https://cusprose.com/birth-chart): Free natal chart readings.
+
+## Eastern metaphysics (differentiation focus)
+
+- [East hub](https://cusprose.com/east): Entry point for Eastern divination systems.
+- [BaZi 八字](https://cusprose.com/east/bazi): Chinese Four Pillars of Destiny.
+- [Feng Shui](https://cusprose.com/east/feng-shui): Long-form guides on classical Feng Shui.
+- [I Ching](https://cusprose.com/iching): The 64 hexagrams and their interpretations.
+
+## About
+
+- Brand: cusprose. Modern, editorial divination.
+- Audience: English-speaking, Gen Z–leaning, primarily women.
+- Tone: literate, warm, self-aware — divination as self-reflection, not fortune-telling.
