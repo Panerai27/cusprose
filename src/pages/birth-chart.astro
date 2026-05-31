@@ -35,7 +35,7 @@ const zodiac = ['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒
                 <label class="field">
                   <span class="lab">EXACT TIME</span>
                   <input type="text" placeholder="06:47 AM" />
-                  <span class="helper">Not sure? <a href="#">Use sunrise</a></span>
+                  <span class="helper">Not sure? <span class="soon-link">Use sunrise <em>(soon)</em></span></span>
                 </label>
               </div>
               <label class="field">
@@ -45,14 +45,16 @@ const zodiac = ['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒
 
               <button type="submit" class="cast">CAST MY CHART →</button>
               <p class="meta-row">Tropical · Placidus · we never store this</p>
+              <p class="form-notice" hidden>✦ Chart calculation is launching soon — join the list and we'll cast yours the moment it's live.</p>
             </form>
           </div>
 
-          <p class="unlock-head">SAME BIRTH DATA UNLOCKS</p>
+          <p class="unlock-head">SAME BIRTH DATA WILL UNLOCK</p>
           <p class="unlock-row">
-            <a href="#">Your BaZi (八字) pillars</a> ·
-            <a href="#">Zi Wei Dou Shu chart</a> ·
-            <a href="#">Lunar mansion →</a>
+            <span class="soon-link">Your BaZi (八字) pillars</span> ·
+            <span class="soon-link">Zi Wei Dou Shu chart</span> ·
+            <span class="soon-link">Lunar mansion</span>
+            <span class="soon-tag">COMING SOON</span>
           </p>
         </section>
 
@@ -226,6 +228,29 @@ const zodiac = ['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒
   }
   .unlock-row { font-size: 0.92rem; color: var(--ink); }
   .unlock-row a { border-bottom: 1px solid currentColor; }
+  .soon-link { color: var(--ink-soft); border-bottom: 1px dotted var(--ink-soft); cursor: default; }
+  .soon-link em { font-style: normal; opacity: 0.7; }
+  .soon-tag {
+    display: inline-block;
+    margin-left: 0.5rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    padding: 0.18rem 0.55rem;
+    border-radius: 999px;
+    background: rgba(217, 164, 65, 0.16);
+    color: #a8801f;
+    vertical-align: middle;
+  }
+  .form-notice {
+    margin-top: 1rem;
+    padding: 0.9rem 1.1rem;
+    border-radius: 12px;
+    background: rgba(217, 164, 65, 0.1);
+    border: 1px solid rgba(217, 164, 65, 0.4);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--ink);
+  }
 
   /* right wheel */
   .prev-head {
@@ -238,3 +263,16 @@ const zodiac = ['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒
   .wheel-wrap { display: flex; justify-content: center; }
   .wheel { width: 100%; max-width: 540px; height: auto; }
 </style>
+
+<script>
+  const form = document.querySelector('.form');
+  const notice = document.querySelector('.form-notice');
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (notice) {
+      notice.hidden = false;
+      notice.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  });
+</script>
+

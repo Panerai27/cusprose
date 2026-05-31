@@ -419,5 +419,12 @@ const features = [
 
       <footer>— coming soon · launching 2026 —</footer>
     </div>
+    <script>
+      document.querySelectorAll('a[href="#"]').forEach((a) => {
+        a.setAttribute('aria-disabled', 'true');
+        a.style.cursor = 'default';
+        a.addEventListener('click', (e) => e.preventDefault());
+      });
+    </script>
   </body>
 </html>

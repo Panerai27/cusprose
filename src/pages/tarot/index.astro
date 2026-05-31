@@ -17,6 +17,32 @@ const deck = [
   { angle: 16,  lift: 18 },
   { angle: 24,  lift: 40 },
 ];
+
+// Major Arcana — drawn at random on the client when a card is tapped
+const cards = [
+  { roman: '0',     name: 'The Fool',        keys: 'BEGINNINGS · FAITH · LEAP' },
+  { roman: 'I',     name: 'The Magician',    keys: 'WILL · POWER · FOCUS' },
+  { roman: 'II',    name: 'The High Priestess', keys: 'INTUITION · MYSTERY · INNER VOICE' },
+  { roman: 'III',   name: 'The Empress',     keys: 'ABUNDANCE · NURTURE · GROWTH' },
+  { roman: 'IV',    name: 'The Emperor',     keys: 'STRUCTURE · AUTHORITY · ORDER' },
+  { roman: 'V',     name: 'The Hierophant',  keys: 'TRADITION · WISDOM · GUIDANCE' },
+  { roman: 'VI',    name: 'The Lovers',      keys: 'UNION · CHOICE · ALIGNMENT' },
+  { roman: 'VII',   name: 'The Chariot',     keys: 'DRIVE · CONTROL · VICTORY' },
+  { roman: 'VIII',  name: 'Strength',        keys: 'COURAGE · GRACE · PATIENCE' },
+  { roman: 'IX',    name: 'The Hermit',      keys: 'SOLITUDE · SEARCH · INSIGHT' },
+  { roman: 'X',     name: 'Wheel of Fortune', keys: 'CYCLES · FATE · TURNING' },
+  { roman: 'XI',    name: 'Justice',         keys: 'TRUTH · BALANCE · CAUSE' },
+  { roman: 'XII',   name: 'The Hanged Man',  keys: 'SURRENDER · PAUSE · NEW EYES' },
+  { roman: 'XIII',  name: 'Death',           keys: 'ENDINGS · RELEASE · REBIRTH' },
+  { roman: 'XIV',   name: 'Temperance',      keys: 'HARMONY · PATIENCE · FLOW' },
+  { roman: 'XV',    name: 'The Devil',       keys: 'SHADOW · DESIRE · ATTACHMENT' },
+  { roman: 'XVI',   name: 'The Tower',       keys: 'UPHEAVAL · TRUTH · RELEASE' },
+  { roman: 'XVII',  name: 'The Star',        keys: 'HOPE · HEALING · RENEWAL' },
+  { roman: 'XVIII', name: 'The Moon',        keys: 'INTUITION · DREAMS · ILLUSION' },
+  { roman: 'XIX',   name: 'The Sun',         keys: 'JOY · VITALITY · CLARITY' },
+  { roman: 'XX',    name: 'Judgement',       keys: 'AWAKENING · CALLING · RENEWAL' },
+  { roman: 'XXI',   name: 'The World',       keys: 'COMPLETION · WHOLENESS · ARRIVAL' },
+];
 ---
 <BaseLayout title="Pull a card for today · cusprose" path="/tarot/" description="Daily tarot pull — 78 cards, infinite stories.">
   <Nav current="Tarot" />
@@ -30,7 +56,7 @@ const deck = [
         <p class="lede">Take a breath. Set your intention. Trust your hand.</p>
       </header>
 
-      <div class="deck" role="group" aria-label="Tarot deck — 7 face-down cards">
+      <div class="deck" role="group" aria-label="Tarot deck — 7 face-down cards" data-cards={JSON.stringify(cards)}>
         {deck.map((c, i) => (
           <button
             type="button"
@@ -38,17 +64,26 @@ const deck = [
             style={`--a:${c.angle}deg; --y:${c.lift}px; --z:${10 - Math.abs(c.angle)};`}
             aria-label={`Card ${i + 1} of 7`}
           >
-            <svg viewBox="0 0 100 160" aria-hidden="true">
-              <rect x="3" y="3" width="94" height="154" rx="8" fill="url(#cb)" stroke="#d9a441" stroke-width="0.7" />
-              <defs>
-                <linearGradient id="cb" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="#4a3a72" />
-                  <stop offset="100%" stop-color="#2d2350" />
-                </linearGradient>
-              </defs>
-              <circle cx="50" cy="80" r="18" fill="none" stroke="#d9a441" stroke-width="0.5" opacity="0.6" />
-              <path d="M50 64 l3.2 8.5 8.8 .6 -6.8 5.8 2.2 8.8 -7.4 -4.8 -7.4 4.8 2.2 -8.8 -6.8 -5.8 8.8 -.6z" fill="#d9a441" />
-            </svg>
+            <span class="flip">
+              <span class="face back">
+                <svg viewBox="0 0 100 160" aria-hidden="true">
+                  <rect x="3" y="3" width="94" height="154" rx="8" fill="url(#cb)" stroke="#d9a441" stroke-width="0.7" />
+                  <defs>
+                    <linearGradient id="cb" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#4a3a72" />
+                      <stop offset="100%" stop-color="#2d2350" />
+                    </linearGradient>
+                  </defs>
+                  <circle cx="50" cy="80" r="18" fill="none" stroke="#d9a441" stroke-width="0.5" opacity="0.6" />
+                  <path d="M50 64 l3.2 8.5 8.8 .6 -6.8 5.8 2.2 8.8 -7.4 -4.8 -7.4 4.8 2.2 -8.8 -6.8 -5.8 8.8 -.6z" fill="#d9a441" />
+                </svg>
+              </span>
+              <span class="face front">
+                <span class="f-roman"></span>
+                <span class="f-name"></span>
+                <span class="f-keys"></span>
+              </span>
+            </span>
           </button>
         ))}
       </div>
@@ -107,12 +142,69 @@ const deck = [
     z-index: var(--z);
     transition: transform 0.3s ease, filter 0.3s;
     filter: drop-shadow(0 10px 18px rgba(22, 24, 58, 0.25));
+    perspective: 700px;
   }
   .card-back:hover {
     transform: translateY(calc(var(--y) - 14px)) rotate(var(--a));
     filter: drop-shadow(0 16px 22px rgba(22, 24, 58, 0.32));
   }
   .card-back svg { width: 100%; height: 100%; display: block; }
+
+  /* 3D flip */
+  .flip {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+  }
+  .card-back.flipped .flip { transform: rotateY(180deg); }
+  .face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 9px;
+  }
+  .face.front {
+    transform: rotateY(180deg);
+    background: linear-gradient(160deg, #2d2350, #4a3a72);
+    border: 0.7px solid #d9a441;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0.6rem;
+    color: #f4efe6;
+  }
+  .f-roman {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: #d9a441;
+    margin-bottom: 0.5rem;
+  }
+  .f-name {
+    font-size: clamp(0.78rem, 1.1vw, 0.98rem);
+    font-weight: 500;
+    line-height: 1.15;
+    margin-bottom: 0.5rem;
+  }
+  .f-keys {
+    font-size: 0.5rem;
+    letter-spacing: 0.12em;
+    line-height: 1.5;
+    color: rgba(244, 239, 230, 0.72);
+  }
+  .card-back.flipped {
+    z-index: 50 !important;
+    transform: translateY(calc(var(--y) - 8px)) rotate(calc(var(--a) * 0.35));
+  }
+  /* once any card is flipped, calm the hover lift so the reveal stays readable */
+  .card-back.flipped:hover {
+    transform: translateY(calc(var(--y) - 8px)) rotate(calc(var(--a) * 0.35));
+  }
 
   .tap-hint {
     text-align: center;
@@ -140,3 +232,50 @@ const deck = [
   }
   .shuffle:hover { background: var(--ink); color: #fff; }
 </style>
+
+<script>
+  const deckEl = document.querySelector('.deck');
+  const hint = document.querySelector('.tap-hint');
+  const shuffleBtn = document.querySelector('.shuffle');
+  const allCards = JSON.parse(deckEl?.getAttribute('data-cards') || '[]');
+  const buttons = Array.from(document.querySelectorAll('.card-back'));
+
+  let drawn = [];
+
+  function pickUnique() {
+    const used = new Set(drawn);
+    const pool = allCards.filter((_, i) => !used.has(i));
+    if (pool.length === 0) return null;
+    const choice = pool[Math.floor(Math.random() * pool.length)];
+    const idx = allCards.indexOf(choice);
+    drawn.push(idx);
+    return choice;
+  }
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      if (btn.classList.contains('flipped')) return;
+      const card = pickUnique();
+      if (!card) return;
+      btn.querySelector('.f-roman').textContent = card.roman;
+      btn.querySelector('.f-name').textContent = card.name;
+      btn.querySelector('.f-keys').textContent = card.keys;
+      btn.classList.add('flipped');
+      btn.setAttribute('aria-label', card.name + ' — ' + card.keys);
+      if (hint) hint.textContent = 'TAP ANOTHER · OR SHUFFLE TO RESET';
+    });
+  });
+
+  shuffleBtn?.addEventListener('click', () => {
+    drawn = [];
+    buttons.forEach((btn, i) => {
+      btn.classList.remove('flipped');
+      btn.setAttribute('aria-label', 'Card ' + (i + 1) + ' of 7');
+    });
+    if (hint) hint.textContent = 'TAP A CARD TO TURN IT OVER';
+    deckEl?.animate(
+      [{ opacity: 0.55, transform: 'scale(0.985)' }, { opacity: 1, transform: 'scale(1)' }],
+      { duration: 320, easing: 'ease-out' }
+    );
+  });
+</script>

@@ -121,5 +121,14 @@ const canonical = `https://cusprose.com${path}`;
   </head>
   <body>
     <slot />
+    <script>
+      // Global guard: links still pointing at "#" are unbuilt placeholders.
+      // Prevent the jarring jump-to-top; mark them so they read as inert.
+      document.querySelectorAll('a[href="#"]').forEach((a) => {
+        a.setAttribute('aria-disabled', 'true');
+        a.style.cursor = 'default';
+        a.addEventListener('click', (e) => e.preventDefault());
+      });
+    </script>
   </body>
 </html>
