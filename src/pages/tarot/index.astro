@@ -127,6 +127,27 @@ const tints = [
 
         <p class="tap-all-hint">TAP EACH CARD TO TURN IT OVER</p>
 
+        <section class="spread-reading" aria-live="polite" hidden>
+          <p class="reading-kicker">YOUR READING</p>
+          <h2 class="reading-title">What the spread is saying</h2>
+          <p class="reading-summary"></p>
+          <div class="reading-grid">
+            <article>
+              <span>Past</span>
+              <p class="reading-past"></p>
+            </article>
+            <article>
+              <span>Present</span>
+              <p class="reading-present"></p>
+            </article>
+            <article>
+              <span>Future</span>
+              <p class="reading-future"></p>
+            </article>
+          </div>
+          <p class="reading-advice"></p>
+        </section>
+
         <div class="reveal-actions">
           <button type="button" class="btn-ghost btn-read-spread">Read this spread</button>
           <button type="button" class="btn-again">Draw again</button>
@@ -230,6 +251,22 @@ const tints = [
 
   .tap-all-hint { text-align: center; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-soft); margin: 2rem 0 2.4rem; transition: opacity 0.3s; }
 
+  .spread-reading {
+    max-width: 860px; margin: 2rem auto 2.4rem; padding: clamp(1.4rem, 3vw, 2.2rem);
+    border: 1px solid var(--surface-border); border-radius: 28px;
+    background: rgba(255,255,255,0.42); backdrop-filter: blur(8px);
+    box-shadow: 0 20px 60px rgba(22,24,58,0.08);
+    animation: rise 0.45s ease both;
+  }
+  .reading-kicker { text-align: center; font-size: 0.68rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); font-weight: 700; margin-bottom: 0.65rem; }
+  .reading-title { text-align: center; font-size: clamp(1.45rem, 3vw, 2rem); font-weight: 500; letter-spacing: -0.02em; margin-bottom: 1rem; color: var(--ink); }
+  .reading-summary, .reading-advice { color: var(--ink); font-size: 1rem; line-height: 1.75; max-width: 680px; margin: 0 auto; text-align: center; }
+  .reading-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.6rem 0; }
+  .reading-grid article { border-radius: 20px; padding: 1.1rem; background: rgba(255,255,255,0.38); border: 1px solid rgba(255,255,255,0.55); }
+  .reading-grid span { display: block; font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); font-weight: 700; margin-bottom: 0.55rem; }
+  .reading-grid p { font-size: 0.92rem; line-height: 1.65; color: var(--ink); }
+  @media (max-width: 740px) { .reading-grid { grid-template-columns: 1fr; } }
+
   .reveal-actions { display: flex; gap: 0.8rem; justify-content: center; }
   .btn-ghost, .btn-again {
     font-family: inherit; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.16em;
@@ -258,6 +295,12 @@ const tints = [
   const tapHint = document.querySelector('.tap-all-hint');
   const againBtn = document.querySelector('.btn-again');
   const readSpreadBtn = document.querySelector('.btn-read-spread');
+  const readingBox = document.querySelector('.spread-reading');
+  const readingSummary = document.querySelector('.reading-summary');
+  const readingPast = document.querySelector('.reading-past');
+  const readingPresent = document.querySelector('.reading-present');
+  const readingFuture = document.querySelector('.reading-future');
+  const readingAdvice = document.querySelector('.reading-advice');
 
   let drawn = [];
 
@@ -287,6 +330,30 @@ const tints = [
     return out.map((i) => deck[i]);
   }
 
+  function makeSpreadReading(question, cards) {
+    const [past, present, future] = cards;
+    const subject = question ? 'your question' : 'this moment';
+    return {
+      summary: `${past.name}, ${present.name}, and ${future.name} form a three-step story around ${subject}: what has shaped the situation, what is asking for your attention now, and the direction the energy wants to move next. The spread is not a fixed prediction; it is a mirror for choosing with more clarity.`,
+      past: `${past.name} points to the root of the matter: ${past.up} This is the pattern, lesson, or residue you are bringing into the reading.`,
+      present: `${present.name} describes the live center of the spread: ${present.up} This is where your attention is most useful right now.`,
+      future: `${future.name} shows the likely path if you keep listening to the current thread: ${future.up} Treat it as guidance for the next step, not a sentence carved in stone.`,
+      advice: `Read the three cards together as a movement from ${past.keys.toLowerCase()} toward ${future.keys.toLowerCase()}, with ${present.name} as the bridge. The practical advice is simple: acknowledge what brought you here, act on the present card first, and let the future card be a direction rather than something to force.`
+    };
+  }
+
+  function showSpreadReading() {
+    if (!drawn.length) return;
+    const q = (input?.value || '').trim();
+    const reading = makeSpreadReading(q, drawn);
+    if (readingSummary) readingSummary.textContent = reading.summary;
+    if (readingPast) readingPast.textContent = reading.past;
+    if (readingPresent) readingPresent.textContent = reading.present;
+    if (readingFuture) readingFuture.textContent = reading.future;
+    if (readingAdvice) readingAdvice.textContent = reading.advice;
+    if (readingBox) readingBox.hidden = false;
+  }
+
   chips.forEach((c) => c.addEventListener('click', () => {
     chips.forEach((x) => x.classList.remove('is-on'));
     c.classList.add('is-on');
@@ -313,6 +380,7 @@ const tints = [
       slot.querySelector('.r-meaning').textContent = card.up;
     });
     if (tapHint) tapHint.style.opacity = '1';
+    if (readingBox) readingBox.hidden = true;
     show('shuffle');
     setTimeout(() => show('reveal'), 2100);
   }
@@ -333,12 +401,14 @@ const tints = [
     slots.forEach((slot) => slot.classList.add('flipped'));
     revealed = slots.length;
     if (tapHint) tapHint.style.opacity = '0';
-    slots[0]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    showSpreadReading();
+    readingBox?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   });
 
   againBtn?.addEventListener('click', () => {
     revealed = 0;
     slots.forEach((s) => s.classList.remove('flipped'));
+    if (readingBox) readingBox.hidden = true;
     if (input) input.value = '';
     show('ask');
   });
