@@ -1,46 +1,50 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Nav from '../../components/Nav.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Nav from '../../../components/Nav.astro';
+import { SIGNS, SIGN_BY_SLUG } from '../../../data/signs';
+import data from '../../../data/horoscopes.json';
+
+export function getStaticPaths() {
+  return SIGNS.map((s) => ({ params: { sign: s.slug } }));
+}
+
+const { sign } = Astro.params;
+const meta = SIGN_BY_SLUG[sign];
+const reading = data.daily[sign];
 
 const today = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+const stars = (n) => '★★★★★☆☆☆☆☆'.slice(5 - n, 10 - n);
+const eyebrow = `${meta.element} · ${meta.modality} · ${meta.ruler.replace(/^the /, '').toUpperCase()}`;
+const pairA = SIGN_BY_SLUG[meta.pairs[0]];
+const pairB = SIGN_BY_SLUG[meta.pairs[1]];
 ---
-<BaseLayout title="Aries Daily Horoscope · cusprose" path="/horoscopes/aries/" description="Today's horoscope for Aries — written, not generated. Updated daily.">
+<BaseLayout title={`${meta.name} Daily Horoscope · cusprose`} path={`/horoscopes/${sign}/`} description={`Today's horoscope for ${meta.name} — written, not generated. Updated daily.`}>
   <Nav current="Horoscopes" />
 
   <main class="sign-page">
     <div class="container">
-      <p class="crumb">HOROSCOPES / ARIES</p>
+      <p class="crumb">HOROSCOPES / {meta.name.toUpperCase()}</p>
 
       <header class="head">
-        <span class="glyph" aria-hidden="true">♈</span>
+        <span class="glyph" aria-hidden="true">{meta.glyph}</span>
         <div>
-          <p class="eyebrow"><span class="star">✦</span> FIRE · CARDINAL · MARS</p>
-          <h1>Aries.</h1>
-          <p class="dates">March 21 – April 19</p>
+          <p class="eyebrow"><span class="star">✦</span> {eyebrow}</p>
+          <h1>{meta.name}.</h1>
+          <p class="dates">{meta.dates}</p>
         </div>
       </header>
 
       <div class="grid">
         <article class="reading">
           <p class="date-label">TODAY · {today}</p>
-          <blockquote>
-            "Begin before you feel ready. The momentum<br/>you're waiting for is on the other side of starting."
-          </blockquote>
-          <p class="body">
-            Mars in your first house is bright today — you'll feel the urge to act on something you've been
-            circling for weeks. Trust it, but pace it. Aries fire works best in short, intentional bursts;
-            the trouble starts when you try to finish in one afternoon what was always going to take three.
-          </p>
-          <p class="body">
-            A conversation around 4 PM may surface a feeling you've kept tidy. Let it land. You're allowed
-            to want what you want without justifying it first.
-          </p>
+          <blockquote>{reading.quote}</blockquote>
+          {reading.body.map((p) => <p class="body">{p}</p>)}
 
           <div class="ratings">
-            <div><p class="r-label">LOVE</p><p class="r-stars">★★★★☆</p></div>
-            <div><p class="r-label">WORK</p><p class="r-stars">★★★★★</p></div>
-            <div><p class="r-label">MONEY</p><p class="r-stars">★★★☆☆</p></div>
-            <div><p class="r-label">MOOD</p><p class="r-stars">★★★★☆</p></div>
+            <div><p class="r-label">LOVE</p><p class="r-stars">{stars(reading.ratings.love)}</p></div>
+            <div><p class="r-label">WORK</p><p class="r-stars">{stars(reading.ratings.work)}</p></div>
+            <div><p class="r-label">MONEY</p><p class="r-stars">{stars(reading.ratings.money)}</p></div>
+            <div><p class="r-label">MOOD</p><p class="r-stars">{stars(reading.ratings.mood)}</p></div>
           </div>
         </article>
 
@@ -48,18 +52,18 @@ const today = new Date().toLocaleDateString('en-US', { weekday: 'long', month: '
           <div class="panel">
             <p class="p-head">JUMP TO</p>
             <ul>
-              <li><a href="/horoscopes/aries/">Today</a></li>
-              <li><a href="#">This week</a></li>
-              <li><a href="#">This month</a></li>
-              <li><a href="#">2026 yearly</a></li>
+              <li><a href={`/horoscopes/${sign}/`} aria-current="page">Today</a></li>
+              <li><a href={`/horoscopes/${sign}/weekly/`}>This week</a></li>
+              <li><a href={`/horoscopes/${sign}/monthly/`}>This month</a></li>
+              <li><a href={`/horoscopes/${sign}/yearly/`}>2026 yearly</a></li>
             </ul>
           </div>
           <div class="panel">
             <p class="p-head">PAIRS WELL WITH</p>
             <ul>
-              <li><a href="/compatibility/">Leo &times; Aries</a></li>
-              <li><a href="/compatibility/">Libra &times; Aries</a></li>
-              <li><a href="/tarot/the-star/">The Emperor card</a></li>
+              <li><a href="/compatibility/">{pairA.name} &times; {meta.name}</a></li>
+              <li><a href="/compatibility/">{pairB.name} &times; {meta.name}</a></li>
+              <li><a href="/tarot/">{meta.tarot.name} card</a></li>
             </ul>
           </div>
         </aside>
@@ -101,4 +105,5 @@ const today = new Date().toLocaleDateString('en-US', { weekday: 'long', month: '
   .panel ul { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
   .panel a { font-size: 0.92rem; color: var(--ink); border-bottom: 1px solid transparent; transition: border-color 0.18s; }
   .panel a:hover { border-color: var(--ink); }
+  .panel a[aria-current="page"] { color: var(--gold); border-color: var(--gold); }
 </style>

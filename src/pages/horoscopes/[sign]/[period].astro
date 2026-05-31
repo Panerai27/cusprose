@@ -1,46 +1,60 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Nav from '../../components/Nav.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Nav from '../../../components/Nav.astro';
+import { SIGNS, SIGN_BY_SLUG, PERIODS, PERIOD_LABEL } from '../../../data/signs';
+import data from '../../../data/horoscopes.json';
 
-const today = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+export function getStaticPaths() {
+  return SIGNS.flatMap((s) =>
+    PERIODS.map((p) => ({ params: { sign: s.slug, period: p } }))
+  );
+}
+
+const { sign, period } = Astro.params;
+const meta = SIGN_BY_SLUG[sign];
+const reading = data[period][sign];
+const label = PERIOD_LABEL[period];
+
+const dateLabel = {
+  weekly: 'THIS WEEK',
+  monthly: 'THIS MONTH',
+  yearly: '2026',
+}[period];
+
+const stars = (n) => '★★★★★☆☆☆☆☆'.slice(5 - n, 10 - n);
+const eyebrow = `${meta.element} · ${meta.modality} · ${meta.ruler.replace(/^the /, '').toUpperCase()}`;
+const pairA = SIGN_BY_SLUG[meta.pairs[0]];
+const pairB = SIGN_BY_SLUG[meta.pairs[1]];
+
+const periodTitle = { weekly: 'Weekly', monthly: 'Monthly', yearly: 'Yearly' }[period];
 ---
-<BaseLayout title="Cancer Daily Horoscope · cusprose" path="/horoscopes/cancer/" description="Today's horoscope for Cancer — written, not generated. Updated daily.">
+<BaseLayout title={`${meta.name} ${periodTitle} Horoscope · cusprose`} path={`/horoscopes/${sign}/${period}/`} description={`${label}'s horoscope for ${meta.name} — written, not generated.`}>
   <Nav current="Horoscopes" />
 
   <main class="sign-page">
     <div class="container">
-      <p class="crumb">HOROSCOPES / CANCER</p>
+      <p class="crumb">HOROSCOPES / {meta.name.toUpperCase()} / {label.toUpperCase()}</p>
 
       <header class="head">
-        <span class="glyph" aria-hidden="true">♋</span>
+        <span class="glyph" aria-hidden="true">{meta.glyph}</span>
         <div>
-          <p class="eyebrow"><span class="star">✦</span> WATER · CARDINAL · MOON</p>
-          <h1>Cancer.</h1>
-          <p class="dates">June 21 – July 22</p>
+          <p class="eyebrow"><span class="star">✦</span> {eyebrow}</p>
+          <h1>{meta.name}.</h1>
+          <p class="dates">{meta.dates}</p>
         </div>
       </header>
 
       <div class="grid">
         <article class="reading">
-          <p class="date-label">TODAY · {today}</p>
-          <blockquote>
-            "Protecting yourself and closing yourself off<br/>look alike from the outside. Only you know which it is."
-          </blockquote>
-          <p class="body">
-            The Moon, your ruler, governs the tide of your fourth house today, and you'll feel the pull toward home —
-            the literal one, or the one you carry. Cancers read rooms before they enter them; that radar is a gift, not
-            a flaw. But it can mistake an old ache for a present threat. Check whether the danger is now or remembered.
-          </p>
-          <p class="body">
-            Someone is gentler with you than you expect them to be. Let it in without testing it first. Nourishing
-            another person is easy for you; today, practice receiving the same care you so readily give.
-          </p>
+          <p class="date-label">{dateLabel}</p>
+          <blockquote>{reading.quote}</blockquote>
+          {reading.body.map((p) => <p class="body">{p}</p>)}
 
           <div class="ratings">
-            <div><p class="r-label">LOVE</p><p class="r-stars">★★★★☆</p></div>
-            <div><p class="r-label">WORK</p><p class="r-stars">★★★☆☆</p></div>
-            <div><p class="r-label">MONEY</p><p class="r-stars">★★★☆☆</p></div>
-            <div><p class="r-label">MOOD</p><p class="r-stars">★★★★★</p></div>
+            <div><p class="r-label">LOVE</p><p class="r-stars">{stars(reading.ratings.love)}</p></div>
+            <div><p class="r-label">WORK</p><p class="r-stars">{stars(reading.ratings.work)}</p></div>
+            <div><p class="r-label">MONEY</p><p class="r-stars">{stars(reading.ratings.money)}</p></div>
+            <div><p class="r-label">MOOD</p><p class="r-stars">{stars(reading.ratings.mood)}</p></div>
           </div>
         </article>
 
@@ -48,18 +62,18 @@ const today = new Date().toLocaleDateString('en-US', { weekday: 'long', month: '
           <div class="panel">
             <p class="p-head">JUMP TO</p>
             <ul>
-              <li><a href="/horoscopes/cancer/">Today</a></li>
-              <li><a href="#">This week</a></li>
-              <li><a href="#">This month</a></li>
-              <li><a href="#">2026 yearly</a></li>
+              <li><a href={`/horoscopes/${sign}/`} aria-current={period === undefined ? 'page' : undefined}>Today</a></li>
+              <li><a href={`/horoscopes/${sign}/weekly/`} aria-current={period === 'weekly' ? 'page' : undefined}>This week</a></li>
+              <li><a href={`/horoscopes/${sign}/monthly/`} aria-current={period === 'monthly' ? 'page' : undefined}>This month</a></li>
+              <li><a href={`/horoscopes/${sign}/yearly/`} aria-current={period === 'yearly' ? 'page' : undefined}>2026 yearly</a></li>
             </ul>
           </div>
           <div class="panel">
             <p class="p-head">PAIRS WELL WITH</p>
             <ul>
-              <li><a href="/compatibility/">Scorpio &times; Cancer</a></li>
-              <li><a href="/compatibility/">Pisces &times; Cancer</a></li>
-              <li><a href="/tarot/the-star/">The Moon card</a></li>
+              <li><a href="/compatibility/">{pairA.name} &times; {meta.name}</a></li>
+              <li><a href="/compatibility/">{pairB.name} &times; {meta.name}</a></li>
+              <li><a href="/tarot/">{meta.tarot.name} card</a></li>
             </ul>
           </div>
         </aside>
@@ -101,4 +115,5 @@ const today = new Date().toLocaleDateString('en-US', { weekday: 'long', month: '
   .panel ul { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
   .panel a { font-size: 0.92rem; color: var(--ink); border-bottom: 1px solid transparent; transition: border-color 0.18s; }
   .panel a:hover { border-color: var(--ink); }
+  .panel a[aria-current="page"] { color: var(--gold); border-color: var(--gold); }
 </style>

@@ -1,0 +1,638 @@
+{
+  "meta": {
+    "generated": "2026-05-31",
+    "tz": "Asia/Shanghai"
+  },
+  "daily": {
+    "aries": {
+      "quote": "Speed is not the same as direction. You can move fast and still be lost.",
+      "body": [
+        "Mars sharpens your first house today, and the urge to act arrives before the reason does. You'll feel the pull to settle something now — a message, a decision, a line drawn. The instinct is sound; the timing may not be. Ask whether you're moving toward what you want or simply away from the discomfort of waiting.",
+        "Courage rarely needs an audience. The boldest thing you do today might be quiet — choosing not to react, letting someone else go first. Aries fire burns cleanest when it has somewhere to go. Point it at the thing that actually matters, not the thing that merely annoys you."
+      ],
+      "ratings": {
+        "love": 3,
+        "work": 5,
+        "money": 3,
+        "mood": 4
+      }
+    },
+    "taurus": {
+      "quote": "Comfort and growth rarely sit at the same table. Today you choose which to feed.",
+      "body": [
+        "Venus settles into your second house, the place where you measure worth in things you can hold. You'll be tempted to stay exactly where it's warm. There's wisdom in that — Taurus knows the cost of chasing every shiny thing. But notice whether your patience is rooted or just stuck. One of those grows; the other only waits.",
+        "Money or affection asks a quiet question of you today: how much is enough? You already sense the answer in your body before your mind argues it down. Trust the slower knowing. What you build deliberately outlasts what you grab."
+      ],
+      "ratings": {
+        "love": 4,
+        "work": 3,
+        "money": 4,
+        "mood": 4
+      }
+    },
+    "gemini": {
+      "quote": "Not every thought needs to be spoken. Some are just weather passing through.",
+      "body": [
+        "Mercury quickens your third house, and your mind moves faster than any single conversation can hold. You'll have three good ideas before noon and the urge to share all of them. Choose one. Gemini brilliance scatters when it tries to land everywhere at once — the sharpest thing you say today will be the thing you almost kept to yourself.",
+        "Someone is listening more closely than you realize. A casual remark could open a door or close one. You're rarely careless, only quick. Slow the last sentence down. The pause before you speak is where your real intelligence lives."
+      ],
+      "ratings": {
+        "love": 3,
+        "work": 4,
+        "money": 3,
+        "mood": 4
+      }
+    },
+    "cancer": {
+      "quote": "Protecting yourself and walling yourself off feel identical from the inside.",
+      "body": [
+        "The Moon — your ruler — pulls at your fourth house today, and home is on your mind whether you're there or not. You'll feel things more than usual, and the feeling will arrive disguised as a memory. Let it. Cancer reads the emotional temperature of a room before anyone speaks, but today turn that instrument inward. What are you actually needing?",
+        "Tenderness is not weakness, and a boundary is not a betrayal. You can love someone and still close the door for the evening. The tide goes out so it can come back in. Give yourself the retreat without the guilt that usually follows it."
+      ],
+      "ratings": {
+        "love": 4,
+        "work": 3,
+        "money": 3,
+        "mood": 3
+      }
+    },
+    "leo": {
+      "quote": "Being seen and being known are different hungers. Today, notice which one aches.",
+      "body": [
+        "The Sun lights your fifth house, the house of play, romance, and the things you make for no reason but joy. You'll want to be noticed — there's no shame in it, Leo runs on warmth returned. But watch the difference between performing your life and living it. The applause fades faster than the thing you actually loved doing.",
+        "Generosity is your real currency, and it's worth more spent than displayed. Give someone your full attention today and watch what it does. You don't have to be the brightest thing in the room to be the one people remember. Sometimes the warmest light is the one that turns toward others."
+      ],
+      "ratings": {
+        "love": 5,
+        "work": 3,
+        "money": 3,
+        "mood": 5
+      }
+    },
+    "virgo": {
+      "quote": "The flaw you keep fixing in others is usually the one you can't forgive in yourself.",
+      "body": [
+        "Mercury orders your sixth house today, the place of work, routine, and the small repairs that hold a life together. You'll see exactly what's wrong — Virgo always does — and the seeing will feel like a duty to correct. Pause before you do. Not everything broken is yours to mend, and not everything imperfect is broken.",
+        "Service is your love language, but it curdles into control when no one asked. The kindest thing you offer today might be restraint: letting someone do it their imperfect way. Your standards are a gift when you hold them for yourself. Held over others, they become a fence."
+      ],
+      "ratings": {
+        "love": 3,
+        "work": 5,
+        "money": 4,
+        "mood": 3
+      }
+    },
+    "libra": {
+      "quote": "Keeping the peace and keeping the truth are not always the same errand.",
+      "body": [
+        "Venus moves through your seventh house, the house of partnership and the mirror other people hold up to you. You'll feel the pull to smooth something over today, to make the room comfortable again. It's a real gift, Libra — but a swallowed truth doesn't disappear, it just relocates. Balance isn't the absence of weight; it's weight honestly placed.",
+        "Someone needs your honesty more than your agreement. You can be gracious and still be clear — in fact you're one of the few who can. Say the harder kind thing today. Harmony built on what's unsaid isn't harmony; it's a held breath."
+      ],
+      "ratings": {
+        "love": 4,
+        "work": 3,
+        "money": 3,
+        "mood": 4
+      }
+    },
+    "scorpio": {
+      "quote": "You already know the answer. What you're weighing is whether you're willing to act on it.",
+      "body": [
+        "Pluto stirs your eighth house today, the place where things are buried and then transformed. You'll sense the subtext under a polite exchange — Scorpio rarely takes the surface at face value, and rightly so. But intensity can curdle into suspicion. Ask whether you're reading the moment or rehearsing an old betrayal.",
+        "Control offered up willingly is not the same as control lost. Somewhere today, releasing your grip is the stronger move. Let one truth be spoken rather than guarded; what you reveal on purpose can't be used against you."
+      ],
+      "ratings": {
+        "love": 4,
+        "work": 5,
+        "money": 3,
+        "mood": 3
+      }
+    },
+    "sagittarius": {
+      "quote": "Freedom you run toward feels different from freedom you run from. Check your direction.",
+      "body": [
+        "Jupiter opens your ninth house today, the house of distance, meaning, and the horizon you keep walking toward. You'll crave somewhere else — a trip, an idea, a wider sky. The restlessness is real and worth honoring, but ask what you're seeking and what you're skipping. Sagittarius finds the truth on the road, yet some truths only arrive if you stay put.",
+        "Optimism is your engine, but it works best with a map. Make one promise today you actually intend to keep, even a small one. The arrow flies far because it's aimed, not because it's loosed wildly. Your faith in what's next is a gift — give it somewhere real to land."
+      ],
+      "ratings": {
+        "love": 3,
+        "work": 4,
+        "money": 4,
+        "mood": 5
+      }
+    },
+    "capricorn": {
+      "quote": "Not every mountain is yours to climb. Some are just there to make you feel small.",
+      "body": [
+        "Saturn steadies your tenth house, the house of work, reputation, and the long view you're always quietly taking. You'll feel the weight of what you're building today, and the temptation to measure yourself by how far there is left to go. Resist it. Capricorn endures by pacing, not by punishing. The summit isn't the point if you arrive hollow.",
+        "Ambition is honest only when it knows what it's for. Ask whose approval you're actually working toward — and whether that person is still worth the climb, or even still you. Rest is not a reward you earn at the end. It's part of how the strong stay standing."
+      ],
+      "ratings": {
+        "love": 3,
+        "work": 5,
+        "money": 4,
+        "mood": 3
+      }
+    },
+    "aquarius": {
+      "quote": "Standing apart and standing alone look the same until someone reaches for you.",
+      "body": [
+        "Uranus charges your eleventh house today, the house of friendship, the collective, and the future you can already half-see. You'll feel the distance between how you think and how the room thinks. That gap is your gift, Aquarius — but don't mistake detachment for clarity. The coldest view isn't always the truest one.",
+        "You care more than you let on, and today someone needs to feel it, not deduce it. Let one person past the theory and into the warmth. Your vision changes things, but only after it lands in a human hand. Belonging won't dilute your independence; it gives it somewhere to matter."
+      ],
+      "ratings": {
+        "love": 3,
+        "work": 4,
+        "money": 3,
+        "mood": 4
+      }
+    },
+    "pisces": {
+      "quote": "Feeling everything is not the same as understanding it. Today, let one feeling finish.",
+      "body": [
+        "Neptune dissolves the edges of your twelfth house today, the house of dreams, surrender, and the things that move beneath waking life. You'll absorb the moods around you like water takes color — careful whose you carry. Pisces compassion is boundless, which is exactly why it needs a shore. Decide what's yours to feel before the day decides for you.",
+        "Imagination is your country, but you still have to live in this one. Ground one dream in a single real action today, however small. The vision isn't escapism if you let it touch the ground. Your softness is a strength when it has somewhere solid to stand."
+      ],
+      "ratings": {
+        "love": 4,
+        "work": 3,
+        "money": 3,
+        "mood": 4
+      }
+    }
+  },
+  "weekly": {
+    "aries": {
+      "quote": "This week asks for stamina, not sprint. The fire that lasts is the one you bank.",
+      "body": [
+        "Mars keeps your first house lit through the early week, and you'll want to charge at everything at once. Spend Monday and Tuesday choosing — not doing. By midweek a real obstacle shows itself, and it won't yield to force. Aries learns its strength in the things that don't move on the first push. Lean once, hard, then wait to see what gives.",
+        "The weekend turns the energy outward. Someone matches your pace for once, and it changes how the whole week reads in hindsight. Don't burn the last of yourself by Friday proving a point already made. The win this week is endurance worn lightly — arriving Sunday still wanting more, not nursing what you scorched."
+      ],
+      "ratings": {
+        "love": 3,
+        "work": 4,
+        "money": 3,
+        "mood": 4
+      }
+    },
+    "taurus": {
+      "quote": "What you tend slowly this week will still be standing long after the fast things fall.",
+      "body": [
+        "Venus moves steadily through your second house, and the week rewards the unglamorous work of tending — finances, a body, a bond that needs maintenance more than drama. Early days favor putting something in order you've let drift. Taurus builds wealth of every kind by repetition, and this is a week for the quiet deposit, not the grand gesture.",
+        "A midweek temptation to spend or splurge tests whether your comfort is chosen or compulsive. By the weekend you'll feel the difference in your body. Hold the line gently. What you protect this week — money, peace, a boundary — becomes the ground you stand on next month."
+      ],
+      "ratings": {
+        "love": 4,
+        "work": 3,
+        "money": 4,
+        "mood": 4
+      }
+    },
+    "gemini": {
+      "quote": "A week of many doors. The skill is not opening them — it's choosing which to walk through.",
+      "body": [
+        "Mercury races through your third house all week, and information arrives faster than you can sort it. Conversations multiply, options bloom, and your curiosity wants all of them. The early week is for gathering; resist deciding too soon. Gemini's gift is seeing the connections, but a connection isn't a commitment until you make it one.",
+        "Midweek a single conversation outweighs the dozen around it — you'll know it by how it stays with you. Follow that thread into the weekend. The scattered brilliance of your week resolves into one clear line if you let the lesser doors close. Not every interesting thing is yours to chase."
+      ],
+      "ratings": {
+        "love": 3,
+        "work": 4,
+        "money": 3,
+        "mood": 4
+      }
+    },
+    "cancer": {
+      "quote": "This week the tide is yours to read. Come in close, then let yourself go out.",
+      "body": [
+        "The Moon swings through your fourth house and back, and your emotional weather shifts more than once this week. Early days pull you homeward — toward rest, toward people who feel like shelter. Honor that. Cancer refills from the inside out, and a week that starts depleted ends nowhere good. Take the early retreat without apologizing for it.",
+        "By midweek you'll have more to give, and someone will need exactly what you've restored. The weekend asks you to let the tide go back out — to offer care without dissolving into the person you're caring for. Love that keeps its own shape lasts longer than love that floods."
+      ],
+      "ratings": {
+        "love": 4,
+        "work": 3,
+        "money": 3,
+        "mood": 4
+      }
+    },
+    "leo": {
+      "quote": "Shine all week if you like — but spend one day being the warmth, not the light.",
+      "body": [
+        "The Sun crosses your fifth house and the week opens generous and bright. Early days favor creation, romance, the things you do for love rather than result. Say yes to the thing that delights you with no return on investment. Leo refuels on joy expressed, and this is a week to let it out rather than ration it.",
+        "Midweek, watch the line between being celebrated and needing to be. The weekend rewards a different kind of warmth — attention turned fully toward someone else. Give it and notice how it comes back doubled. The week remembers you not for how brightly you burned but for who felt warmer near you."
+      ],
+      "ratings": {
+        "love": 5,
+        "work": 3,
+        "money": 3,
+        "mood": 5
+      }
+    },
+    "virgo": {
+      "quote": "A week to fix what's yours and release what isn't. Most of it isn't.",
+      "body": [
+        "Mercury sharpens your sixth house and the week hands you a list — real tasks, real repairs, the satisfying order of a system set right. Early days are productive in the way you love. But by Wednesday the list grows teeth, and you'll be tempted to take on what belongs to other people. That's where Virgo weeks go wrong.",
+        "Midweek, draw the line between care and control. The weekend asks you to leave something imperfect on purpose — and to feel how little falls apart when you do. Your competence is real; it doesn't need to prove itself on everyone's behalf. Rest is the repair you keep deferring. Make it this week."
+      ],
+      "ratings": {
+        "love": 3,
+        "work": 5,
+        "money": 4,
+        "mood": 3
+      }
+    },
+    "libra": {
+      "quote": "This week weighs you. Place your honesty on the scale and watch the room rebalance.",
+      "body": [
+        "Venus moves through your seventh house and partnership takes center stage all week. Early days favor the diplomatic art you're known for — smoothing, connecting, holding the room together. But a real imbalance surfaces by midweek, and charm won't resolve it. Libra peace bought with silence comes due eventually, and this is the week it asks to be paid.",
+        "Say the harder thing before the weekend. You'll find the relationship can hold more truth than you feared — and that the version of harmony on the other side is sturdier than the one you were protecting. Balance isn't avoiding the heavy thing. It's placing it where it actually belongs."
+      ],
+      "ratings": {
+        "love": 4,
+        "work": 3,
+        "money": 3,
+        "mood": 4
+      }
+    },
+    "scorpio": {
+      "quote": "A week of buried things surfacing. Let them. What you bury alive doesn't stay dead.",
+      "body": [
+        "Pluto works your eighth house all week, and what's been simmering beneath the surface starts to rise. Early days bring a truth you've half-known into full view — about a person, a power dynamic, your own motives. Scorpio doesn't flinch from depth, but watch the urge to weaponize what you uncover. Insight used as ammunition stops being insight.",
+        "Midweek invites a real transformation if you let go of one grip you've held too long. The weekend rewards vulnerability you choose rather than vulnerability forced on you. Tell one person something true before the week ends. The strength isn't in the secret kept — it's in deciding which to release."
+      ],
+      "ratings": {
+        "love": 4,
+        "work": 4,
+        "money": 3,
+        "mood": 3
+      }
+    },
+    "sagittarius": {
+      "quote": "The horizon calls all week. Answer it with a plan, not just a longing.",
+      "body": [
+        "Jupiter widens your ninth house and the week fills with possibility — a chance to learn, to travel, to chase a bigger idea than your routine allows. Early days are for dreaming wide; let yourself. Sagittarius needs the open road the way others need ground. But by midweek the dream asks for a first concrete step, and that's where most of your visions usually stall.",
+        "Take the step before the weekend. One booking, one application, one honest conversation about what you actually want next. The arc of the week bends toward freedom only if you aim it. Your faith in what's possible is rare — this week, give it a structure strong enough to carry the weight of being real."
+      ],
+      "ratings": {
+        "love": 3,
+        "work": 4,
+        "money": 4,
+        "mood": 5
+      }
+    },
+    "capricorn": {
+      "quote": "A week of long work. Measure it by what you built, not by how tired you are.",
+      "body": [
+        "Saturn anchors your tenth house and the week is a study in patience. Early days reward the disciplined push — the email sent, the standard held, the brick laid in a wall only you can see the shape of. Capricorn endures where others quit, and this week proves it again. But notice when discipline tips into self-punishment dressed as virtue.",
+        "Midweek, let one thing be good enough. The weekend asks you to actually rest — not to collapse, but to choose stillness as part of the strategy. The mountain doesn't reward the climber who arrives broken. Your strength this week is in pacing, and in remembering who you're climbing for."
+      ],
+      "ratings": {
+        "love": 3,
+        "work": 5,
+        "money": 4,
+        "mood": 3
+      }
+    },
+    "aquarius": {
+      "quote": "This week, let someone past the theory. Ideas keep you company; people keep you warm.",
+      "body": [
+        "Uranus stirs your eleventh house and the week buzzes with the future — new connections, a cause, a flash of how things could be different. Early days favor your visionary streak; the room needs the angle only you see. But watch the distance you keep, Aquarius. Detachment feels like clarity right up until it leaves you standing alone with a correct opinion.",
+        "Midweek, a friendship asks for presence, not analysis. The weekend rewards the warmth you usually file under inefficient. Let one person feel how much you actually care. Your independence isn't threatened by closeness — it's what makes your closeness mean something when you finally offer it."
+      ],
+      "ratings": {
+        "love": 3,
+        "work": 4,
+        "money": 3,
+        "mood": 4
+      }
+    },
+    "pisces": {
+      "quote": "A week of deep water. Swim it with a shore in sight, or the current decides for you.",
+      "body": [
+        "Neptune softens your twelfth house all week, and your sensitivity runs high — to art, to atmosphere, to other people's unspoken moods. Early days are dreamy and porous; beautiful, but you'll need to guard whose feelings you carry as your own. Pisces compassion has no natural edge, which is exactly why this week you must give it one.",
+        "Midweek, ground one drifting dream in a single real act. The weekend rewards the imagination that touched the ground rather than the one that floated off. Your inner world is vast and worth visiting — but build a dock before you dive. The softness is a gift only when it has somewhere solid to return to."
+      ],
+      "ratings": {
+        "love": 4,
+        "work": 3,
+        "money": 3,
+        "mood": 4
+      }
+    }
+  },
+  "monthly": {
+    "aries": {
+      "quote": "This month rewards the fire you aim, not the fire you spill. Choose one battle worth the heat.",
+      "body": [
+        "Mars drives your first house through the month, and the urge to start is relentless. The new moon early on lights a beginning you've been circling — take it, but commit to one front rather than five. Aries scatters its considerable force when everything feels urgent. The month's real test is whether you can want something long enough to finish it.",
+        "By the full moon, a project or relationship asks for the harder kind of courage: staying. Anyone can charge in; you're learning the bravery of follow-through. The month closes well if you arrive at its end still holding what you started — not a trail of bright, abandoned sparks. Pick the mountain. Climb only that one."
+      ],
+      "ratings": {
+        "love": 4,
+        "work": 4,
+        "money": 3,
+        "mood": 4
+      }
+    },
+    "taurus": {
+      "quote": "A month to build something that lasts. Slow is not the obstacle. Slow is the method.",
+      "body": [
+        "Venus moves through your second house and the month favors patient accumulation — of money, of security, of a comfort that's earned rather than borrowed. The new moon opens a chance to plant something whose payoff is seasons away. Taurus thrives exactly here, in the long game others find unbearable. Resist the voice that says it should already be done.",
+        "Midmonth tempts you toward an indulgence that feels like reward but lands like avoidance. The full moon clarifies the difference. By month's end, what you tended steadily will be visibly stronger, and the thing you almost splurged on will look small. Your patience this month is a kind of wealth. Spend it well by not spending it."
+      ],
+      "ratings": {
+        "love": 4,
+        "work": 4,
+        "money": 4,
+        "mood": 4
+      }
+    },
+    "gemini": {
+      "quote": "A month of open doors. The art is closing the ones that lead nowhere you want to go.",
+      "body": [
+        "Mercury keeps your third house busy all month — conversations multiply, ideas arrive in flocks, and your curiosity has more to feed on than it can hold. The new moon opens a fresh line of inquiry worth following. But Gemini's monthly danger is dispersion: a hundred beginnings, no middle. Gather widely early, then make yourself choose.",
+        "By the full moon, one thread will have proven itself more alive than the rest. Follow it into the month's second half with uncharacteristic focus and watch what depth does for you. The scattered brilliance was never the problem. The refusal to land was. This month, land somewhere — and discover how much more you find when you stay."
+      ],
+      "ratings": {
+        "love": 3,
+        "work": 4,
+        "money": 4,
+        "mood": 4
+      }
+    },
+    "cancer": {
+      "quote": "This month the tide comes in and goes out. Trust both. Neither is the whole story.",
+      "body": [
+        "The Moon governs your fourth house and your inner weather sets the rhythm of the month. The new moon turns you homeward — toward roots, family, the foundation under everything else. Tend it now; a month built on a depleted core collapses by its end. Cancer's strength has always been emotional intelligence, and this month it's pointed inward first.",
+        "The full moon brings feeling to a head — something you've held quietly asks to be felt all the way through. Let it crest and pass rather than damming it. By month's end you'll have more to give precisely because you let yourself receive first. The care you're known for lasts longest when it isn't drawn from an empty well."
+      ],
+      "ratings": {
+        "love": 4,
+        "work": 3,
+        "money": 3,
+        "mood": 4
+      }
+    },
+    "leo": {
+      "quote": "A month to be seen — and one quiet week to remember why you wanted to be.",
+      "body": [
+        "The Sun crosses your fifth house and the month opens warm, creative, alive with the things you make for joy. The new moon favors romance and risk-for-pleasure; say yes to what delights you. Leo refuels on expression, and this is a season to let it out generously rather than hoard it for a worthier occasion that never comes.",
+        "But the full moon turns the question inward: are you living your life or performing it? The month's deepest reward is a stretch of warmth given freely, no audience required. By its end you'll find the love that stayed was the kind you offered, not the kind you collected. Shine all month — just remember the light was always meant to reach someone."
+      ],
+      "ratings": {
+        "love": 5,
+        "work": 3,
+        "money": 3,
+        "mood": 5
+      }
+    },
+    "virgo": {
+      "quote": "A month to set things in order — including the standard you hold against yourself.",
+      "body": [
+        "Mercury orders your sixth house and the month hands you systems to perfect, routines to refine, the deep satisfaction of a life set right. The new moon favors a fresh discipline — a habit, a health practice, a method. Virgo thrives here. But the month's quiet trap is the standard that never lifts, the correction that turns from care into siege.",
+        "By the full moon, something forces you to leave a task imperfect, and the world won't end — that's the lesson. Notice how little actually depends on your finishing everything flawlessly. Your competence is a gift the month asks you to extend to yourself, not just spend on others. Rest is the repair you keep postponing. Schedule it like it matters, because it does."
+      ],
+      "ratings": {
+        "love": 3,
+        "work": 5,
+        "money": 4,
+        "mood": 3
+      }
+    },
+    "libra": {
+      "quote": "This month weighs your relationships. Honesty placed honestly is what balance actually means.",
+      "body": [
+        "Venus moves through your seventh house and partnership defines the month — the people who mirror you, challenge you, complete a sentence you started. The new moon favors connection and repair. Libra's gift for harmony shines now, but the month's real work is the imbalance charm can't fix. A peace kept by silence is a debt, and this month it comes due.",
+        "Around the full moon, a hard conversation can no longer wait. Have it. You'll find the bond holds more truth than you feared, and the harmony on the far side is built on rock instead of held breath. Balance was never the absence of weight. This month you learn to place the weight where it belongs — and to trust what's strong enough to carry it."
+      ],
+      "ratings": {
+        "love": 4,
+        "work": 3,
+        "money": 4,
+        "mood": 4
+      }
+    },
+    "scorpio": {
+      "quote": "A month of transformation. What you bury this season returns; what you face, you finish.",
+      "body": [
+        "Pluto works your eighth house all month, and buried things surface on their own schedule. The new moon brings a truth into view — about power, intimacy, your own deeper motives. Scorpio doesn't fear the depths, but the month tests whether you can hold what you uncover without turning it into a weapon. Insight curdles fast into control when you let it.",
+        "The full moon invites a real letting-go — a grip, a grudge, an old story about who wronged you. Release it and feel how much lighter the carrying gets. By month's end, the vulnerability you chose will have given you more power than the secret you guarded ever did. Transformation isn't something that happens to you. This month, it's something you allow."
+      ],
+      "ratings": {
+        "love": 4,
+        "work": 4,
+        "money": 3,
+        "mood": 3
+      }
+    },
+    "sagittarius": {
+      "quote": "The horizon widens this month. Walk toward it with a plan, and it stops being a mirage.",
+      "body": [
+        "Jupiter expands your ninth house and the month fills with possibility — learning, travel, a philosophy or path larger than your routine. The new moon opens a door toward something you've long wanted to chase. Let yourself dream the full width of it. Sagittarius needs the open horizon, and this season hands you one. But a horizon you only admire stays a horizon.",
+        "The month's turning point comes when the vision demands a first real step — a commitment, a structure, a date on a calendar. Take it around the full moon. The arrow flies far because it's aimed. By month's end, the difference between this season and every restless one before it is whether you built a path or just felt the pull. Build the path."
+      ],
+      "ratings": {
+        "love": 3,
+        "work": 4,
+        "money": 4,
+        "mood": 5
+      }
+    },
+    "capricorn": {
+      "quote": "A month of long building. The summit matters less than who you are when you reach it.",
+      "body": [
+        "Saturn anchors your tenth house and the month is a masterclass in patience. The new moon favors the disciplined start — a goal set, a standard raised, a foundation poured for something only you can yet see. Capricorn endures where others fold, and the month rewards exactly that steadiness. But watch the slow slide from discipline into self-punishment.",
+        "The full moon asks a sharper question: whose approval are you climbing toward, and is it still worth the cost? Rest is not the prize at the summit — it's part of how you reach it intact. By month's end the strongest move you made may be the day you chose to stop. Build the thing, but don't become hollow doing it. The mountain isn't the point if you arrive empty."
+      ],
+      "ratings": {
+        "love": 3,
+        "work": 5,
+        "money": 4,
+        "mood": 3
+      }
+    },
+    "aquarius": {
+      "quote": "A month of futures and friends. Let the people in, not just the ideas about them.",
+      "body": [
+        "Uranus charges your eleventh house and the month hums with the new — connections, causes, a glimpse of how things could be arranged better. The new moon favors your visionary streak; the group needs the angle only you can see. But Aquarius spends whole seasons one step removed, mistaking distance for perspective. This month, that gap asks to close.",
+        "Around the full moon, a friendship needs your presence rather than your analysis — warmth offered, not deduced. Let someone past the theory and into the actual room with you. By month's end you'll find your independence was never threatened by closeness; it was waiting for somewhere worth being close to. The future you imagine only matters once it touches a human hand."
+      ],
+      "ratings": {
+        "love": 3,
+        "work": 4,
+        "money": 4,
+        "mood": 4
+      }
+    },
+    "pisces": {
+      "quote": "A month of deep water. Build a shore early, then let yourself go all the way under.",
+      "body": [
+        "Neptune dissolves the edges of your twelfth house and the month runs deep — intuitive, dreamy, porous to every mood in the room. The new moon heightens your imagination and your empathy both. It's a beautiful season, Pisces, but a dangerous one to drift through unanchored. Decide early what's yours to feel, or the month's currents will decide for you.",
+        "The full moon asks you to bring one dream to ground — to make a single drifting vision real with an actual act. Your inner world is vast and worth the visit, but you still have to live in this one. By month's end, the softness that found something solid to stand on will have served you; the softness that only floated will have cost you. Build the dock. Then dive."
+      ],
+      "ratings": {
+        "love": 4,
+        "work": 3,
+        "money": 3,
+        "mood": 4
+      }
+    }
+  },
+  "yearly": {
+    "aries": {
+      "quote": "2026 is the year you learn that finishing is braver than starting. Anyone can light a fire.",
+      "body": [
+        "Mars rules your first house and 2026 opens the way you prefer — fast, hungry, certain that motion is progress. The spring favors bold beginnings, and you'll start more than you can possibly carry. That's the year's first lesson and its hardest: choosing. Aries has never struggled to begin; you struggle to stay. This is the year staying becomes your edge rather than your enemy.",
+        "By autumn a season of reckoning arrives. The projects you scattered ask which ones you actually meant. The relationships you charged into ask whether you'll do the unglamorous work of remaining. Answer with focus, not force. By the close of 2026 you'll measure the year not by how many fires you lit but by the one you tended until it became something that warms a room. That fire is the year's real prize."
+      ],
+      "ratings": {
+        "love": 4,
+        "work": 4,
+        "money": 4,
+        "mood": 4
+      }
+    },
+    "taurus": {
+      "quote": "2026 rewards what you build slowly and keep. This is a year of roots, not fireworks.",
+      "body": [
+        "Venus moves through your second house and 2026 is a year of patient construction — wealth, security, a life arranged for comfort that lasts. The first half favors planting: a financial foundation, a habit, a bond you tend without rushing the bloom. Taurus thrives in exactly this slow register, and the year is built to your tempo. Resist the cultural pressure to have arrived already.",
+        "A season of testing comes midyear, when an indulgence or shortcut tempts you off the steady path. The cost of that detour is the year's clearest lesson. By the time 2026 closes, what you grew deliberately will tower over what others grabbed and lost. Your patience was never slowness — it was a form of wealth most people never learn to hold. This is the year it pays out."
+      ],
+      "ratings": {
+        "love": 4,
+        "work": 4,
+        "money": 5,
+        "mood": 4
+      }
+    },
+    "gemini": {
+      "quote": "2026 hands you a thousand doors. The year you become formidable is the year you walk through one.",
+      "body": [
+        "Mercury rules your third house and 2026 floods you with possibility — ideas, conversations, paths branching faster than you can map them. The first half is a glorious gathering, and you should let it be. Gemini's brilliance is the web of connections only you can see. But the year's deeper invitation is the one you usually decline: to choose a single thread and follow it past the point where it stops being novel.",
+        "By the second half, one pursuit will have proven itself more alive than the rest. Commit to it with a focus that surprises everyone, including you. The scattered years are behind you; 2026 is when depth becomes your new kind of range. By December the question won't be how many doors you opened — it's the one room you finally stayed in long enough to understand. That room changes everything."
+      ],
+      "ratings": {
+        "love": 4,
+        "work": 4,
+        "money": 4,
+        "mood": 4
+      }
+    },
+    "cancer": {
+      "quote": "2026 is a year of tides. You learn to trust the going-out as much as the coming-in.",
+      "body": [
+        "The Moon governs your fourth house and 2026 moves to the rhythm of your inner weather. The first half pulls you toward foundation — home, family, the roots that hold the rest of your life upright. Tend them now; everything you attempt this year stands or falls on how solid that base becomes. Cancer's emotional intelligence is the year's great asset, but this season it must be aimed inward first.",
+        "Midyear brings a feeling to its crest — something long held that finally asks to be felt all the way through. Let it rise and recede rather than damming it; the relief is on the other side. By the close of 2026 you'll have learned that your care lasts longest when it isn't drawn from an empty well. The tide that goes out is not loss. It's how you fill again — and you'll need every drop you saved."
+      ],
+      "ratings": {
+        "love": 4,
+        "work": 3,
+        "money": 4,
+        "mood": 4
+      }
+    },
+    "leo": {
+      "quote": "2026 is the year you stop performing your life and start living it. The warmth outlasts the light.",
+      "body": [
+        "The Sun rules your fifth house and 2026 opens radiant — creative, romantic, generous with the things you make for joy alone. The first half is a season to express rather than ration, to take the risk-for-pleasure and say the warm yes. Leo runs on joy returned, and the year hands you plenty to give. Let yourself be seen; there's no shame in the spotlight when you've earned the stage.",
+        "But autumn turns the question inward, the way it always must for you: were you living it or performing it? The year's deepest reward is a long stretch of warmth offered with no audience in mind. By the close of 2026 you'll find the love that stayed was the love you gave, not the applause you gathered. The light was always meant to reach someone. This is the year you finally let it."
+      ],
+      "ratings": {
+        "love": 5,
+        "work": 4,
+        "money": 3,
+        "mood": 5
+      }
+    },
+    "virgo": {
+      "quote": "2026 asks you to perfect the world a little, and forgive yourself a lot. Only one of those is overdue.",
+      "body": [
+        "Mercury orders your sixth house and 2026 is a year of refinement — systems set right, routines honed, the deep satisfaction of a life that runs clean. The first half rewards your discipline richly; a habit or craft you commit to now compounds all year. Virgo thrives in exactly this register. But the year's quiet danger is the standard that never lifts, the correction that turns from care into a siege against yourself.",
+        "Midyear forces you to leave something imperfect, and the world stubbornly fails to end. That's the year's central lesson, and it lands slowly. By the close of 2026 the real growth won't be in what you fixed but in what you finally let be — including yourself. Your competence was never in question. The mercy you extend to everyone but you is the year's overdue repair. Make it, and watch how much lighter the work becomes."
+      ],
+      "ratings": {
+        "love": 3,
+        "work": 5,
+        "money": 4,
+        "mood": 4
+      }
+    },
+    "libra": {
+      "quote": "2026 weighs every relationship you have. The year you find balance is the year you stop fearing the truth.",
+      "body": [
+        "Venus rules your seventh house and 2026 places partnership at the center of everything — the people who mirror you, sharpen you, complete the thought you began. The first half rewards your genius for harmony and repair. But the year's real labor is the imbalance charm has always papered over. A peace kept by silence is a debt, Libra, and 2026 is the year the whole account comes due.",
+        "Midyear, a conversation you've avoided for a long time can wait no longer. Have it. You'll discover the bond holds far more truth than your fear allowed, and the harmony built afterward stands on rock instead of a held breath. By the close of the year, balance will mean something new to you: not the absence of weight, but weight placed exactly where it belongs — and trust in what proves strong enough to carry it."
+      ],
+      "ratings": {
+        "love": 5,
+        "work": 3,
+        "money": 4,
+        "mood": 4
+      }
+    },
+    "scorpio": {
+      "quote": "2026 is a year of transformation. What you face this year, you finish. What you bury comes back.",
+      "body": [
+        "Pluto — your ruler — works your eighth house and 2026 is a year of surfacing. Buried things rise on their own schedule: truths about power, intimacy, the motives beneath your own. The first half brings something into full view that you've only half-let yourself know. Scorpio doesn't flinch from depth, but the year tests whether you can hold what you uncover without forging it into a weapon. Insight becomes control the moment you let it.",
+        "The turning comes midyear, with a letting-go you've resisted for longer than you'll admit — a grip, a grudge, an old story about who wronged you. Release it and feel the weight you didn't know you carried lift. By the close of 2026, the vulnerability you chose will have given you more genuine power than any secret you ever guarded. Transformation isn't something the year does to you. It's what you finally allow it to."
+      ],
+      "ratings": {
+        "love": 4,
+        "work": 5,
+        "money": 4,
+        "mood": 4
+      }
+    },
+    "sagittarius": {
+      "quote": "2026 widens your horizon. The year it stops being a mirage is the year you build the road.",
+      "body": [
+        "Jupiter — your ruler — expands your ninth house and 2026 is a year of genuine possibility: learning, travel, a philosophy or path far larger than your routine has allowed. The first half is for dreaming the full width of it, and you should. Sagittarius needs the open horizon the way others need solid ground, and the year hands you one bright with promise. But a horizon admired from a distance stays exactly that.",
+        "The year's pivot comes when the vision demands a first real structure — a commitment, a date, a path laid one stone at a time. The arrow flies far because it's aimed, not because it's loosed wildly into the sky. By the close of 2026, what separates this year from every restless one before it is whether you built the road or only felt the pull. Build it. Your faith in what's possible deserves a ground real enough to carry its weight."
+      ],
+      "ratings": {
+        "love": 4,
+        "work": 4,
+        "money": 4,
+        "mood": 5
+      }
+    },
+    "capricorn": {
+      "quote": "2026 is a year of long building. The summit means nothing if you arrive at it hollow.",
+      "body": [
+        "Saturn — your ruler — anchors your tenth house and 2026 is a masterclass in endurance. The first half rewards the disciplined climb richly: the standard held, the foundation poured for something whose shape only you can yet see. Capricorn outlasts everyone, and the year is built to honor exactly that. But watch the slow, familiar slide from discipline into a self-punishment you've dressed up as virtue.",
+        "Midyear sharpens the real question: whose approval are you climbing toward, and is it still worth what it costs you? Rest is not the trophy waiting at the summit — it's part of how you reach the summit whole. By the close of 2026, the strongest thing you did all year may be the season you chose to stop and breathe. Build the mountain. Just don't let it hollow you out. Arriving empty is its own kind of failure, and you're better than that bargain."
+      ],
+      "ratings": {
+        "love": 4,
+        "work": 5,
+        "money": 4,
+        "mood": 4
+      }
+    },
+    "aquarius": {
+      "quote": "2026 is full of futures. The year you change something real is the year you let the people in.",
+      "body": [
+        "Uranus charges your eleventh house and 2026 hums with the new — connections, causes, a clear glimpse of how things could be arranged far better than they are. The first half favors your visionary streak, and the world genuinely needs the angle only you can see. But Aquarius can spend whole years one step removed, mistaking distance for clarity. The year's deeper invitation is to close that gap on purpose.",
+        "Midyear, a relationship asks for your presence rather than your analysis — warmth offered plainly, not deduced from a safe remove. Let someone all the way past the theory and into the actual room with you. By the close of 2026 you'll find your independence was never endangered by closeness; it was waiting for something worth being close to. The future you can already see only matters once it lands in a human hand. This is the year you hand it over."
+      ],
+      "ratings": {
+        "love": 4,
+        "work": 4,
+        "money": 4,
+        "mood": 4
+      }
+    },
+    "pisces": {
+      "quote": "2026 is a year of deep water. Build the shore early, and you can swim as far down as you like.",
+      "body": [
+        "Neptune — your ruler — dissolves the edges of your twelfth house and 2026 runs deep: intuitive, dreaming, porous to every current in the room. The first half heightens your imagination and your empathy alike, and it's a beautiful season to move through. But it's a dangerous one to drift through unanchored. Decide early what's truly yours to feel, Pisces, or the year's tides will keep making that choice for you.",
+        "Midyear asks you to bring a dream to ground — to make one drifting vision real with an actual, ordinary act. Your inner world is vast and endlessly worth the visit, but you still have to live in this one. By the close of 2026, the softness that found something solid to stand on will have carried you far; the softness that only floated away will have cost you dearly. Build the dock this year. Then dive as deep as you were always meant to."
+      ],
+      "ratings": {
+        "love": 4,
+        "work": 3,
+        "money": 4,
+        "mood": 4
+      }
+    }
+  }
+}
