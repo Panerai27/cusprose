@@ -2,7 +2,14 @@
 const title = 'cusprose — daily divination for the modern soul';
 const description = 'Tarot, horoscopes & cosmic insights — designed for who you are now.';
 
-const navLinks = ['Today', 'Tarot', 'Horoscopes', 'Compatibility', 'Birth Chart', 'Shop'];
+const navLinks = [
+  { label: 'Today',         href: '/' },
+  { label: 'Tarot',         href: '/tarot' },
+  { label: 'Horoscopes',    href: '/horoscopes' },
+  { label: 'Compatibility', href: '/compatibility' },
+  { label: 'Birth Chart',   href: '/birth-chart' },
+  { label: 'Shop',          href: '#' },
+];
 
 const cards = [
   { roman: 'XVII', name: 'The Star', keywords: 'HOPE · RENEWAL', bg: '#DCD4E8', symbol: 'star',     rotate: -8 },
@@ -318,7 +325,7 @@ const features = [
       <nav>
         <a href="/" class="logo">cusprose<span class="dot">.</span></a>
         <ul class="nav-links">
-          {navLinks.map((l) => <li><a href="#">{l}</a></li>)}
+          {navLinks.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
         </ul>
         <a href="#" class="sign-in">SIGN IN →</a>
       </nav>
@@ -329,8 +336,8 @@ const features = [
           <h1>Your stars,<br/>softly spoken.</h1>
           <p class="lede">Tarot, horoscopes &amp; cosmic insights — designed for who you are now.</p>
           <div class="cta-row">
-            <a href="#" class="btn-primary">PULL TODAY'S CARD</a>
-            <a href="#" class="link-secondary">Read horoscope →</a>
+            <a href="/tarot" class="btn-primary">PULL TODAY'S CARD</a>
+            <a href="/horoscopes" class="link-secondary">Read horoscope →</a>
           </div>
         </div>
 
