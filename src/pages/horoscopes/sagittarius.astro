@@ -1,0 +1,104 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+
+const today = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+---
+<BaseLayout title="Sagittarius Daily Horoscope · cusprose" path="/horoscopes/sagittarius/" description="Today's horoscope for Sagittarius — written, not generated. Updated daily.">
+  <Nav current="Horoscopes" />
+
+  <main class="sign-page">
+    <div class="container">
+      <p class="crumb">HOROSCOPES / SAGITTARIUS</p>
+
+      <header class="head">
+        <span class="glyph" aria-hidden="true">♐</span>
+        <div>
+          <p class="eyebrow"><span class="star">✦</span> FIRE · MUTABLE · JUPITER</p>
+          <h1>Sagittarius.</h1>
+          <p class="dates">November 22 – December 21</p>
+        </div>
+      </header>
+
+      <div class="grid">
+        <article class="reading">
+          <p class="date-label">TODAY · {today}</p>
+          <blockquote>
+            "Not every horizon needs chasing today.<br/>Some are just there to remind you the room is big."
+          </blockquote>
+          <p class="body">
+            Jupiter, your ruler, widens your ninth house today, and the appetite for somewhere-else — a trip, an idea,
+            a belief worth testing — runs strong. Sagittarius grows by reaching past the known edge. But the arrow flies
+            true only when it's aimed; channel the restlessness into one real question rather than scattering it across ten.
+          </p>
+          <p class="body">
+            Your honesty is a gift people rely on, but it lands better with a moment's aim behind it. Speak the truth
+            and the kindness in the same breath today. A plan made now, even loosely, gives the optimism something to hold.
+          </p>
+
+          <div class="ratings">
+            <div><p class="r-label">LOVE</p><p class="r-stars">★★★☆☆</p></div>
+            <div><p class="r-label">WORK</p><p class="r-stars">★★★★☆</p></div>
+            <div><p class="r-label">MONEY</p><p class="r-stars">★★★★★</p></div>
+            <div><p class="r-label">MOOD</p><p class="r-stars">★★★★★</p></div>
+          </div>
+        </article>
+
+        <aside class="side">
+          <div class="panel">
+            <p class="p-head">JUMP TO</p>
+            <ul>
+              <li><a href="/horoscopes/sagittarius/">Today</a></li>
+              <li><a href="#">This week</a></li>
+              <li><a href="#">This month</a></li>
+              <li><a href="#">2026 yearly</a></li>
+            </ul>
+          </div>
+          <div class="panel">
+            <p class="p-head">PAIRS WELL WITH</p>
+            <ul>
+              <li><a href="/compatibility/">Aries &times; Sagittarius</a></li>
+              <li><a href="/compatibility/">Leo &times; Sagittarius</a></li>
+              <li><a href="/tarot/the-star/">Temperance card</a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .sign-page { padding-bottom: 6rem; }
+  .crumb { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 2.5rem; }
+  .head { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 3rem; }
+  .head .glyph { font-size: 4.5rem; color: var(--ink); line-height: 1; }
+  .eyebrow { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 0.5rem; }
+  .eyebrow .star { color: var(--gold); margin-right: 0.4rem; }
+  h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 500; letter-spacing: -0.025em; line-height: 1; }
+  .dates { font-size: 0.85rem; color: var(--ink-soft); margin-top: 0.3rem; }
+
+  .grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 2.5rem; align-items: start; }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+
+  .reading {
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
+    border-radius: 22px;
+    padding: 2rem 2.2rem;
+  }
+  .date-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  blockquote { font-size: 1.35rem; font-style: italic; line-height: 1.35; color: var(--ink); margin-bottom: 1.5rem; }
+  .body { font-size: 1rem; line-height: 1.65; color: var(--ink); margin-bottom: 1.1rem; }
+
+  .ratings { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(22,24,58,0.1); }
+  .r-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 0.3rem; }
+  .r-stars { font-size: 0.95rem; color: var(--gold); letter-spacing: 0.05em; }
+
+  .side { display: flex; flex-direction: column; gap: 1.2rem; }
+  .panel { background: var(--surface); border: 1px solid var(--surface-border); border-radius: 18px; padding: 1.3rem 1.5rem; }
+  .p-head { font-size: 0.66rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 0.8rem; }
+  .panel ul { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+  .panel a { font-size: 0.92rem; color: var(--ink); border-bottom: 1px solid transparent; transition: border-color 0.18s; }
+  .panel a:hover { border-color: var(--ink); }
+</style>

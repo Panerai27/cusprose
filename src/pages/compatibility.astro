@@ -10,6 +10,21 @@ const breakdown = [
   { label: 'Trust',         score: 67 },
   { label: 'Intimacy',      score: 85 },
 ];
+
+const signs = [
+  { name: 'Aries',       glyph: '♈', slug: 'aries' },
+  { name: 'Taurus',      glyph: '♉', slug: 'taurus' },
+  { name: 'Gemini',      glyph: '♊', slug: 'gemini' },
+  { name: 'Cancer',      glyph: '♋', slug: 'cancer' },
+  { name: 'Leo',         glyph: '♌', slug: 'leo' },
+  { name: 'Virgo',       glyph: '♍', slug: 'virgo' },
+  { name: 'Libra',       glyph: '♎', slug: 'libra' },
+  { name: 'Scorpio',     glyph: '♏', slug: 'scorpio' },
+  { name: 'Sagittarius', glyph: '♐', slug: 'sagittarius' },
+  { name: 'Capricorn',   glyph: '♑', slug: 'capricorn' },
+  { name: 'Aquarius',    glyph: '♒', slug: 'aquarius' },
+  { name: 'Pisces',      glyph: '♓', slug: 'pisces' },
+];
 ---
 <BaseLayout title="Leo & Libra · Compatibility · cusprose" path="/compatibility/" description="Fire meets air. Cosmic compatibility decoded.">
   <Nav current="Compatibility" />
@@ -65,6 +80,20 @@ const breakdown = [
             </div>
           ))}
         </div>
+      </section>
+
+      <section class="picker" aria-label="Daily horoscope by sign">
+        <p class="b-head">READ YOUR DAILY HOROSCOPE</p>
+        <ul class="picker-grid">
+          {signs.map((s) => (
+            <li>
+              <a class="pick" href={`/horoscopes/${s.slug}/`}>
+                <span class="pg" aria-hidden="true">{s.glyph}</span>
+                <span class="pn">{s.name}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <aside class="cta-card">
@@ -186,6 +215,31 @@ const breakdown = [
     text-align: right;
     letter-spacing: 0.05em;
   }
+
+  .picker { max-width: 760px; margin: 4.5rem auto 0; }
+  .picker .b-head { margin-bottom: 1.6rem; }
+  .picker-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.7rem;
+  }
+  .pick {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.85rem 0.5rem;
+    background: #fbf6ea;
+    border: 1px solid var(--surface-border);
+    border-radius: 14px;
+    transition: transform 0.18s, box-shadow 0.18s;
+  }
+  .pick:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(22,24,58,0.08); }
+  .pg { font-size: 1.5rem; color: var(--ink); }
+  .pn { font-size: 0.72rem; letter-spacing: 0.04em; color: var(--ink-soft); }
+  @media (max-width: 760px) { .picker-grid { grid-template-columns: repeat(4, 1fr); } }
+  @media (max-width: 440px) { .picker-grid { grid-template-columns: repeat(3, 1fr); } }
 
   .cta-card {
     position: fixed;

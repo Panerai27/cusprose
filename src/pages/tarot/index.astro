@@ -2,280 +2,335 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Nav from '../../components/Nav.astro';
 
-// Tarot Draw page — mockup 02
 const today = new Date().toLocaleDateString('en-US', {
   weekday: 'long', month: 'long', day: 'numeric'
 });
 
-// 7-card fanned deck — symmetric arc, center elevated
-const deck = [
-  { angle: -24, lift: 40 },
-  { angle: -16, lift: 18 },
-  { angle: -8,  lift: 4  },
-  { angle:  0,  lift: -18 },
-  { angle:  8,  lift: 4  },
-  { angle: 16,  lift: 18 },
-  { angle: 24,  lift: 40 },
+// Full Major Arcana — drawn at random, client-side, with crypto randomness.
+const cards = [
+  { roman: '0',     name: 'The Fool',         keys: 'BEGINNINGS · FAITH · A LEAP',        up: 'A clean slate, and the nerve to step onto it. Whatever you start now carries the innocence of not yet knowing how hard it will be — and that is exactly its strength.' },
+  { roman: 'I',     name: 'The Magician',     keys: 'WILL · FOCUS · MAKING',              up: 'Everything you need is already on the table. The question is no longer whether you can, but whether you will gather it and begin.' },
+  { roman: 'II',    name: 'The High Priestess', keys: 'INTUITION · MYSTERY · WAITING',    up: 'Something in you already knows the answer and is waiting for you to grow quiet enough to hear it. Don\u2019t force this one. Let it surface.' },
+  { roman: 'III',   name: 'The Empress',      keys: 'ABUNDANCE · NURTURE · GROWTH',       up: 'Tend what you have and it will multiply. This is a season for softness, for making things — and for letting them take their own time to ripen.' },
+  { roman: 'IV',    name: 'The Emperor',      keys: 'STRUCTURE · ORDER · AUTHORITY',      up: 'Build the frame before you fill it. The freedom you\u2019re craving lives on the other side of a little discipline, not instead of it.' },
+  { roman: 'V',     name: 'The Hierophant',   keys: 'TRADITION · GUIDANCE · MEANING',     up: 'There is wisdom in the well-worn path today. Seek the counsel of someone who has walked further than you — then decide what to keep.' },
+  { roman: 'VI',    name: 'The Lovers',       keys: 'UNION · CHOICE · ALIGNMENT',         up: 'A choice that asks you to be honest about what you value. This isn\u2019t only about love — it\u2019s about choosing in a way you can stand behind.' },
+  { roman: 'VII',   name: 'The Chariot',      keys: 'DRIVE · CONTROL · VICTORY',          up: 'Two forces pulling opposite ways, and your job is to hold the reins of both. Momentum is yours if you steer instead of letting it steer you.' },
+  { roman: 'VIII',  name: 'Strength',         keys: 'COURAGE · GRACE · PATIENCE',         up: 'Real strength here is gentle. You master the situation not by force but by staying calm long enough for it to soften toward you.' },
+  { roman: 'IX',    name: 'The Hermit',       keys: 'SOLITUDE · SEARCH · INSIGHT',        up: 'Step back from the noise. The answer you want from others is one you can only reach by spending a little honest time alone with yourself.' },
+  { roman: 'X',     name: 'Wheel of Fortune', keys: 'CYCLES · FATE · A TURNING',          up: 'The wheel is moving whether or not you push it. Something is shifting in your favour — meet the change instead of bracing against it.' },
+  { roman: 'XI',    name: 'Justice',          keys: 'TRUTH · BALANCE · CAUSE & EFFECT',   up: 'What you set in motion is coming back to meet you. Be clear, be fair, and the outcome will weigh out honestly in your favour.' },
+  { roman: 'XII',   name: 'The Hanged Man',   keys: 'SURRENDER · PAUSE · NEW EYES',       up: 'The way forward is to stop struggling and hang in the pause. Seen from this angle, the thing you were fighting starts to look different.' },
+  { roman: 'XIII',  name: 'Death',            keys: 'ENDINGS · RELEASE · REBIRTH',        up: 'Not a literal ending — a necessary one. Something has run its course, and letting it close is what clears the ground for what\u2019s next.' },
+  { roman: 'XIV',   name: 'Temperance',       keys: 'HARMONY · PATIENCE · BLENDING',      up: 'Mix the extremes into something you can live with. The middle path isn\u2019t a compromise today — it\u2019s the wise and elegant choice.' },
+  { roman: 'XV',    name: 'The Devil',        keys: 'SHADOW · DESIRE · ATTACHMENT',       up: 'Notice what you feel bound to. The chains here are looser than they look — naming the pull is the first step to loosening it.' },
+  { roman: 'XVI',   name: 'The Tower',        keys: 'UPHEAVAL · TRUTH · RELEASE',         up: 'A sudden clearing-out of what was built on shaky ground. It feels like loss now; soon it will read as the truth finally arriving.' },
+  { roman: 'XVII',  name: 'The Star',         keys: 'HOPE · HEALING · RENEWAL',           up: 'After the storm, a quiet light. Trust is returning to you slowly — this is the gentle, hopeful exhale you\u2019ve been needing.' },
+  { roman: 'XVIII', name: 'The Moon',         keys: 'INTUITION · DREAMS · ILLUSION',      up: 'Things aren\u2019t fully clear yet, and that\u2019s alright. Don\u2019t mistake your fears for facts. Move slowly through the half-light and trust your feet.' },
+  { roman: 'XIX',   name: 'The Sun',          keys: 'JOY · VITALITY · CLARITY',           up: 'Warmth, clarity, and an open road. Whatever you\u2019ve been unsure of, the answer arrives bright and simple. Let yourself enjoy it.' },
+  { roman: 'XX',    name: 'Judgement',        keys: 'AWAKENING · CALLING · RECKONING',    up: 'A clear call you can no longer un-hear. Something is asking you to rise to it — and you already know, honestly, what your answer is.' },
+  { roman: 'XXI',   name: 'The World',        keys: 'COMPLETION · WHOLENESS · ARRIVAL',   up: 'A chapter closes, fully and well. Take the moment to feel finished before you reach for the next thing. You earned this whole.' },
 ];
 
-// Major Arcana — drawn at random on the client when a card is tapped
-const cards = [
-  { roman: '0',     name: 'The Fool',        keys: 'BEGINNINGS · FAITH · LEAP' },
-  { roman: 'I',     name: 'The Magician',    keys: 'WILL · POWER · FOCUS' },
-  { roman: 'II',    name: 'The High Priestess', keys: 'INTUITION · MYSTERY · INNER VOICE' },
-  { roman: 'III',   name: 'The Empress',     keys: 'ABUNDANCE · NURTURE · GROWTH' },
-  { roman: 'IV',    name: 'The Emperor',     keys: 'STRUCTURE · AUTHORITY · ORDER' },
-  { roman: 'V',     name: 'The Hierophant',  keys: 'TRADITION · WISDOM · GUIDANCE' },
-  { roman: 'VI',    name: 'The Lovers',      keys: 'UNION · CHOICE · ALIGNMENT' },
-  { roman: 'VII',   name: 'The Chariot',     keys: 'DRIVE · CONTROL · VICTORY' },
-  { roman: 'VIII',  name: 'Strength',        keys: 'COURAGE · GRACE · PATIENCE' },
-  { roman: 'IX',    name: 'The Hermit',      keys: 'SOLITUDE · SEARCH · INSIGHT' },
-  { roman: 'X',     name: 'Wheel of Fortune', keys: 'CYCLES · FATE · TURNING' },
-  { roman: 'XI',    name: 'Justice',         keys: 'TRUTH · BALANCE · CAUSE' },
-  { roman: 'XII',   name: 'The Hanged Man',  keys: 'SURRENDER · PAUSE · NEW EYES' },
-  { roman: 'XIII',  name: 'Death',           keys: 'ENDINGS · RELEASE · REBIRTH' },
-  { roman: 'XIV',   name: 'Temperance',      keys: 'HARMONY · PATIENCE · FLOW' },
-  { roman: 'XV',    name: 'The Devil',       keys: 'SHADOW · DESIRE · ATTACHMENT' },
-  { roman: 'XVI',   name: 'The Tower',       keys: 'UPHEAVAL · TRUTH · RELEASE' },
-  { roman: 'XVII',  name: 'The Star',        keys: 'HOPE · HEALING · RENEWAL' },
-  { roman: 'XVIII', name: 'The Moon',        keys: 'INTUITION · DREAMS · ILLUSION' },
-  { roman: 'XIX',   name: 'The Sun',         keys: 'JOY · VITALITY · CLARITY' },
-  { roman: 'XX',    name: 'Judgement',       keys: 'AWAKENING · CALLING · RENEWAL' },
-  { roman: 'XXI',   name: 'The World',       keys: 'COMPLETION · WHOLENESS · ARRIVAL' },
+const positions = [
+  { label: 'PAST',    hint: 'what brought you here' },
+  { label: 'PRESENT', hint: 'where you stand now' },
+  { label: 'FUTURE',  hint: 'where this is heading' },
+];
+
+const tints = [
+  'linear-gradient(165deg, #4a3a72, #2d2350)',
+  'linear-gradient(165deg, #7a4a52, #3a2238)',
+  'linear-gradient(165deg, #3f5e46, #233a2c)',
 ];
 ---
-<BaseLayout title="Pull a card for today · cusprose" path="/tarot/" description="Daily tarot pull — 78 cards, infinite stories.">
+<BaseLayout title="Pull a card for today · cusprose" path="/tarot/" description="A three-card tarot spread — past, present, future. Hold a question, shuffle the deck, and read what the cards reflect back. 78 cards, infinite stories.">
   <Nav current="Tarot" />
 
-  <main class="draw">
+  <main class="tarot" data-cards={JSON.stringify(cards)}>
     <div class="container">
-      <p class="datestamp"><span class="star">✦</span> TODAY · {today.toUpperCase()}</p>
 
-      <header class="hero">
-        <h1>Pull a card for today.</h1>
-        <p class="lede">Take a breath. Set your intention. Trust your hand.</p>
-      </header>
+      <!-- STATE 1 · ASK -->
+      <section class="stage stage-ask is-active" data-stage="ask">
+        <p class="datestamp"><span class="star">✦</span> THREE-CARD SPREAD · {today.toUpperCase()}</p>
+        <header class="hero">
+          <h1>What would you<br/>like to know?</h1>
+          <p class="lede">Hold a question gently in mind. The deck will meet you where you are.</p>
+        </header>
 
-      <div class="deck" role="group" aria-label="Tarot deck — 7 face-down cards" data-cards={JSON.stringify(cards)}>
-        {deck.map((c, i) => (
-          <button
-            type="button"
-            class="card-back"
-            style={`--a:${c.angle}deg; --y:${c.lift}px; --z:${10 - Math.abs(c.angle)};`}
-            aria-label={`Card ${i + 1} of 7`}
-          >
-            <span class="flip">
-              <span class="face back">
-                <svg viewBox="0 0 100 160" aria-hidden="true">
-                  <rect x="3" y="3" width="94" height="154" rx="8" fill="url(#cb)" stroke="#d9a441" stroke-width="0.7" />
-                  <defs>
-                    <linearGradient id="cb" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stop-color="#4a3a72" />
-                      <stop offset="100%" stop-color="#2d2350" />
-                    </linearGradient>
-                  </defs>
-                  <circle cx="50" cy="80" r="18" fill="none" stroke="#d9a441" stroke-width="0.5" opacity="0.6" />
-                  <path d="M50 64 l3.2 8.5 8.8 .6 -6.8 5.8 2.2 8.8 -7.4 -4.8 -7.4 4.8 2.2 -8.8 -6.8 -5.8 8.8 -.6z" fill="#d9a441" />
-                </svg>
+        <form class="ask-form" autocomplete="off">
+          <div class="ask-wrap">
+            <input type="text" class="ask-input" name="q" maxlength="120"
+                   placeholder="Type your question…" aria-label="Your question" />
+            <button type="submit" class="ask-send" aria-label="Draw cards">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+          <div class="chips" role="group" aria-label="Quick topics">
+            <button type="button" class="chip" data-chip="Love">Love</button>
+            <button type="button" class="chip is-on" data-chip="Today">Today</button>
+            <button type="button" class="chip" data-chip="Career">Career</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- STATE 2 · SHUFFLE -->
+      <section class="stage stage-shuffle" data-stage="shuffle" hidden>
+        <p class="datestamp"><span class="star">✦</span> CHANNELING</p>
+        <header class="hero">
+          <h1>Shuffling<br/>the deck…</h1>
+          <p class="lede">Breathe in. Breathe out. When you feel ready, the cards will settle.</p>
+        </header>
+        <div class="fan" aria-hidden="true">
+          {Array.from({ length: 9 }).map((_, i) => {
+            const r = -32 + i * 8;
+            return (
+              <span class="fan-card" style={`--r:${r}deg; animation-delay:${(-i * 0.1).toFixed(1)}s`}>
+                <svg viewBox="0 0 100 160"><rect x="3" y="3" width="94" height="154" rx="9" fill="url(#fb)" stroke="rgba(255,255,255,0.6)" stroke-width="1.4"/><circle cx="50" cy="80" r="17" fill="none" stroke="#fff" stroke-width="0.7" opacity="0.5"/><path d="M50 65 l3 8 8.4 .5 -6.5 5.6 2.1 8.4 -7-4.6 -7 4.6 2.1-8.4 -6.5-5.6 8.4-.5z" fill="#fff" opacity="0.7"/></svg>
               </span>
-              <span class="face front">
-                <span class="f-roman"></span>
-                <span class="f-name"></span>
-                <span class="f-keys"></span>
-              </span>
-            </span>
-          </button>
-        ))}
-      </div>
+            );
+          })}
+        </div>
+        <svg width="0" height="0"><defs><linearGradient id="fb" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#b8a4e8"/><stop offset="100%" stop-color="#f2c9a8"/></linearGradient></defs></svg>
+      </section>
 
-      <p class="tap-hint">TAP A CARD TO TURN IT OVER</p>
+      <!-- STATE 3 · REVEAL -->
+      <section class="stage stage-reveal" data-stage="reveal" hidden>
+        <p class="datestamp"><span class="star">✦</span> YOUR SPREAD</p>
+        <header class="hero">
+          <h1>The cards<br/>have spoken.</h1>
+          <p class="lede reveal-q">Past, present, future — a small constellation around your question.</p>
+        </header>
 
-      <button type="button" class="shuffle">SHUFFLE</button>
+        <div class="reveal-row">
+          {positions.map((p, i) => (
+            <article class="slot" data-slot={i} style={`--tint:${tints[i]}`}>
+              <button type="button" class="rcard" aria-label={`Reveal the ${p.label.toLowerCase()} card`}>
+                <span class="rflip">
+                  <span class="rface rback">
+                    <svg viewBox="0 0 100 160"><rect x="3" y="3" width="94" height="154" rx="9" fill="url(#rb)" stroke="rgba(255,255,255,0.6)" stroke-width="1.4"/><circle cx="50" cy="80" r="17" fill="none" stroke="#fff" stroke-width="0.7" opacity="0.5"/><path d="M50 65 l3 8 8.4 .5 -6.5 5.6 2.1 8.4 -7-4.6 -7 4.6 2.1-8.4 -6.5-5.6 8.4-.5z" fill="#fff" opacity="0.7"/></svg>
+                  </span>
+                  <span class="rface rfront">
+                    <span class="rf-roman"></span>
+                    <span class="rf-glyph">✦</span>
+                    <span class="rf-name"></span>
+                    <span class="rf-keys"></span>
+                  </span>
+                </span>
+              </button>
+              <p class="r-pos">{p.label}</p>
+              <p class="r-meaning"></p>
+            </article>
+          ))}
+        </div>
+        <svg width="0" height="0"><defs><linearGradient id="rb" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#4a3a72"/><stop offset="100%" stop-color="#2d2350"/></linearGradient></defs></svg>
+
+        <p class="tap-all-hint">TAP EACH CARD TO TURN IT OVER</p>
+
+        <div class="reveal-actions">
+          <a href="/guides/" class="btn-ghost">Read the guides</a>
+          <button type="button" class="btn-again">Draw again</button>
+        </div>
+      </section>
+
     </div>
   </main>
 </BaseLayout>
 
 <style>
-  .draw { padding-bottom: 6rem; }
-  .datestamp {
-    font-size: 0.72rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    margin-bottom: 3rem;
-  }
+  .tarot { padding-bottom: 6rem; min-height: 70vh; }
+  .stage { display: none; }
+  .stage.is-active { display: block; animation: rise 0.5s ease both; }
+  @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+  .datestamp { text-align: center; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1.6rem; }
   .datestamp .star { color: var(--gold); margin-right: 0.4rem; }
+  .hero { text-align: center; margin-bottom: 2.4rem; }
+  h1 { font-size: clamp(2.4rem, 6vw, 4.5rem); font-weight: 500; line-height: 1.04; letter-spacing: -0.025em; color: var(--ink); margin-bottom: 1rem; }
+  .lede { font-size: clamp(1rem, 1.3vw, 1.15rem); color: var(--ink-soft); font-style: italic; max-width: 540px; margin: 0 auto; }
 
-  .hero { text-align: center; margin-bottom: 4rem; }
-  h1 {
-    font-size: clamp(2.5rem, 6vw, 4.75rem);
-    font-weight: 500;
-    line-height: 1.04;
-    letter-spacing: -0.025em;
-    color: var(--ink);
-    margin-bottom: 1rem;
-  }
-  .lede {
-    font-size: clamp(1rem, 1.3vw, 1.18rem);
-    color: var(--ink-soft);
-    font-style: italic;
-  }
-
-  .deck {
-    position: relative;
-    height: clamp(280px, 36vw, 420px);
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    margin-bottom: 2.5rem;
-    padding-top: 2rem;
-  }
-  .card-back {
-    position: absolute;
-    width: clamp(80px, 9vw, 120px);
-    aspect-ratio: 100 / 160;
-    border: none;
-    background: transparent;
-    padding: 0;
-    cursor: pointer;
-    transform: translateY(var(--y)) rotate(var(--a));
-    z-index: var(--z);
-    transition: transform 0.3s ease, filter 0.3s;
-    filter: drop-shadow(0 10px 18px rgba(22, 24, 58, 0.25));
-    perspective: 700px;
-  }
-  .card-back:hover {
-    transform: translateY(calc(var(--y) - 14px)) rotate(var(--a));
-    filter: drop-shadow(0 16px 22px rgba(22, 24, 58, 0.32));
-  }
-  .card-back svg { width: 100%; height: 100%; display: block; }
-
-  /* 3D flip */
-  .flip {
-    position: relative;
-    display: block;
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-    transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
-  }
-  .card-back.flipped .flip { transform: rotateY(180deg); }
-  .face {
-    position: absolute;
-    inset: 0;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    border-radius: 9px;
-  }
-  .face.front {
-    transform: rotateY(180deg);
-    background: linear-gradient(160deg, #2d2350, #4a3a72);
-    border: 0.7px solid #d9a441;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 0.6rem;
-    color: #f4efe6;
-  }
-  .f-roman {
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
-    color: #d9a441;
-    margin-bottom: 0.5rem;
-  }
-  .f-name {
-    font-size: clamp(0.78rem, 1.1vw, 0.98rem);
-    font-weight: 500;
-    line-height: 1.15;
-    margin-bottom: 0.5rem;
-  }
-  .f-keys {
-    font-size: 0.5rem;
-    letter-spacing: 0.12em;
-    line-height: 1.5;
-    color: rgba(244, 239, 230, 0.72);
-  }
-  .card-back.flipped {
-    z-index: 50 !important;
-    transform: translateY(calc(var(--y) - 8px)) rotate(calc(var(--a) * 0.35));
-  }
-  /* once any card is flipped, calm the hover lift so the reveal stays readable */
-  .card-back.flipped:hover {
-    transform: translateY(calc(var(--y) - 8px)) rotate(calc(var(--a) * 0.35));
-  }
-
-  .tap-hint {
-    text-align: center;
-    font-size: 0.72rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    margin-bottom: 2.5rem;
-  }
-
-  .shuffle {
-    display: block;
-    margin: 0 auto;
-    background: transparent;
-    color: var(--ink);
-    border: 1px solid var(--ink);
-    padding: 0.95rem 2.4rem;
+  /* STATE 1 — ask */
+  .ask-form { max-width: 560px; margin: 0 auto; }
+  .ask-wrap { position: relative; margin-bottom: 1.4rem; }
+  .ask-input {
+    width: 100%; box-sizing: border-box;
+    padding: 1.15rem 4rem 1.15rem 1.5rem;
     border-radius: 999px;
-    font-family: inherit;
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    cursor: pointer;
-    transition: background 0.2s, color 0.2s;
+    border: 1px solid var(--surface-border);
+    background: var(--surface);
+    font-family: inherit; font-size: 1rem; color: var(--ink);
+    backdrop-filter: blur(4px);
+    transition: border-color 0.2s, box-shadow 0.2s;
   }
-  .shuffle:hover { background: var(--ink); color: #fff; }
+  .ask-input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(217,164,65,0.18); }
+  .ask-input::placeholder { color: var(--ink-soft); }
+  .ask-send {
+    position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+    width: 46px; height: 46px; border-radius: 50%; border: none; cursor: pointer;
+    background: var(--ink); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.18s, opacity 0.18s;
+  }
+  .ask-send:hover { transform: translateY(-50%) scale(1.06); }
+  .chips { display: flex; gap: 0.6rem; justify-content: center; }
+  .chip {
+    font-family: inherit; font-size: 0.8rem; letter-spacing: 0.04em;
+    padding: 0.5rem 1.15rem; border-radius: 999px; cursor: pointer;
+    border: 1px solid var(--surface-border); background: var(--surface); color: var(--ink-soft);
+    transition: all 0.18s;
+  }
+  .chip:hover { color: var(--ink); }
+  .chip.is-on { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+  /* STATE 2 — shuffle fan */
+  .fan { position: relative; height: 320px; max-width: 720px; margin: 1rem auto 0; }
+  .fan-card {
+    position: absolute; left: 50%; bottom: 24px;
+    width: 128px; margin-left: -64px; aspect-ratio: 100/160;
+    transform-origin: 50% 120%;
+    transform: rotate(var(--r));
+    filter: drop-shadow(0 12px 26px rgba(80,60,120,0.22));
+    animation: wobble 2.6s ease-in-out infinite;
+  }
+  .fan-card svg { width: 100%; height: 100%; display: block; }
+  @keyframes wobble {
+    0%, 100% { transform: rotate(var(--r)) translateY(0); }
+    50%      { transform: rotate(calc(var(--r) + 1.5deg)) translateY(-7px); }
+  }
+
+  /* STATE 3 — reveal */
+  .reveal-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem; max-width: 880px; margin: 0 auto 1rem; align-items: start; }
+  @media (max-width: 740px) { .reveal-row { grid-template-columns: 1fr; gap: 2.4rem; max-width: 280px; } }
+  .slot { text-align: center; }
+  .rcard {
+    appearance: none; border: none; background: transparent; padding: 0; cursor: pointer;
+    width: clamp(150px, 20vw, 190px); aspect-ratio: 100/160; margin: 0 auto 1.2rem;
+    display: block; perspective: 900px;
+    filter: drop-shadow(0 14px 30px rgba(22,24,58,0.2));
+  }
+  .rflip { position: relative; display: block; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.7s cubic-bezier(0.4,0,0.2,1); }
+  .slot.flipped .rflip { transform: rotateY(180deg); }
+  .rface { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 11px; overflow: hidden; }
+  .rback svg { width: 100%; height: 100%; display: block; }
+  .rfront {
+    transform: rotateY(180deg);
+    background: var(--tint, linear-gradient(165deg, #4a3a72, #2d2350));
+    border: 1px solid rgba(255,255,255,0.45);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 1rem; color: #f6f1e8;
+  }
+  .rf-roman { font-size: 0.72rem; letter-spacing: 0.24em; color: rgba(246,241,232,0.9); margin-bottom: 0.5rem; }
+  .rf-glyph { font-size: 1.6rem; color: var(--gold); margin-bottom: 0.5rem; }
+  .rf-name { font-size: clamp(1rem, 1.4vw, 1.2rem); font-weight: 500; line-height: 1.15; letter-spacing: -0.01em; color: #f6f1e8; }
+  .rf-keys { font-size: 0.52rem; letter-spacing: 0.14em; line-height: 1.5; color: rgba(246,241,232,0.86); margin-top: 0.5rem; }
+
+  .r-pos { font-size: 0.68rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-soft); font-weight: 600; margin-bottom: 0.5rem; }
+  .r-meaning { font-size: 0.92rem; line-height: 1.62; color: var(--ink); max-width: 240px; margin: 0 auto; opacity: 0; transition: opacity 0.45s; }
+  .slot.flipped .r-meaning { opacity: 1; }
+
+  .tap-all-hint { text-align: center; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-soft); margin: 2rem 0 2.4rem; transition: opacity 0.3s; }
+
+  .reveal-actions { display: flex; gap: 0.8rem; justify-content: center; }
+  .btn-ghost, .btn-again {
+    font-family: inherit; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.16em;
+    padding: 0.9rem 2rem; border-radius: 999px; cursor: pointer; transition: all 0.2s;
+    text-transform: uppercase;
+  }
+  .btn-ghost { background: transparent; border: 1px solid var(--ink); color: var(--ink); }
+  .btn-ghost:hover { background: var(--ink); color: #fff; }
+  .btn-again { background: var(--ink); border: 1px solid var(--ink); color: #fff; }
+  .btn-again:hover { opacity: 0.85; }
 </style>
 
 <script>
-  const deckEl = document.querySelector('.deck');
-  const hint = document.querySelector('.tap-hint');
-  const shuffleBtn = document.querySelector('.shuffle');
-  const allCards = JSON.parse(deckEl?.getAttribute('data-cards') || '[]');
-  const buttons = Array.from(document.querySelectorAll('.card-back'));
+  const root = document.querySelector('.tarot');
+  const deck = JSON.parse(root?.getAttribute('data-cards') || '[]');
+  const stages = {
+    ask: document.querySelector('[data-stage="ask"]'),
+    shuffle: document.querySelector('[data-stage="shuffle"]'),
+    reveal: document.querySelector('[data-stage="reveal"]'),
+  };
+  const input = document.querySelector('.ask-input');
+  const form = document.querySelector('.ask-form');
+  const chips = Array.from(document.querySelectorAll('.chip'));
+  const revealQ = document.querySelector('.reveal-q');
+  const slots = Array.from(document.querySelectorAll('.slot'));
+  const tapHint = document.querySelector('.tap-all-hint');
+  const againBtn = document.querySelector('.btn-again');
 
   let drawn = [];
 
-  function pickUnique() {
-    const used = new Set(drawn);
-    const pool = allCards.filter((_, i) => !used.has(i));
-    if (pool.length === 0) return null;
-    const choice = pool[Math.floor(Math.random() * pool.length)];
-    const idx = allCards.indexOf(choice);
-    drawn.push(idx);
-    return choice;
+  function show(name) {
+    Object.entries(stages).forEach(([k, el]) => {
+      if (!el) return;
+      const on = k === name;
+      el.hidden = !on;
+      el.classList.toggle('is-active', on);
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  buttons.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      if (btn.classList.contains('flipped')) return;
-      const card = pickUnique();
-      if (!card) return;
-      btn.querySelector('.f-roman').textContent = card.roman;
-      btn.querySelector('.f-name').textContent = card.name;
-      btn.querySelector('.f-keys').textContent = card.keys;
-      btn.classList.add('flipped');
-      btn.setAttribute('aria-label', card.name + ' — ' + card.keys);
-      if (hint) hint.textContent = 'TAP ANOTHER · OR SHUFFLE TO RESET';
+  // crypto-backed unique draw of 3 cards
+  function rand(n) {
+    const a = new Uint32Array(1);
+    crypto.getRandomValues(a);
+    return a[0] % n;
+  }
+  function drawThree() {
+    const pool = deck.map((_, i) => i);
+    const out = [];
+    for (let k = 0; k < 3; k++) {
+      const j = rand(pool.length);
+      out.push(pool.splice(j, 1)[0]);
+    }
+    return out.map((i) => deck[i]);
+  }
+
+  chips.forEach((c) => c.addEventListener('click', () => {
+    chips.forEach((x) => x.classList.remove('is-on'));
+    c.classList.add('is-on');
+    if (input && !input.value.trim()) input.placeholder = c.dataset.chip + ' — type your question…';
+  }));
+
+  function begin(e) {
+    e?.preventDefault();
+    const q = (input?.value || '').trim();
+    if (revealQ) {
+      revealQ.textContent = q
+        ? '\u201C' + q + '\u201D'
+        : 'Past, present, future — a small constellation around your question.';
+    }
+    drawn = drawThree();
+    // pre-fill faces (hidden until flip)
+    slots.forEach((slot, i) => {
+      slot.classList.remove('flipped');
+      const card = drawn[i];
+      slot.querySelector('.rf-roman').textContent = card.roman;
+      slot.querySelector('.rf-name').textContent = card.name;
+      slot.querySelector('.rf-keys').textContent = card.keys;
+      slot.querySelector('.r-meaning').textContent = card.up;
+    });
+    if (tapHint) tapHint.style.opacity = '1';
+    show('shuffle');
+    setTimeout(() => show('reveal'), 2100);
+  }
+
+  form?.addEventListener('submit', begin);
+
+  let revealed = 0;
+  slots.forEach((slot) => {
+    slot.querySelector('.rcard')?.addEventListener('click', () => {
+      if (slot.classList.contains('flipped')) return;
+      slot.classList.add('flipped');
+      revealed += 1;
+      if (revealed >= slots.length && tapHint) tapHint.style.opacity = '0';
     });
   });
 
-  shuffleBtn?.addEventListener('click', () => {
-    drawn = [];
-    buttons.forEach((btn, i) => {
-      btn.classList.remove('flipped');
-      btn.setAttribute('aria-label', 'Card ' + (i + 1) + ' of 7');
-    });
-    if (hint) hint.textContent = 'TAP A CARD TO TURN IT OVER';
-    deckEl?.animate(
-      [{ opacity: 0.55, transform: 'scale(0.985)' }, { opacity: 1, transform: 'scale(1)' }],
-      { duration: 320, easing: 'ease-out' }
-    );
+  againBtn?.addEventListener('click', () => {
+    revealed = 0;
+    slots.forEach((s) => s.classList.remove('flipped'));
+    if (input) input.value = '';
+    show('ask');
   });
 </script>
