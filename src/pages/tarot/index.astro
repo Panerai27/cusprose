@@ -128,7 +128,7 @@ const tints = [
         <p class="tap-all-hint">TAP EACH CARD TO TURN IT OVER</p>
 
         <div class="reveal-actions">
-          <a href="/guides/" class="btn-ghost">Read the guides</a>
+          <button type="button" class="btn-ghost btn-read-spread">Read this spread</button>
           <button type="button" class="btn-again">Draw again</button>
         </div>
       </section>
@@ -257,6 +257,7 @@ const tints = [
   const slots = Array.from(document.querySelectorAll('.slot'));
   const tapHint = document.querySelector('.tap-all-hint');
   const againBtn = document.querySelector('.btn-again');
+  const readSpreadBtn = document.querySelector('.btn-read-spread');
 
   let drawn = [];
 
@@ -301,6 +302,7 @@ const tints = [
         : 'Past, present, future — a small constellation around your question.';
     }
     drawn = drawThree();
+    revealed = 0;
     // pre-fill faces (hidden until flip)
     slots.forEach((slot, i) => {
       slot.classList.remove('flipped');
@@ -325,6 +327,13 @@ const tints = [
       revealed += 1;
       if (revealed >= slots.length && tapHint) tapHint.style.opacity = '0';
     });
+  });
+
+  readSpreadBtn?.addEventListener('click', () => {
+    slots.forEach((slot) => slot.classList.add('flipped'));
+    revealed = slots.length;
+    if (tapHint) tapHint.style.opacity = '0';
+    slots[0]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   });
 
   againBtn?.addEventListener('click', () => {
