@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+---
+<BaseLayout
+  title="About · cusprose"
+  path="/about/"
+  description="cusprose is a modern divination & astrology hub blending Western tarot and astrology with Eastern metaphysics — written for who you are now."
+>
+  <Nav />
+
+  <main class="prose">
+    <div class="container">
+      <header class="prose-hero">
+        <p class="eyebrow"><span class="star">✦</span> ABOUT</p>
+        <h1>East meets West, written for now.</h1>
+        <p class="lede">
+          cusprose is a modern divination &amp; astrology hub. We blend Western
+          traditions — tarot, horoscopes, compatibility, birth charts — with
+          Eastern systems that deserve better English-language writing: I Ching,
+          BaZi 八字, Zi Wei Dou Shu 紫微斗数, and Feng Shui.
+        </p>
+      </header>
+
+      <section>
+        <h2>What we believe</h2>
+        <p>
+          Divination is a mirror, not a fortune. Our voice is warm, literate, and
+          self-aware — designed for reflection rather than prediction. Every
+          horoscope and guide is written, not auto-generated.
+        </p>
+
+        <h2>What you'll find</h2>
+        <p>
+          Daily and weekly horoscopes for all twelve signs, a full 78-card tarot
+          library, compatibility readings across 144 pairings, free birth charts,
+          and long-form guides to Eastern metaphysics.
+        </p>
+
+        <h2>Get in touch</h2>
+        <p>
+          Questions, feedback, or partnership ideas? Reach us at
+          <a href="mailto:hello@cusprose.com">hello@cusprose.com</a>.
+        </p>
+      </section>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .prose { padding-bottom: 5rem; }
+  .prose-hero { max-width: 720px; margin: 1rem 0 3rem; }
+  .prose-hero h1 {
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    margin: 1rem 0 1.25rem;
+  }
+  .lede {
+    font-size: clamp(1.05rem, 1.3vw, 1.25rem);
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  section { max-width: 720px; }
+  h2 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 2.25rem 0 0.75rem;
+  }
+  p { color: var(--ink-soft); line-height: 1.7; margin-bottom: 0.5rem; }
+  a { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
+</style>

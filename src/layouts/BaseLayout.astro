@@ -1,15 +1,50 @@
 ---
+import Footer from '../components/Footer.astro';
+
 export interface Props {
   title?: string;
   description?: string;
   path?: string;
+  image?: string;
 }
 const {
   title = 'cusprose — daily divination for the modern soul',
   description = 'Tarot, horoscopes & cosmic insights — designed for who you are now.',
   path = '/',
+  image = '/favicon.svg',
 } = Astro.props;
-const canonical = `https://cusprose.com${path}`;
+const site = 'https://cusprose.com';
+const canonical = `${site}${path}`;
+const ogImage = new URL(image, site).href;
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${site}/#organization`,
+      name: 'cusprose',
+      url: site,
+      logo: new URL('/favicon.svg', site).href,
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${site}/#website`,
+      url: site,
+      name: 'cusprose',
+      description: 'Daily divination for the modern soul — tarot, horoscopes & Eastern metaphysics.',
+      publisher: { '@id': `${site}/#organization` },
+    },
+    {
+      '@type': 'WebPage',
+      '@id': `${canonical}#webpage`,
+      url: canonical,
+      name: title,
+      description,
+      isPartOf: { '@id': `${site}/#website` },
+    },
+  ],
+};
 ---
 <!doctype html>
 <html lang="en">
@@ -19,23 +54,30 @@ const canonical = `https://cusprose.com${path}`;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="keywords" content="tarot, horoscopes, astrology, birth chart, compatibility, I Ching, BaZi, Feng Shui, Zi Wei Dou Shu, divination" />
     <link rel="canonical" href={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="cusprose" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content={ogImage} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
     <meta name="theme-color" content="#e8d4e4" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
     <style is:global>
       :root {
         /* Brand pastel gradient */
@@ -70,12 +112,18 @@ const canonical = `https://cusprose.com${path}`;
       html {
         font-family: var(--font-sans);
         color: var(--ink);
+        font-size: clamp(15px, 0.95rem + 0.2vw, 18px);
+        line-height: 1.6;
+        text-size-adjust: 100%;
+        -webkit-text-size-adjust: 100%;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
       }
 
       body {
         min-height: 100vh;
+        display: flex;
+        flex-direction: column;
         background:
           /* sparkle dots layer */
           radial-gradient(circle at 12% 18%, rgba(255,255,255,0.9) 0.5px, transparent 1px),
@@ -97,6 +145,8 @@ const canonical = `https://cusprose.com${path}`;
       }
 
       a { color: inherit; text-decoration: none; }
+
+      .site-main { flex: 1 0 auto; }
 
       .container {
         max-width: var(--container);
@@ -120,7 +170,8 @@ const canonical = `https://cusprose.com${path}`;
     </style>
   </head>
   <body>
-    <slot />
+    <div class="site-main"><slot /></div>
+    <Footer />
     <script>
       // Global guard: links still pointing at "#" are unbuilt placeholders.
       // Prevent the jarring jump-to-top; mark them so they read as inert.

@@ -1,6 +1,31 @@
 ---
 const title = 'cusprose — daily divination for the modern soul';
 const description = 'Tarot, horoscopes & cosmic insights — designed for who you are now.';
+const site = 'https://cusprose.com';
+const ogImage = `${site}/favicon.svg`;
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${site}/#organization`,
+      name: 'cusprose',
+      url: site,
+      logo: ogImage,
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${site}/#website`,
+      url: site,
+      name: 'cusprose',
+      description,
+      publisher: { '@id': `${site}/#organization` },
+    },
+  ],
+};
+
+import Footer from '../components/Footer.astro';
 
 const navLinks = [
   { label: 'Today',         href: '/' },
@@ -32,21 +57,27 @@ const features = [
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="keywords" content="tarot, horoscopes, astrology, birth chart, compatibility, I Ching, BaZi, Feng Shui, Zi Wei Dou Shu, divination" />
     <link rel="canonical" href="https://cusprose.com/" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content="https://cusprose.com/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="cusprose" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content={ogImage} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
     <meta name="theme-color" content="#e8d4e4" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
     <style>
       :root {
         --ink: #16172F;
@@ -316,7 +347,7 @@ const features = [
       @media (max-width: 540px) { .feature-grid { grid-template-columns: 1fr; } }
 
       /* footer */
-      footer {
+      footer.coming-soon {
         padding: 40px 0 60px;
         text-align: center;
         font-size: 11px;
@@ -417,8 +448,9 @@ const features = [
         </div>
       </section>
 
-      <footer>— coming soon · launching 2026 —</footer>
+      <footer class="coming-soon">— coming soon · launching 2026 —</footer>
     </div>
+    <Footer />
     <script>
       document.querySelectorAll('a[href="#"]').forEach((a) => {
         a.setAttribute('aria-disabled', 'true');
