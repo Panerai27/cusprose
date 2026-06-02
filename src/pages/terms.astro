@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+
+const updated = 'June 2026';
+---
+<BaseLayout
+  title="Terms of Service · cusprose"
+  path="/terms/"
+  description="The terms that govern your use of cusprose — our divination, astrology, and content services."
+>
+  <Nav />
+
+  <main class="prose">
+    <div class="container">
+      <header class="prose-hero">
+        <p class="eyebrow"><span class="star">✦</span> LEGAL</p>
+        <h1>Terms of Service</h1>
+        <p class="updated">Last updated: {updated}</p>
+      </header>
+
+      <section>
+        <h2>1. Acceptance of terms</h2>
+        <p>
+          By accessing or using cusprose (the “Service”), you agree to these
+          Terms of Service. If you do not agree, please do not use the Service.
+        </p>
+
+        <h2>2. Entertainment purposes</h2>
+        <p>
+          All readings, horoscopes, charts, and interpretations are provided for
+          entertainment and self-reflection only. They are not a substitute for
+          professional medical, legal, financial, or psychological advice.
+        </p>
+
+        <h2>3. Use of the Service</h2>
+        <p>
+          You agree to use cusprose lawfully and not to disrupt, reverse
+          engineer, or misuse the Service or its content.
+        </p>
+
+        <h2>4. Intellectual property</h2>
+        <p>
+          All content on cusprose, including text, design, and graphics, is owned
+          by cusprose or its licensors and may not be reproduced without
+          permission.
+        </p>
+
+        <h2>5. Changes</h2>
+        <p>
+          We may update these terms from time to time. Continued use of the
+          Service after changes take effect constitutes acceptance of the revised
+          terms.
+        </p>
+
+        <h2>6. Contact</h2>
+        <p>
+          Questions about these terms? Email
+          <a href="mailto:hello@cusprose.com">hello@cusprose.com</a>.
+        </p>
+      </section>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .prose { padding-bottom: 5rem; }
+  .prose-hero { max-width: 720px; margin: 1rem 0 2.5rem; }
+  .prose-hero h1 {
+    font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    margin: 1rem 0 0.75rem;
+  }
+  .updated {
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+  }
+  section { max-width: 720px; }
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 2rem 0 0.6rem;
+  }
+  p { color: var(--ink-soft); line-height: 1.7; margin-bottom: 0.5rem; }
+  a { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
+</style>
