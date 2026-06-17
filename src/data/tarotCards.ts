@@ -7,110 +7,13 @@ export interface TarotCard {
   number?: number;
   keywords: string[];
   tagline: string;
-  upright: {
-    meaning: string;
-    love: string;
-    career: string;
-    self: string;
-  };
-  reversed: {
-    meaning: string;
-    love: string;
-    career: string;
-    self: string;
-  };
   element?: string;
   planet?: string;
   zodiac?: string;
+  upright: { meaning: string; love: string; career: string; self: string };
+  reversed: { meaning: string; love: string; career: string; self: string };
   faq?: { q: string; a: string }[];
 }
-
-// SKELETON — replace with full 78-card data
-export const TAROT_CARDS: TarotCard[] = [
-  {
-    slug: 'the-fool',
-    name: 'The Fool',
-    roman: '0',
-    arcana: 'major',
-    keywords: ['beginnings', 'faith', 'leap'],
-    tagline: 'A clean slate, a cliff edge, and the courage to step off.',
-    upright: {
-      meaning: 'The Fool marks the start of a journey. It invites you to trust the unknown and step forward without guarantees. There is freedom in not knowing.',
-      love: 'New romance or a fresh chapter in an existing relationship. Let go of past patterns and meet love with open eyes.',
-      career: 'A bold pivot — a new role, a startup, a leap of faith. The Fool says the risk is worth it if it feels alive.',
-      self: 'Shed the identity you outgrew. The Fool is permission to begin again, lighter.',
-    },
-    reversed: {
-      meaning: 'Recklessness or paralysis. Either you are leaping without looking, or you are standing at the edge refusing to move.',
-      love: 'Fear of commitment or repeating old mistakes. Ask whether the hesitation is wisdom or avoidance.',
-      career: 'Poor planning disguised as spontaneity. Revisit the foundation before you build.',
-      self: 'Ignoring red flags or refusing to learn from past experience.',
-    },
-    element: 'Air',
-    planet: 'Uranus',
-    faq: [
-      { q: 'What does The Fool mean in a love reading?', a: 'The Fool in love suggests new beginnings — a fresh connection or a willingness to approach an existing relationship with renewed openness and vulnerability.' },
-      { q: 'Is The Fool a yes or no card?', a: 'The Fool is generally a "yes" — it encourages taking the leap and trusting the process, especially when the question involves new beginnings.' },
-    ],
-  },
-  {
-    slug: 'the-magician',
-    name: 'The Magician',
-    roman: 'I',
-    arcana: 'major',
-    keywords: ['willpower', 'skill', 'manifestation'],
-    tagline: 'Everything you need is already on the table.',
-    upright: {
-      meaning: 'The Magician channels raw potential into reality. You have the tools, the talent, and the timing. Now act.',
-      love: 'Magnetic attraction and clear communication. You know what you want — say it.',
-      career: 'Mastery in motion. A project that showcases your full skill set. Launch it.',
-      self: 'Alignment between intention and action. You are more capable than you think.',
-    },
-    reversed: {
-      meaning: 'Manipulation or wasted talent. The tools are there but misused — or not used at all.',
-      love: 'Deception or mixed signals. Someone may not be who they appear.',
-      career: 'Imposter syndrome or cutting corners. Revisit your methods.',
-      self: 'Disconnect between what you say and what you do.',
-    },
-    element: 'Air',
-    planet: 'Mercury',
-    faq: [
-      { q: 'What does The Magician represent?', a: 'The Magician represents willpower, resourcefulness, and the ability to manifest your goals through focused action and skill.' },
-      { q: 'What element is The Magician associated with?', a: 'The Magician is associated with Air and the planet Mercury, representing communication, intellect, and quick thinking.' },
-    ],
-  },
-  {
-    slug: 'the-star',
-    name: 'The Star',
-    roman: 'XVII',
-    arcana: 'major',
-    keywords: ['hope', 'healing', 'renewal'],
-    tagline: 'After the storm, a quiet light returns.',
-    upright: {
-      meaning: 'The Star arrives after upheaval. It is the calm after the Tower — a gentle, persistent light that says healing is already underway.',
-      love: 'Vulnerability that deepens connection. Let someone see you as you are, unguarded.',
-      career: 'Inspiration returns. A creative project finds its voice. Trust the slow rebuild.',
-      self: 'Spiritual renewal. You are closer to wholeness than you realize.',
-    },
-    reversed: {
-      meaning: 'Disconnection from hope. The light is still there but you have stopped looking for it.',
-      love: 'Guarding your heart so tightly that intimacy cannot reach you.',
-      career: 'Creative block or burnout. Step away before you push through.',
-      self: 'Neglecting self-care or losing faith in your own healing.',
-    },
-    element: 'Air',
-    planet: 'Uranus',
-    zodiac: 'Aquarius',
-    faq: [
-      { q: 'What does The Star mean after a difficult period?', a: 'The Star is one of the most hopeful cards in the deck. After hardship, it signals that healing is underway and a period of renewal and clarity is beginning.' },
-      { q: 'Is The Star a good card to receive?', a: 'Yes — The Star is widely considered one of the most positive cards. It represents hope, inspiration, and spiritual connection.' },
-    ],
-  },
-];
-
-export const CARD_BY_SLUG: Record<string, TarotCard> = Object.fromEntries(
-  TAROT_CARDS.map((c) => [c.slug, c])
-);
 
 export const SUIT_LABELS: Record<string, string> = {
   wands: 'Wands',
@@ -118,3 +21,335 @@ export const SUIT_LABELS: Record<string, string> = {
   swords: 'Swords',
   pentacles: 'Pentacles',
 };
+
+export const TAROT_CARDS: TarotCard[] = [
+  {
+    slug: 'the-fool', name: 'The Fool', roman: '0', arcana: 'major',
+    keywords: ['beginnings', 'innocence', 'leap of faith'],
+    tagline: 'A clean slate, and the nerve to step onto it.',
+    element: 'Air', planet: 'Uranus', zodiac: 'Aquarius',
+    upright: { meaning: 'A new chapter begins with all the innocence of not yet knowing how hard it will be. Step forward with trust.', love: 'A fresh start in love — new possibility or renewed adventure with your partner.', career: 'A leap into something new: a career change, a bold project, the courage to start from scratch.', self: 'Release the need to have everything figured out. Embrace beginner\'s mind.' },
+    reversed: { meaning: 'Recklessness or paralysis — either leaping without looking or refusing to leap at all.', love: 'Commitment avoidance or rushing in without discernment.', career: 'Poor planning or missed opportunities due to indecision.', self: 'Naivety or self-sabotage. Are you ignoring warning signs?' },
+    faq: [{ q: 'What does The Fool tarot card mean?', a: 'The Fool represents new beginnings, innocence, and a leap of faith into the unknown.' }, { q: 'Is The Fool a positive card?', a: 'Generally yes — it signals exciting new beginnings. Reversed, it can warn of recklessness.' }],
+  },
+  {
+    slug: 'the-magician', name: 'The Magician', roman: 'I', arcana: 'major',
+    keywords: ['willpower', 'manifestation', 'skill'],
+    tagline: 'Everything you need is already on the table.',
+    element: 'Air', planet: 'Mercury', zodiac: 'Gemini',
+    upright: { meaning: 'You have all the tools and talent required. The question is whether you will gather them and begin.', love: 'Magnetic attraction and clear communication. You can create the dynamic you want.', career: 'Skill, focus, and manifestation power. A time of creative confidence.', self: 'You are more capable than you realize. Channel scattered energy into focused intention.' },
+    reversed: { meaning: 'Manipulation, wasted talent, or scattered focus. Tools are there but misused.', love: 'Deception or miscommunication. Someone isn\'t showing true intentions.', career: 'Untapped potential or shortcuts compromising integrity.', self: 'Self-doubt masking as humility, or ego masking as confidence.' },
+    faq: [{ q: 'What does The Magician mean?', a: 'The Magician represents willpower, skill, and the ability to manifest intentions into reality.' }, { q: 'Is The Magician about magic?', a: 'Personal power, not supernatural — your ability to use skills and focus to create results.' }],
+  },
+  {
+    slug: 'the-high-priestess', name: 'The High Priestess', roman: 'II', arcana: 'major',
+    keywords: ['intuition', 'mystery', 'inner knowing'],
+    tagline: 'The answer is already in you, waiting for silence.',
+    element: 'Water', planet: 'Moon', zodiac: 'Cancer',
+    upright: { meaning: 'Trust what you know beneath the surface. The answer comes from stillness, not analysis.', love: 'Hidden depths in a connection. Something unspoken matters more than what\'s said.', career: 'Patience and observation over action. Wait for more information before deciding.', self: 'Your subconscious holds wisdom your conscious mind hasn\'t accessed. Listen inward.' },
+    reversed: { meaning: 'Ignoring intuition, or secrets causing harm. Information withheld.', love: 'Disconnection from feelings, or a partner hiding something.', career: 'Overlooking subtle signs or being kept out of the loop.', self: 'Overthinking what your body already knows. Reconnect through stillness.' },
+    faq: [{ q: 'What does The High Priestess mean?', a: 'She represents intuition and inner knowing — trust your deeper wisdom rather than seeking external answers.' }, { q: 'Is The High Priestess about secrets?', a: 'Partly — she guards hidden knowledge and indicates things not yet revealed.' }],
+  },
+  {
+    slug: 'the-empress', name: 'The Empress', roman: 'III', arcana: 'major',
+    keywords: ['abundance', 'nurture', 'creativity'],
+    tagline: 'Tend what you have and it will multiply.',
+    element: 'Earth', planet: 'Venus', zodiac: 'Taurus',
+    upright: { meaning: 'A season of growth and creative abundance. Nurture what matters and watch it flourish.', love: 'Deep sensuality and nurturing love. A relationship that feels abundant and warm.', career: 'Creative projects bearing fruit. Efforts producing visible growth.', self: 'Connect with your body, nature, pleasure. Stop deferring joy.' },
+    reversed: { meaning: 'Creative blocks, neglect, or smothering. Starving something or overprotecting it.', love: 'Codependency or emotional neglect. Nurturing has tipped to smothering.', career: 'Burnout from over-giving or a creative project stalled.', self: 'Disconnection from creativity. Giving to others at the expense of your needs.' },
+    faq: [{ q: 'What does The Empress mean?', a: 'Abundance, nurturing, and creative fertility — a time when tending things produces visible results.' }, { q: 'Is The Empress about pregnancy?', a: 'Can be, but more often speaks to creative abundance — any idea being nurtured into fullness.' }],
+  },
+  {
+    slug: 'the-emperor', name: 'The Emperor', roman: 'IV', arcana: 'major',
+    keywords: ['authority', 'structure', 'stability'],
+    tagline: 'Build the frame before you fill it.',
+    element: 'Fire', planet: 'Mars', zodiac: 'Aries',
+    upright: { meaning: 'Structure and discipline to build something lasting. Freedom lives on the other side of good foundations.', love: 'Stability and commitment built on reliability and mutual respect.', career: 'Leadership and organization. A time to establish structure and take command.', self: 'Develop self-discipline. Set boundaries. Structure will free you, not cage you.' },
+    reversed: { meaning: 'Rigidity, tyranny, or abdication of responsibility.', love: 'Domineering behavior or emotional unavailability.', career: 'Authoritarian leadership or chaos from lack of structure.', self: 'Examine your relationship with authority — are you too rigid or too passive?' },
+    faq: [{ q: 'What does The Emperor mean?', a: 'Structure, authority, and stability — a need for discipline, boundaries, and strong foundations.' }, { q: 'Is The Emperor about a specific person?', a: 'Can represent a father figure, but more often speaks to the principle of leadership within yourself.' }],
+  },
+  {
+    slug: 'the-hierophant', name: 'The Hierophant', roman: 'V', arcana: 'major',
+    keywords: ['tradition', 'guidance', 'meaning'],
+    tagline: 'There is wisdom in the well-worn path.',
+    element: 'Earth', planet: 'Venus', zodiac: 'Taurus',
+    upright: { meaning: 'Seek wisdom from traditions, mentors, or institutions. Some paths are well-worn for good reason.', love: 'Shared values and possibly formal commitment. A relationship grounded in mutual beliefs.', career: 'Mentorship or following established methods. Learn from those before you.', self: 'Explore philosophical traditions. Find a teacher. Some wisdom is transmitted, not discovered alone.' },
+    reversed: { meaning: 'Blind conformity or rigid dogma. The institution outgrew the truth it served.', love: 'Pressure to conform to expectations that don\'t fit your relationship.', career: 'Stifling bureaucracy or outdated methods needing challenge.', self: 'Outgrowing a belief system — this is growth, not failure.' },
+    faq: [{ q: 'What does The Hierophant mean?', a: 'Tradition, spiritual guidance, and established wisdom — pointing toward mentors or teachings that help.' }, { q: 'Is The Hierophant religious?', a: 'Not necessarily — represents any system of shared meaning: philosophy, education, or mentorship.' }],
+  },
+  {
+    slug: 'the-lovers', name: 'The Lovers', roman: 'VI', arcana: 'major',
+    keywords: ['union', 'choice', 'alignment'],
+    tagline: 'A choice that asks you to be honest about what you value.',
+    element: 'Air', planet: 'Mercury', zodiac: 'Gemini',
+    upright: { meaning: 'A significant choice rooted in values. Not only about romance — it\'s about choosing with integrity.', love: 'Deep connection and mutual attraction. Both people choosing each other fully.', career: 'A career choice aligning with your values. Complementary partnerships.', self: 'Integration of opposing parts of yourself. The choice reveals what you truly value.' },
+    reversed: { meaning: 'Misalignment, broken trust, or avoidance of a necessary choice.', love: 'Disharmony or a relationship where values no longer align.', career: 'A job conflicting with your principles.', self: 'Inner conflict between want and belief. Reconcile before it splits you.' },
+    faq: [{ q: 'Does The Lovers always mean romance?', a: 'No — while often about love, it fundamentally speaks about choices and alignment with your values.' }, { q: 'What does The Lovers card mean?', a: 'Significant choices, values alignment, and deep union based on genuine shared truth.' }],
+  },
+  {
+    slug: 'the-chariot', name: 'The Chariot', roman: 'VII', arcana: 'major',
+    keywords: ['willpower', 'determination', 'triumph'],
+    tagline: 'Two forces pulling opposite ways, and your job is to hold the reins.',
+    element: 'Water', planet: 'Moon', zodiac: 'Cancer',
+    upright: { meaning: 'Victory through willpower. Managing opposing forces — hold the reins and direct them toward your goal.', love: 'Moving a relationship forward with determination. Overcoming obstacles together.', career: 'Ambition rewarded. A project gaining momentum through focused drive.', self: 'Mastering inner contradictions. Learn to drive them rather than being pulled apart.' },
+    reversed: { meaning: 'Loss of direction, aggression without purpose, or being pulled apart by opposing desires.', love: 'Power struggles or a relationship going nowhere despite effort.', career: 'Scattered energy or aggression mistaken for ambition.', self: 'You\'re fighting yourself. The opposing forces have taken the reins. Pause.' },
+    faq: [{ q: 'What does The Chariot mean?', a: 'Willpower, determination, and triumph over obstacles through focused effort and mastery of opposing forces.' }, { q: 'Is The Chariot about travel?', a: 'Sometimes literally, but more often speaks to momentum and forward movement through will.' }],
+  },
+  {
+    slug: 'strength', name: 'Strength', roman: 'VIII', arcana: 'major',
+    keywords: ['courage', 'patience', 'inner power'],
+    tagline: 'The lion is tamed not by force but by an open hand.',
+    element: 'Fire', planet: 'Sun', zodiac: 'Leo',
+    upright: { meaning: 'True strength is gentle. You master the situation by staying calm long enough for it to soften toward you.', love: 'Patience and compassion. The strength to be vulnerable and stay open.', career: 'Quiet confidence and resilience. Leading through presence rather than pressure.', self: 'Befriend your shadow. Anger, fear, desire are energies to integrate, not enemies to defeat.' },
+    reversed: { meaning: 'Self-doubt, rawness, or misuse of power.', love: 'Insecurity undermining connection or one partner dominating.', career: 'Burnout, imposter syndrome, or depleted reserves.', self: 'At war with yourself. The courage you need isn\'t to fight harder — it\'s to soften.' },
+    faq: [{ q: 'What does the Strength card mean?', a: 'Courage, patience, and gentle mastery — the situation requires compassion rather than force.' }, { q: 'Is Strength about physical strength?', a: 'Rarely. It speaks to emotional fortitude — the courage to be gentle when it would be easier to be hard.' }],
+  },
+  {
+    slug: 'the-hermit', name: 'The Hermit', roman: 'IX', arcana: 'major',
+    keywords: ['solitude', 'wisdom', 'inner search'],
+    tagline: 'The answer you seek from others, only you can reach alone.',
+    element: 'Earth', planet: 'Mercury', zodiac: 'Virgo',
+    upright: { meaning: 'Withdraw from the noise. The guidance you need requires honest solitude and self-reflection.', love: 'Time alone to understand what you truly need from love.', career: 'Independent work, deep study, or mentoring from accumulated wisdom.', self: 'Your inner world needs attention. Retreat is not escapism — it is the work.' },
+    reversed: { meaning: 'Isolation becoming loneliness, or fear of solitude preventing self-reflection.', love: 'Withdrawing from intimacy out of fear rather than wisdom.', career: 'Isolation holding you back or refusal to seek quiet for deep work.', self: 'Hiding from the world or hiding from yourself. Which needs addressing?' },
+    faq: [{ q: 'What does The Hermit mean?', a: 'Solitude and inner searching — step back from noise to find wisdom only quiet reflection provides.' }, { q: 'Is The Hermit about loneliness?', a: 'Upright: chosen, productive solitude. Reversed: unwanted isolation or avoidance of alone time.' }],
+  },
+  {
+    slug: 'wheel-of-fortune', name: 'Wheel of Fortune', roman: 'X', arcana: 'major',
+    keywords: ['cycles', 'fate', 'turning point'],
+    tagline: 'The wheel turns whether or not you push it.',
+    element: 'Fire', planet: 'Jupiter', zodiac: 'Sagittarius',
+    upright: { meaning: 'A turning point — luck or the natural cycle shifting in your favor. Meet the change openly.', love: 'A destined encounter or positive turn. Fate is moving pieces into place.', career: 'Opportunity through luck or timing. Accept good fortune gracefully.', self: 'Life is cyclical. What was down is rising. Trust the rhythm.' },
+    reversed: { meaning: 'Bad luck, resistance to change, or clinging to a phase that has passed.', love: 'A rough patch in a cycle — not permanent but uncomfortable.', career: 'Setbacks or feeling stuck. This too is temporary.', self: 'Resisting necessary change or blaming fate for choices.' },
+    faq: [{ q: 'What does Wheel of Fortune mean?', a: 'A turning point — cycles shifting, luck changing. Something bigger than individual effort is moving.' }, { q: 'Is it about luck?', a: 'Partly — forces beyond your control. Upright, the turn favors you. All phases are temporary.' }],
+  },
+  {
+    slug: 'justice', name: 'Justice', roman: 'XI', arcana: 'major',
+    keywords: ['truth', 'fairness', 'accountability'],
+    tagline: 'What you set in motion is coming back to meet you.',
+    element: 'Air', planet: 'Venus', zodiac: 'Libra',
+    upright: { meaning: 'Truth and fairness prevail. What you\'ve set in motion returns proportionally. Be honest and scales balance.', love: 'Honesty and fairness in partnership. Both give and receive equally.', career: 'Fair outcomes and recognition proportional to effort. Integrity rewarded.', self: 'Take responsibility for your choices. Consequences arriving are proportional.' },
+    reversed: { meaning: 'Injustice, dishonesty, or refusal to accept accountability.', love: 'Unfairness in a relationship. Honest reckoning needed.', career: 'Unfair treatment or consequences of past dishonesty.', self: 'Avoiding accountability. The longer deferred, the heavier it becomes.' },
+    faq: [{ q: 'What does Justice mean?', a: 'Truth, fairness, and karmic balance — outcomes proportional to actions, integrity rewarded.' }, { q: 'Does Justice relate to legal matters?', a: 'Can, but speaks broadly to any situation requiring fairness, truth, or accountability.' }],
+  },
+  {
+    slug: 'the-hanged-man', name: 'The Hanged Man', roman: 'XII', arcana: 'major',
+    keywords: ['surrender', 'new perspective', 'pause'],
+    tagline: 'The way forward is to stop struggling.',
+    element: 'Water', planet: 'Neptune', zodiac: 'Pisces',
+    upright: { meaning: 'Suspend action. Seen from this angle, what you were fighting looks entirely different.', love: 'Let go of expectations. A perspective shift transforms the relationship.', career: 'A necessary pause that leads to breakthrough. Stalling is actually incubation.', self: 'Surrender your usual way of seeing. Discomfort of not-knowing is where insight lives.' },
+    reversed: { meaning: 'Stalling without purpose or refusing the perspective shift being offered.', love: 'Unnecessary sacrifice or refusing to see things from another angle.', career: 'Delays without growth. This pause has gone on too long.', self: 'Stuck by choice. The new perspective is available if you stop insisting on the old one.' },
+    faq: [{ q: 'What does The Hanged Man mean?', a: 'Voluntary suspension — pausing action to gain new perspective. Sacrifice leading to insight.' }, { q: 'Is it negative?', a: 'Not typically. Speaks of willing surrender and perspective shifts. Discomfort is temporary; wisdom lasting.' }],
+  },
+  {
+    slug: 'death', name: 'Death', roman: 'XIII', arcana: 'major',
+    keywords: ['transformation', 'endings', 'renewal'],
+    tagline: 'Something has run its course. Let it close.',
+    element: 'Water', planet: 'Pluto', zodiac: 'Scorpio',
+    upright: { meaning: 'A necessary ending clearing ground for rebirth. The old must die for the new to emerge.', love: 'A relationship transforming fundamentally or an old pattern dying for deeper connection.', career: 'End of a chapter — a role that has served its purpose. Let go.', self: 'An identity you\'ve outgrown is dying. Grieve, release, make room for who you\'re becoming.' },
+    reversed: { meaning: 'Resisting a necessary ending or transformation stuck halfway.', love: 'Clinging to a dead relationship or refusing needed change.', career: 'Fear of leaving what no longer serves you.', self: 'You know something needs to end but can\'t let go.' },
+    faq: [{ q: 'Does the Death card mean someone will die?', a: 'No. Almost never refers to physical death — speaks of transformation and necessary endings.' }, { q: 'Is it bad?', a: 'Not inherently. Signals necessary transformation. Endings make space for renewal.' }],
+  },
+  {
+    slug: 'temperance', name: 'Temperance', roman: 'XIV', arcana: 'major',
+    keywords: ['balance', 'patience', 'moderation'],
+    tagline: 'The middle path is not compromise — it is the elegant choice.',
+    element: 'Fire', planet: 'Jupiter', zodiac: 'Sagittarius',
+    upright: { meaning: 'Blend the extremes into something sustainable. Patience and moderation create lasting results.', love: 'Harmony through compromise. A relationship finding equilibrium after turbulence.', career: 'Collaborative work requiring patience and careful calibration.', self: 'Integration of opposing parts. Balance comes through patience, not force.' },
+    reversed: { meaning: 'Imbalance, excess, or forced mixing that doesn\'t work.', love: 'Imbalance in giving/receiving or incompatibilities being ignored.', career: 'Overwork or rushing a process that needs time.', self: 'Swung to an extreme. Find center again.' },
+    faq: [{ q: 'What does Temperance mean?', a: 'Balance, patience, and the art of blending opposites into harmony. The middle path.' }, { q: 'Is Temperance boring?', a: 'No — it\'s sophisticated alchemy. Creating elegance from opposing forces, not restriction.' }],
+  },
+  {
+    slug: 'the-devil', name: 'The Devil', roman: 'XV', arcana: 'major',
+    keywords: ['shadow', 'bondage', 'materialism'],
+    tagline: 'The chains are looser than they look.',
+    element: 'Earth', planet: 'Saturn', zodiac: 'Capricorn',
+    upright: { meaning: 'Notice what binds you — addiction, attachment, fear. The chains are self-imposed. Naming the pull loosens it.', love: 'Unhealthy attachment or relationships built on desire without emotional depth.', career: 'Golden handcuffs, toxic culture, or pursuing money over meaning.', self: 'Face your shadow. What pattern keeps repeating? What are you addicted to?' },
+    reversed: { meaning: 'Breaking free from bondage. Releasing addiction. Seeing chains for what they are.', love: 'Leaving a toxic dynamic or breaking an unhealthy pattern.', career: 'Escaping a soul-crushing job or releasing need for status over wellbeing.', self: 'Breakthrough self-awareness. You see the pattern clearly — seeing it is most of the work.' },
+    faq: [{ q: 'What does The Devil card mean?', a: 'Bondage, shadow, and attachment — revealing what holds you captive, usually self-imposed chains.' }, { q: 'Is The Devil evil?', a: 'No. It shines light on unhealthy patterns so you can choose differently. Awareness precedes freedom.' }],
+  },
+  {
+    slug: 'the-tower', name: 'The Tower', roman: 'XVI', arcana: 'major',
+    keywords: ['upheaval', 'revelation', 'liberation'],
+    tagline: 'What was built on shaky ground could not stand.',
+    element: 'Fire', planet: 'Mars', zodiac: 'Aries',
+    upright: { meaning: 'Sudden destruction of false foundations. Feels like catastrophe now; soon reads as truth arriving.', love: 'A shocking revelation or sudden breakup. What falls was not solid.', career: 'Sudden loss, collapse, or a project imploding due to hidden flaws.', self: 'An ego death or belief system collapsing. Painful but necessary.' },
+    reversed: { meaning: 'Avoiding necessary destruction or disaster narrowly averted. The tower still needs to fall.', love: 'Denial about fundamental problems. Truth will out eventually.', career: 'Organization crumbling slowly. Internal rot not yet surfaced.', self: 'Resisting needed awakening. The longer you prop up false structures, the harder they fall.' },
+    faq: [{ q: 'What does The Tower mean?', a: 'Sudden upheaval and destruction of false structures — clears the way for rebuilding on solid foundations.' }, { q: 'Is The Tower the worst card?', a: 'Dramatic but not evil. Many report Tower moments led to their most important breakthroughs.' }],
+  },
+  {
+    slug: 'the-star', name: 'The Star', roman: 'XVII', arcana: 'major',
+    keywords: ['hope', 'healing', 'renewal'],
+    tagline: 'After the storm, a quiet light returns.',
+    element: 'Air', planet: 'Uranus', zodiac: 'Aquarius',
+    upright: { meaning: 'Hope and healing after difficulty. Trust returning slowly. The gentle exhale you\'ve been needing.', love: 'Renewed hope in love. Healing from past hurts, opening to vulnerability.', career: 'Inspiration returning after burnout. Work aligned with deeper purpose.', self: 'Spiritual renewal and a sense of being guided. You are healing.' },
+    reversed: { meaning: 'Loss of faith or healing that feels stalled. The star is still there — you\'ve lost sight.', love: 'Difficulty trusting after hurt. Walls blocking what you need.', career: 'Creative block or loss of inspiration.', self: 'Spiritual disconnection. Temporary — reconnect with what once inspired you.' },
+    faq: [{ q: 'What does The Star mean?', a: 'Hope, healing, and spiritual renewal after difficulty. Peace and inspiration returning.' }, { q: 'Is The Star a good card?', a: 'One of the most positive — signals healing, hope, and alignment after a challenging period.' }],
+  },
+  {
+    slug: 'the-moon', name: 'The Moon', roman: 'XVIII', arcana: 'major',
+    keywords: ['illusion', 'intuition', 'uncertainty'],
+    tagline: 'Not everything in the half-light is what it seems.',
+    element: 'Water', planet: 'Neptune', zodiac: 'Pisces',
+    upright: { meaning: 'Things aren\'t clear yet. Don\'t mistake fears for facts. Move slowly and trust instincts over appearances.', love: 'Confusion or hidden truths. Something not as it appears — trust your gut.', career: 'Unclear situations or deception. Navigate carefully.', self: 'Fears projecting onto reality. Distinguish intuition from anxiety.' },
+    reversed: { meaning: 'Clarity returning after confusion. Self-deception exposed. The fog lifts.', love: 'Truth emerging. Illusions dissolving — relieving or uncomfortable.', career: 'Confusing situation clarifying. Deceptions revealed.', self: 'Confronting fears and finding them smaller than imagined.' },
+    faq: [{ q: 'What does The Moon mean?', a: 'Illusion, confusion, and the subconscious — things may not be what they seem, counsels caution.' }, { q: 'Is it about deception?', a: 'Often self-generated deception. Fears distort reality. Distinguish intuition from projected anxiety.' }],
+  },
+  {
+    slug: 'the-sun', name: 'The Sun', roman: 'XIX', arcana: 'major',
+    keywords: ['joy', 'success', 'vitality'],
+    tagline: 'Warmth, clarity, and an open road ahead.',
+    element: 'Fire', planet: 'Sun', zodiac: 'Leo',
+    upright: { meaning: 'Pure positivity — joy, success, vitality. The answer arrives bright and simple. Enjoy it.', love: 'Happiness and transparency in love. Genuine joy and mutual celebration.', career: 'Success, recognition, and creative fulfillment.', self: 'Confidence and alignment. You are in your element. Let yourself feel good.' },
+    reversed: { meaning: 'Dampened joy or difficulty feeling happiness even when things are good.', love: 'Joy blocked by overthinking or past hurt.', career: 'Success delayed or achievement feeling hollow.', self: 'Inner critic blocking joy. You deserve it — the resistance is the only problem.' },
+    faq: [{ q: 'What does The Sun mean?', a: 'One of the most positive cards — joy, success, clarity, and vitality shining in your life.' }, { q: 'Can The Sun be negative?', a: 'Even reversed, it\'s mild. May indicate dampened joy, but fundamental energy is warm and positive.' }],
+  },
+  {
+    slug: 'judgement', name: 'Judgement', roman: 'XX', arcana: 'major',
+    keywords: ['awakening', 'calling', 'rebirth'],
+    tagline: 'A clear call you can no longer un-hear.',
+    element: 'Fire', planet: 'Pluto', zodiac: 'Scorpio',
+    upright: { meaning: 'A calling that demands you rise. You already know what your answer is.', love: 'A relationship reaching a definitive moment. Time to decide fully.', career: 'Your true calling becoming clear. Answer it.', self: 'Spiritual awakening or moment of complete self-honesty.' },
+    reversed: { meaning: 'Ignoring a calling or self-doubt blocking your answer.', love: 'Avoiding a necessary decision. The call is getting louder.', career: 'Ignoring your calling out of fear or obligation.', self: 'You hear the call but won\'t answer. What are you afraid of?' },
+    faq: [{ q: 'What does Judgement mean?', a: 'Awakening, calling, and reckoning — something calling you to rise to your highest potential.' }, { q: 'Is it about being judged?', a: 'By yourself, not others. Honest self-assessment and answering your calling. Awakening, not punishment.' }],
+  },
+  {
+    slug: 'the-world', name: 'The World', roman: 'XXI', arcana: 'major',
+    keywords: ['completion', 'integration', 'fulfillment'],
+    tagline: 'A chapter closes, fully and well.',
+    element: 'Earth', planet: 'Saturn', zodiac: 'Capricorn',
+    upright: { meaning: 'Completion and wholeness. A cycle genuinely finished. Take the moment to feel done.', love: 'Deep fulfillment and integration. Everything has come together.', career: 'A major achievement or successful conclusion of a long project.', self: 'Wholeness. Integration of all parts into one coherent self.' },
+    reversed: { meaning: 'Incompletion or rushing the final stage. Close but haven\'t quite finished.', love: 'Almost-but-not-quite complete. Something still needs attention.', career: 'A project nearly done but stalling at the finish.', self: 'Seeking closure that hasn\'t come. Some cycles need their full duration.' },
+    faq: [{ q: 'What does The World mean?', a: 'Completion, fulfillment, and successful end of a major cycle. Wholeness and genuine arrival.' }, { q: 'Is it the best card?', a: 'Among the most positive — but every completion opens the door to a new beginning.' }],
+  },
+  // --- WANDS (Fire) ---
+  {
+    slug: 'ace-of-wands', name: 'Ace of Wands', roman: '', arcana: 'minor', suit: 'wands', number: 1,
+    keywords: ['inspiration', 'spark', 'potential'],
+    tagline: 'A spark lands. What you do with it is yours.',
+    element: 'Fire',
+    upright: { meaning: 'A new creative or passionate beginning. Raw potential arriving.', love: 'A spark of attraction or renewed passion igniting.', career: 'A bold new idea or opportunity that excites you.', self: 'Fresh creative energy. Follow the impulse before it fades.' },
+    reversed: { meaning: 'Delays in starting or a spark that fizzles before catching.', love: 'Attraction without follow-through. Passion that stalls.', career: 'A good idea lacking execution or blocked by hesitation.', self: 'Creative block. The inspiration is there but can\'t find its outlet.' },
+    faq: [{ q: 'What does the Ace of Wands mean?', a: 'New beginnings in creativity, passion, or action. A burst of inspired energy.' }],
+  },
+  {
+    slug: 'two-of-wands', name: 'Two of Wands', roman: '', arcana: 'minor', suit: 'wands', number: 2,
+    keywords: ['planning', 'vision', 'decisions'],
+    tagline: 'The world is in your hands — now choose a direction.',
+    element: 'Fire',
+    upright: { meaning: 'Planning your next move. Holding the map and deciding which path to take.', love: 'Considering where a relationship could go. Future-building together.', career: 'Strategic planning and weighing options between opportunities.', self: 'Deciding who you want to become. Vision precedes action.' },
+    reversed: { meaning: 'Fear of commitment to a direction. Over-planning without acting.', love: 'Indecision about the relationship\'s future. Afraid to choose.', career: 'Analysis paralysis. Too many options, no movement.', self: 'Stuck between versions of yourself. Pick one and move.' },
+    faq: [{ q: 'What does the Two of Wands mean?', a: 'Planning and vision. You have options — now it\'s time to commit to a direction.' }],
+  },
+  {
+    slug: 'three-of-wands', name: 'Three of Wands', roman: '', arcana: 'minor', suit: 'wands', number: 3,
+    keywords: ['expansion', 'progress', 'foresight'],
+    tagline: 'Ships on the horizon. Your plans are taking shape.',
+    element: 'Fire',
+    upright: { meaning: 'Expansion and momentum. What you started is now growing beyond you.', love: 'A relationship expanding — travel, shared adventures, growth.', career: 'Progress and expansion. Your work is reaching wider audiences.', self: 'Broadening horizons. Outgrowing old containers.' },
+    reversed: { meaning: 'Delays in expected progress. Plans taking longer than hoped.', love: 'Long-distance frustration or growth happening unevenly.', career: 'Expansion blocked. Return to basics before scaling.', self: 'Impatience with growth. Trust the timeline.' },
+    faq: [{ q: 'What does the Three of Wands mean?', a: 'Expansion and foresight. Your plans are in motion and the horizon is opening up.' }],
+  },
+  {
+    slug: 'four-of-wands', name: 'Four of Wands', roman: '', arcana: 'minor', suit: 'wands', number: 4,
+    keywords: ['celebration', 'homecoming', 'harmony'],
+    tagline: 'A threshold crossed, a celebration earned.',
+    element: 'Fire',
+    upright: { meaning: 'Celebration and stability. A milestone reached and honored.', love: 'Joy together — engagement, moving in, or simply feeling at home.', career: 'A team win or project milestone worth celebrating.', self: 'Feeling settled. Enjoying what you\'ve built.' },
+    reversed: { meaning: 'Celebration postponed or feeling unsettled despite success.', love: 'Tension at home or a milestone that doesn\'t feel quite right.', career: 'Instability beneath apparent success. Foundations need attention.', self: 'Restlessness. Can\'t enjoy the moment because something feels off.' },
+    faq: [{ q: 'What does the Four of Wands mean?', a: 'Celebration, homecoming, and harmony. A joyful milestone in your journey.' }],
+  },
+  {
+    slug: 'five-of-wands', name: 'Five of Wands', roman: '', arcana: 'minor', suit: 'wands', number: 5,
+    keywords: ['conflict', 'competition', 'tension'],
+    tagline: 'Everyone swinging, nobody landing. Find your opening.',
+    element: 'Fire',
+    upright: { meaning: 'Conflict and competition. Multiple forces clashing without resolution.', love: 'Petty arguments or competing priorities causing friction.', career: 'Workplace competition or conflicting opinions on a project.', self: 'Inner conflict. Too many desires pulling in different directions.' },
+    reversed: { meaning: 'Conflict resolving or avoiding confrontation entirely.', love: 'Finding compromise after disagreement. Choosing peace.', career: 'Team alignment after a rough patch. Conflicts settling.', self: 'Inner peace returning after a period of internal struggle.' },
+    faq: [{ q: 'What does the Five of Wands mean?', a: 'Conflict and competition. Multiple energies clashing — find clarity in the chaos.' }],
+  },
+  {
+    slug: 'six-of-wands', name: 'Six of Wands', roman: '', arcana: 'minor', suit: 'wands', number: 6,
+    keywords: ['victory', 'recognition', 'confidence'],
+    tagline: 'The crowd parts. They see you now.',
+    element: 'Fire',
+    upright: { meaning: 'Victory and public recognition. Your efforts are seen and celebrated.', love: 'Feeling admired and desired. A relationship that makes you shine.', career: 'Professional recognition, promotion, or public success.', self: 'Confidence earned through genuine achievement.' },
+    reversed: { meaning: 'Success without recognition, or ego inflated beyond merit.', love: 'Needing external validation from your partner constantly.', career: 'Taking credit unfairly or feeling overlooked despite achievement.', self: 'Confidence that depends on others\' approval. Find internal ground.' },
+    faq: [{ q: 'What does the Six of Wands mean?', a: 'Victory and recognition. Public acknowledgment of your success and leadership.' }],
+  },
+  {
+    slug: 'seven-of-wands', name: 'Seven of Wands', roman: '', arcana: 'minor', suit: 'wands', number: 7,
+    keywords: ['defense', 'perseverance', 'standing ground'],
+    tagline: 'Higher ground is yours. Hold it.',
+    element: 'Fire',
+    upright: { meaning: 'Defending your position. You\'ve earned your place — now protect it.', love: 'Standing firm in what you need from a relationship.', career: 'Defending your ideas or position against challengers.', self: 'Holding your boundaries when tested. Don\'t back down.' },
+    reversed: { meaning: 'Exhaustion from constant defense. Consider whether this hill is worth dying on.', love: 'Giving up on boundaries or feeling overwhelmed by conflict.', career: 'Losing ground or choosing not to fight a battle anymore.', self: 'Knowing when to stop defending and start releasing.' },
+    faq: [{ q: 'What does the Seven of Wands mean?', a: 'Defense and perseverance. Standing your ground against challenges from below.' }],
+  },
+  {
+    slug: 'eight-of-wands', name: 'Eight of Wands', roman: '', arcana: 'minor', suit: 'wands', number: 8,
+    keywords: ['speed', 'momentum', 'swift action'],
+    tagline: 'Everything accelerates. Move with it or move aside.',
+    element: 'Fire',
+    upright: { meaning: 'Rapid movement and swift developments. Things happen fast now.', love: 'A relationship accelerating quickly. Exciting momentum.', career: 'Rapid progress on projects. Communications flying.', self: 'Alignment of energy and action. Everything clicks into gear.' },
+    reversed: { meaning: 'Delays, miscommunication, or forced patience when you want speed.', love: 'Mixed signals or a relationship slowing unexpectedly.', career: 'Projects stalled by logistics. Frustrating delays.', self: 'Impatience. Forced to slow down when you want to sprint.' },
+    faq: [{ q: 'What does the Eight of Wands mean?', a: 'Swift movement and rapid progress. Things are happening fast — stay aligned.' }],
+  },
+  {
+    slug: 'nine-of-wands', name: 'Nine of Wands', roman: '', arcana: 'minor', suit: 'wands', number: 9,
+    keywords: ['resilience', 'persistence', 'last stand'],
+    tagline: 'Battered but unbroken. One more push.',
+    element: 'Fire',
+    upright: { meaning: 'Resilience after hardship. You\'re tired but close to the finish.', love: 'A relationship that has weathered storms. Loyalty through difficulty.', career: 'Nearly there. Don\'t quit now despite exhaustion.', self: 'Grit. The final stretch demands everything you have left.' },
+    reversed: { meaning: 'Stubbornness disguised as resilience. Know when rest is the braver choice.', love: 'Staying in something out of stubbornness, not love.', career: 'Burnout. The fight isn\'t worth the cost anymore.', self: 'Paranoia or defensiveness from past wounds.' },
+    faq: [{ q: 'What does the Nine of Wands mean?', a: 'Resilience and persistence. You\'re battle-worn but not beaten — one last effort.' }],
+  },
+  {
+    slug: 'ten-of-wands', name: 'Ten of Wands', roman: '', arcana: 'minor', suit: 'wands', number: 10,
+    keywords: ['burden', 'responsibility', 'overwhelm'],
+    tagline: 'You carry too much. Something must be set down.',
+    element: 'Fire',
+    upright: { meaning: 'Overburdened. Carrying more than your share. Responsibilities piling up.', love: 'Carrying the relationship alone. Unequal effort.', career: 'Overwork and burnout. Too many projects, too little delegation.', self: 'Learning to put things down. Not everything is yours to carry.' },
+    reversed: { meaning: 'Releasing burdens or finally delegating. Relief incoming.', love: 'Sharing the load. Letting a partner help.', career: 'Delegating effectively. Setting boundaries on workload.', self: 'Permission to rest. The weight lifts.' },
+    faq: [{ q: 'What does the Ten of Wands mean?', a: 'Burden and overwhelm. You\'re carrying too much — it\'s time to delegate or release.' }],
+  },
+  {
+    slug: 'page-of-wands', name: 'Page of Wands', roman: '', arcana: 'minor', suit: 'wands', number: 11,
+    keywords: ['enthusiasm', 'exploration', 'discovery'],
+    tagline: 'Wide-eyed and fearless. Every spark is a possibility.',
+    element: 'Fire',
+    upright: { meaning: 'Enthusiastic new beginnings. Curiosity and fearless exploration.', love: 'A new crush or exciting, playful connection.', career: 'A new creative venture or exciting opportunity to explore.', self: 'Beginner\'s mind. Embrace curiosity without needing expertise.' },
+    reversed: { meaning: 'Lack of direction or scattered energy. Enthusiasm without focus.', love: 'Immaturity in love. Wanting excitement without commitment.', career: 'Starting many things, finishing none. Lack of follow-through.', self: 'Restlessness. Channel your fire or it burns everything equally.' },
+    faq: [{ q: 'What does the Page of Wands mean?', a: 'Enthusiasm and exploration. A youthful spirit eager to try something new.' }],
+  },
+  {
+    slug: 'knight-of-wands', name: 'Knight of Wands', roman: '', arcana: 'minor', suit: 'wands', number: 12,
+    keywords: ['action', 'adventure', 'impulsiveness'],
+    tagline: 'Full speed, no map. Trust the fire to light the way.',
+    element: 'Fire',
+    upright: { meaning: 'Bold action and passionate pursuit. Charging ahead with confidence.', love: 'Passionate, exciting romance. Fast-moving and intense.', career: 'Bold career moves. Taking risks that others won\'t.', self: 'Living fully. Action over deliberation.' },
+    reversed: { meaning: 'Recklessness or burnout from going too hard, too fast.', love: 'Commitment-phobia or rushing without considering the other.', career: 'Hasty decisions catching up. Slow down before you crash.', self: 'Scattered energy. Fire without direction becomes destruction.' },
+    faq: [{ q: 'What does the Knight of Wands mean?', a: 'Bold action and adventure. Passionate pursuit of what excites you, with speed and confidence.' }],
+  },
+  {
+    slug: 'queen-of-wands', name: 'Queen of Wands', roman: '', arcana: 'minor', suit: 'wands', number: 13,
+    keywords: ['confidence', 'warmth', 'determination'],
+    tagline: 'She enters the room and the room reorients.',
+    element: 'Fire',
+    upright: { meaning: 'Confident, warm leadership. Magnetic presence and creative mastery.', love: 'Passionate, loyal partner. Deeply attractive and fully present.', career: 'Natural leadership. Others follow because they want to.', self: 'Owning your power without apology. Radiant self-assurance.' },
+    reversed: { meaning: 'Insecurity masked by bravado, or demanding too much attention.', love: 'Jealousy or controlling behavior from insecurity.', career: 'Burnout or micromanaging. Trust others to carry their weight.', self: 'Self-doubt hidden behind a confident exterior.' },
+    faq: [{ q: 'What does the Queen of Wands mean?', a: 'Confidence and warmth. Magnetic leadership and creative mastery in action.' }],
+  },
+  {
+    slug: 'king-of-wands', name: 'King of Wands', roman: '', arcana: 'minor', suit: 'wands', number: 14,
+    keywords: ['leadership', 'vision', 'entrepreneurship'],
+    tagline: 'He builds empires from sparks others overlooked.',
+    element: 'Fire',
+    upright: { meaning: 'Visionary leadership. Turning inspiration into lasting structures.', love: 'A passionate, protective partner. Loyal and inspiring.', career: 'Entrepreneurial success. Leading with vision and boldness.', self: 'Mastery of your fire. Passion in service of purpose.' },
+    reversed: { meaning: 'Tyrannical leadership or using charisma for manipulation.', love: 'Domineering or expecting others to follow without question.', career: 'Overreach or ego-driven decisions that harm the team.', self: 'Power without wisdom. Fire without containment.' },
+    faq: [{ q: 'What does the King of Wands mean?', a: 'Visionary leadership and mastery. The ability to inspire and build something lasting from passion.' }],
+  },
+];
+
+export const CARD_BY_SLUG: Record<string, TarotCard> = Object.fromEntries(
+  TAROT_CARDS.map((c) => [c.slug, c])
+);
