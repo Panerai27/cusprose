@@ -1,0 +1,289 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Nav from '../../../components/Nav.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import FaqSection from '../../../components/FaqSection.astro';
+import { TAROT_CARDS, SUIT_LABELS, type TarotCard } from '../../../data/tarotCards';
+
+export function getStaticPaths() {
+  return TAROT_CARDS.map((c) => ({ params: { card: c.slug }, props: { card: c } }));
+}
+
+const { card } = Astro.props as { card: TarotCard };
+
+const arcanaLabel = card.arcana === 'major'
+  ? `MAJOR ARCANA · ${card.roman}`
+  : `${SUIT_LABELS[card.suit!]?.toUpperCase() ?? card.suit?.toUpperCase()} · ${card.roman || card.number}`;
+
+const crumbs = card.arcana === 'major'
+  ? [
+      { label: 'Tarot', href: '/tarot/' },
+      { label: 'Major Arcana', href: '/tarot/' },
+      { label: card.roman || '0' },
+    ]
+  : [
+      { label: 'Tarot', href: '/tarot/' },
+      { label: SUIT_LABELS[card.suit!] ?? card.suit!, href: '/tarot/' },
+      { label: card.name },
+    ];
+
+const chipColors = [
+  'rgba(217,164,65,0.15)',
+  'rgba(91,91,214,0.12)',
+  'rgba(200,221,185,0.4)',
+  'rgba(217,204,235,0.4)',
+  'rgba(242,201,168,0.3)',
+];
+---
+<BaseLayout
+  title={`${card.name} · ${card.roman || card.arcana} · Tarot · cusprose`}
+  description={`${card.name} — ${card.tagline} Upright & reversed meanings for love, career & self.`}
+  path={`/tarot/cards/${card.slug}/`}
+>
+  <Nav current="Tarot" />
+
+  <main class="card-page">
+    <div class="container">
+      <Breadcrumb items={crumbs} />
+
+      <div class="grid">
+        <aside class="card-visual">
+          <div class="card-face">
+            <span class="card-roman">{card.roman || '—'}</span>
+            <span class="card-symbol">✦</span>
+            <div>
+              <div class="card-name">{card.name}</div>
+              <div class="card-keys">{card.keywords.map(k => k.toUpperCase()).join(' · ')}</div>
+            </div>
+          </div>
+        </aside>
+
+        <section class="card-content">
+          <p class="meta-label">{arcanaLabel}</p>
+          <h1>{card.name}</h1>
+          <p class="tagline">{card.tagline}</p>
+
+          <div class="chips">
+            {card.keywords.map((k, i) => (
+              <span class="chip" style={`background:${chipColors[i % chipColors.length]}`}>{k.toUpperCase()}</span>
+            ))}
+            {card.element && <span class="chip" style={`background:${chipColors[3]}`}>{card.element.toUpperCase()}</span>}
+          </div>
+
+          <div class="toggle-row">
+            <button class="toggle active" data-view="upright" type="button">UPRIGHT</button>
+            <button class="toggle" data-view="reversed" type="button">REVERSED</button>
+          </div>
+
+          <div class="reading-sections" id="upright-view">
+            <div class="reading-grid">
+              <div class="reading-block">
+                <p class="r-head">MEANING</p>
+                <p class="r-body">{card.upright.meaning}</p>
+              </div>
+              <div class="reading-block">
+                <p class="r-head">IN LOVE</p>
+                <p class="r-body">{card.upright.love}</p>
+              </div>
+              <div class="reading-block">
+                <p class="r-head">IN CAREER</p>
+                <p class="r-body">{card.upright.career}</p>
+              </div>
+              <div class="reading-block">
+                <p class="r-head">IN SELF</p>
+                <p class="r-body">{card.upright.self}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="reading-sections" id="reversed-view" hidden>
+            <div class="reading-grid">
+              <div class="reading-block">
+                <p class="r-head">MEANING</p>
+                <p class="r-body">{card.reversed.meaning}</p>
+              </div>
+              <div class="reading-block">
+                <p class="r-head">IN LOVE</p>
+                <p class="r-body">{card.reversed.love}</p>
+              </div>
+              <div class="reading-block">
+                <p class="r-head">IN CAREER</p>
+                <p class="r-body">{card.reversed.career}</p>
+              </div>
+              <div class="reading-block">
+                <p class="r-head">IN SELF</p>
+                <p class="r-body">{card.reversed.self}</p>
+              </div>
+            </div>
+          </div>
+
+          {card.faq && card.faq.length > 0 && <FaqSection items={card.faq} />}
+
+          <div class="actions">
+            <a href="/tarot/" class="btn-primary">DRAW YOUR OWN CARD →</a>
+            <a href="/tarot/" class="link-secondary">Browse all cards →</a>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .card-page { padding-bottom: 6rem; }
+  .grid {
+    display: grid;
+    grid-template-columns: 0.85fr 1fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+  }
+  @media (max-width: 860px) {
+    .grid { grid-template-columns: 1fr; }
+    .card-visual { max-width: 320px; margin: 0 auto; }
+  }
+
+  .card-face {
+    aspect-ratio: 2 / 3;
+    border-radius: 18px;
+    padding: 1.5rem;
+    background: var(--card-lavender);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(22, 23, 47, 0.15), 0 8px 20px rgba(22, 23, 47, 0.08);
+  }
+  .card-roman {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+  }
+  .card-symbol {
+    font-size: 3.5rem;
+    line-height: 1;
+    color: var(--gold);
+  }
+  .card-name {
+    font-size: 1rem;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--ink);
+    margin-bottom: 0.25rem;
+  }
+  .card-keys {
+    font-size: 0.55rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: var(--ink);
+    opacity: 0.55;
+  }
+
+  .meta-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 0.75rem;
+  }
+  h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    margin-bottom: 0.75rem;
+  }
+  .tagline {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
+  }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
+  .chip {
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px;
+    color: var(--ink);
+  }
+
+  .toggle-row { display: flex; gap: 0.5rem; margin-bottom: 2rem; }
+  .toggle {
+    font-family: inherit;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    padding: 0.6rem 1.2rem;
+    border-radius: 999px;
+    border: 1px solid var(--ink);
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+  .toggle.active { background: var(--ink); color: #fff; }
+
+  .reading-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  @media (max-width: 640px) { .reading-grid { grid-template-columns: 1fr; } }
+
+  .r-head {
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 0.5rem;
+  }
+  .r-body {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: var(--ink);
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+  }
+  .btn-primary {
+    background: var(--ink);
+    color: #fff;
+    padding: 1rem 1.8rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    transition: transform 0.2s;
+  }
+  .btn-primary:hover { transform: translateY(-1px); }
+  .link-secondary {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink);
+    border-bottom: 1px solid transparent;
+  }
+  .link-secondary:hover { border-bottom-color: var(--ink); }
+</style>
+
+<script>
+  document.querySelectorAll('.toggle').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const view = (btn as HTMLElement).dataset.view;
+      document.querySelectorAll('.toggle').forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('upright-view')!.hidden = view !== 'upright';
+      document.getElementById('reversed-view')!.hidden = view !== 'reversed';
+    });
+  });
+</script>

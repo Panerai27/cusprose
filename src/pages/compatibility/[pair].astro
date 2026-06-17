@@ -1,0 +1,302 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import FaqSection from '../../components/FaqSection.astro';
+import { COMPAT_PAIRS, type CompatPair } from '../../data/compatibility';
+import { SIGN_BY_SLUG, SIGNS } from '../../data/signs';
+
+export function getStaticPaths() {
+  return COMPAT_PAIRS.map((p) => ({ params: { pair: p.slug }, props: { pair: p } }));
+}
+
+const { pair } = Astro.props as { pair: CompatPair };
+const s1 = SIGN_BY_SLUG[pair.sign1];
+const s2 = SIGN_BY_SLUG[pair.sign2];
+
+const scores = [
+  { label: 'Love', score: pair.scores.love },
+  { label: 'Friendship', score: pair.scores.friendship },
+  { label: 'Communication', score: pair.scores.communication },
+  { label: 'Trust', score: pair.scores.trust },
+  { label: 'Intimacy', score: pair.scores.intimacy },
+];
+
+const crumbs = [
+  { label: 'Compatibility', href: '/compatibility/' },
+  { label: `${s1?.glyph ?? ''} ${s1?.name ?? pair.sign1}` },
+  { label: `${s2?.glyph ?? ''} ${s2?.name ?? pair.sign2}` },
+];
+---
+<BaseLayout
+  title={`${pair.title} Compatibility · cusprose`}
+  description={`${pair.title} compatibility — ${pair.tagline} Love, friendship, communication, trust & intimacy scores.`}
+  path={`/compatibility/${pair.slug}/`}
+>
+  <Nav current="Compatibility" />
+
+  <main class="compat">
+    <div class="container">
+      <Breadcrumb items={crumbs} />
+
+      <header class="hero">
+        <p class="eyebrow"><span class="star">✦</span> A COSMIC PAIRING</p>
+        <h1>{pair.title}</h1>
+        <p class="tagline">{pair.tagline}</p>
+      </header>
+
+      <section class="signs" aria-label="Sign comparison">
+        <div class="sign-cell">
+          <div class="emblem">
+            <span class="emblem-glyph">{s1?.glyph ?? '?'}</span>
+          </div>
+          <p class="cap-1">{s1?.name?.toUpperCase() ?? pair.sign1.toUpperCase()} · {s1?.dates ?? ''}</p>
+          <p class="cap-2">{s1?.element?.toUpperCase() ?? ''} · {s1?.modality?.toUpperCase() ?? ''}</p>
+        </div>
+
+        <div class="amp">&amp;</div>
+
+        <div class="sign-cell">
+          <div class="emblem">
+            <span class="emblem-glyph">{s2?.glyph ?? '?'}</span>
+          </div>
+          <p class="cap-1">{s2?.name?.toUpperCase() ?? pair.sign2.toUpperCase()} · {s2?.dates ?? ''}</p>
+          <p class="cap-2">{s2?.element?.toUpperCase() ?? ''} · {s2?.modality?.toUpperCase() ?? ''}</p>
+        </div>
+      </section>
+
+      <section class="overall">
+        <p class="o-label">OVERALL COMPATIBILITY</p>
+        <p class="o-score">{pair.overall}<span class="o-pct">%</span></p>
+      </section>
+
+      <section class="breakdown" aria-label="Compatibility breakdown">
+        <p class="b-head">THE BREAKDOWN</p>
+        <div class="rows">
+          {scores.map((m) => (
+            <div class="row">
+              <span class="m-label">{m.label}</span>
+              <div class="bar"><div class="fill" style={`width:${m.score}%`}></div></div>
+              <span class="m-score">{m.score}%</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="reading">
+        <p class="b-head">THE READING</p>
+        {pair.body.map((p) => <p class="body-p">{p}</p>)}
+      </section>
+
+      <div class="lists-grid">
+        <section class="list-section">
+          <p class="b-head">STRENGTHS</p>
+          <ul>
+            {pair.strengths.map((s) => <li>{s}</li>)}
+          </ul>
+        </section>
+        <section class="list-section">
+          <p class="b-head">CHALLENGES</p>
+          <ul>
+            {pair.challenges.map((c) => <li>{c}</li>)}
+          </ul>
+        </section>
+      </div>
+
+      {pair.faq && pair.faq.length > 0 && <FaqSection items={pair.faq} />}
+
+      <section class="picker" aria-label="Explore other pairings">
+        <p class="b-head">EXPLORE OTHER PAIRINGS</p>
+        <ul class="picker-grid">
+          {SIGNS.map((s) => (
+            <li>
+              <a class="pick" href={`/horoscopes/${s.slug}/`}>
+                <span class="pg" aria-hidden="true">{s.glyph}</span>
+                <span class="pn">{s.name}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .compat { padding-bottom: 6rem; }
+
+  .hero { text-align: center; margin-bottom: 3rem; }
+  .eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 1.2rem;
+  }
+  .eyebrow .star { color: var(--gold); margin-right: 0.4rem; }
+  h1 {
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.025em;
+    margin-bottom: 1rem;
+  }
+  .tagline {
+    font-size: clamp(1rem, 1.3vw, 1.18rem);
+    color: var(--ink-soft);
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  .signs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(2rem, 6vw, 5rem);
+    margin: 3rem 0 3.5rem;
+  }
+  .sign-cell { text-align: center; }
+  .emblem {
+    width: clamp(140px, 16vw, 200px);
+    aspect-ratio: 1;
+    background: #f5ebdd;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 20px 40px rgba(22,24,58,0.1);
+  }
+  .emblem-glyph { font-size: clamp(3rem, 5vw, 4.5rem); color: var(--gold); }
+  .cap-1 {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-top: 1.25rem;
+  }
+  .cap-2 {
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: 0.35rem;
+  }
+  .amp {
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    color: var(--gold);
+    font-family: Georgia, serif;
+    margin-top: -1.5rem;
+  }
+
+  .overall { text-align: center; margin-bottom: 3rem; }
+  .o-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 0.5rem;
+  }
+  .o-score {
+    font-size: 3.5rem;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: -0.02em;
+  }
+  .o-pct { font-size: 1.5rem; }
+
+  .breakdown { max-width: 760px; margin: 0 auto 3rem; }
+  .b-head {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  .rows { display: flex; flex-direction: column; gap: 1.1rem; }
+  .row {
+    display: grid;
+    grid-template-columns: 130px 1fr 50px;
+    align-items: center;
+    gap: 1.2rem;
+  }
+  .m-label { font-size: 0.95rem; color: var(--ink); }
+  .bar {
+    height: 8px;
+    background: #efe6d6;
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .fill {
+    height: 100%;
+    background: linear-gradient(90deg, #d9a441, #c9a856);
+    border-radius: 999px;
+  }
+  .m-score {
+    font-size: 0.85rem;
+    color: var(--gold);
+    font-weight: 600;
+    text-align: right;
+    letter-spacing: 0.05em;
+  }
+
+  .reading { max-width: 760px; margin: 0 auto 3rem; }
+  .reading .b-head { text-align: left; }
+  .body-p {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+
+  .lists-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    max-width: 760px;
+    margin: 0 auto 3rem;
+  }
+  @media (max-width: 640px) { .lists-grid { grid-template-columns: 1fr; } }
+  .list-section .b-head { text-align: left; margin-bottom: 1rem; }
+  .list-section ul { list-style: none; }
+  .list-section li {
+    font-size: 0.95rem;
+    color: var(--ink);
+    line-height: 1.55;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(22,24,58,0.06);
+    padding-left: 1rem;
+    position: relative;
+  }
+  .list-section li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  .picker { max-width: 760px; margin: 3rem auto 0; }
+  .picker-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.7rem;
+  }
+  .pick {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.85rem 0.5rem;
+    background: #fbf6ea;
+    border: 1px solid var(--surface-border);
+    border-radius: 14px;
+    transition: transform 0.18s, box-shadow 0.18s;
+  }
+  .pick:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(22,24,58,0.08); }
+  .pg { font-size: 1.5rem; color: var(--ink); }
+  .pn { font-size: 0.72rem; letter-spacing: 0.04em; color: var(--ink-soft); }
+  @media (max-width: 760px) { .picker-grid { grid-template-columns: repeat(4, 1fr); } }
+  @media (max-width: 440px) { .picker-grid { grid-template-columns: repeat(3, 1fr); } .row { grid-template-columns: 100px 1fr 44px; gap: 0.8rem; } }
+</style>

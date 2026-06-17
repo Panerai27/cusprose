@@ -1,91 +1,75 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Nav from '../components/Nav.astro';
-
-// Compatibility — mockup 04 — sample pair: Leo × Libra
-const breakdown = [
-  { label: 'Love',          score: 88 },
-  { label: 'Friendship',    score: 92 },
-  { label: 'Communication', score: 75 },
-  { label: 'Trust',         score: 67 },
-  { label: 'Intimacy',      score: 85 },
-];
-
-const signs = [
-  { name: 'Aries',       glyph: '♈', slug: 'aries' },
-  { name: 'Taurus',      glyph: '♉', slug: 'taurus' },
-  { name: 'Gemini',      glyph: '♊', slug: 'gemini' },
-  { name: 'Cancer',      glyph: '♋', slug: 'cancer' },
-  { name: 'Leo',         glyph: '♌', slug: 'leo' },
-  { name: 'Virgo',       glyph: '♍', slug: 'virgo' },
-  { name: 'Libra',       glyph: '♎', slug: 'libra' },
-  { name: 'Scorpio',     glyph: '♏', slug: 'scorpio' },
-  { name: 'Sagittarius', glyph: '♐', slug: 'sagittarius' },
-  { name: 'Capricorn',   glyph: '♑', slug: 'capricorn' },
-  { name: 'Aquarius',    glyph: '♒', slug: 'aquarius' },
-  { name: 'Pisces',      glyph: '♓', slug: 'pisces' },
-];
+import { SIGNS } from '../data/signs';
+import { COMPAT_PAIRS } from '../data/compatibility';
 ---
-<BaseLayout title="Leo & Libra · Compatibility · cusprose" path="/compatibility/" description="Fire meets air. Cosmic compatibility decoded.">
+<BaseLayout title="Zodiac Compatibility · cusprose" path="/compatibility/" description="Cosmic compatibility decoded. Explore love, friendship, communication, trust & intimacy scores for all 144 zodiac pairings.">
   <Nav current="Compatibility" />
 
   <main class="compat">
     <div class="container">
-      <p class="crumb">COMPATIBILITY / LEO ♌ × LIBRA ♎</p>
-
       <header class="hero">
-        <p class="eyebrow"><span class="star">✦</span> A COSMIC PAIRING</p>
-        <h1>Leo &amp; Libra</h1>
-        <p class="tagline">Fire meets air. The room gets warmer when you walk in together.</p>
+        <p class="eyebrow"><span class="star">✦</span> ZODIAC COMPATIBILITY</p>
+        <h1>Find your<br/>cosmic match.</h1>
+        <p class="tagline">Select two signs to explore their compatibility across love, friendship, trust, and more.</p>
       </header>
 
-      <section class="signs" aria-label="Sign comparison">
-        <div class="sign-cell">
-          <div class="emblem" aria-hidden="true">
-            <svg viewBox="0 0 80 80" aria-hidden="true">
-              <circle cx="40" cy="40" r="38" fill="none" stroke="#d9a441" stroke-width="0.6"/>
-              <!-- Leo glyph -->
-              <path d="M30 32 q-6 12 4 18 q10 6 16 -4 q4 -7 -2 -10 q-6 -3 -10 2 q-3 4 0 7" fill="none" stroke="#d9a441" stroke-width="1.5" stroke-linecap="round"/>
-              <circle cx="42" cy="32" r="2.5" fill="none" stroke="#d9a441" stroke-width="1.5"/>
-            </svg>
+      <section class="selector" aria-label="Pick two signs">
+        <p class="sel-label">CHOOSE TWO SIGNS</p>
+        <div class="sel-row">
+          <div class="sel-col">
+            <label class="sel-heading" for="sign1">FIRST SIGN</label>
+            <div class="sign-grid" id="sign1-grid">
+              {SIGNS.map((s) => (
+                <button type="button" class="sign-pick" data-sign={s.slug} data-grid="1">
+                  <span class="sp-glyph">{s.glyph}</span>
+                  <span class="sp-name">{s.name}</span>
+                </button>
+              ))}
+            </div>
           </div>
-          <p class="cap-1">LEO · JUL 23 — AUG 22</p>
-          <p class="cap-2">FIRE · FIXED</p>
-        </div>
-
-        <div class="amp">&amp;</div>
-
-        <div class="sign-cell">
-          <div class="emblem" aria-hidden="true">
-            <svg viewBox="0 0 80 80" aria-hidden="true">
-              <circle cx="40" cy="40" r="38" fill="none" stroke="#d9a441" stroke-width="0.6"/>
-              <!-- Libra glyph -->
-              <path d="M20 52 h40 M22 44 h36" stroke="#d9a441" stroke-width="1.5" stroke-linecap="round"/>
-              <path d="M28 44 q2 -10 12 -10 q10 0 12 10" fill="none" stroke="#d9a441" stroke-width="1.5"/>
-            </svg>
+          <div class="sel-amp">&amp;</div>
+          <div class="sel-col">
+            <label class="sel-heading" for="sign2">SECOND SIGN</label>
+            <div class="sign-grid" id="sign2-grid">
+              {SIGNS.map((s) => (
+                <button type="button" class="sign-pick" data-sign={s.slug} data-grid="2">
+                  <span class="sp-glyph">{s.glyph}</span>
+                  <span class="sp-name">{s.name}</span>
+                </button>
+              ))}
+            </div>
           </div>
-          <p class="cap-1">LIBRA · SEP 23 — OCT 22</p>
-          <p class="cap-2">AIR · CARDINAL</p>
         </div>
+        <a class="sel-go" id="sel-go" href="/compatibility/" aria-disabled="true">
+          VIEW COMPATIBILITY →
+        </a>
       </section>
 
-      <section class="breakdown" aria-label="Compatibility breakdown">
-        <p class="b-head">THE BREAKDOWN</p>
-        <div class="rows">
-          {breakdown.map((m) => (
-            <div class="row">
-              <span class="m-label">{m.label}</span>
-              <div class="bar"><div class="fill" style={`width:${m.score}%`}></div></div>
-              <span class="m-score">{m.score}%</span>
-            </div>
-          ))}
-        </div>
+      <section class="all-pairs">
+        <p class="b-head">ALL PAIRINGS</p>
+        <ul class="pairs-grid">
+          {COMPAT_PAIRS.map((p) => {
+            const s1 = SIGNS.find(s => s.slug === p.sign1);
+            const s2 = SIGNS.find(s => s.slug === p.sign2);
+            return (
+              <li>
+                <a class="pair-card" href={`/compatibility/${p.slug}/`}>
+                  <span class="pair-glyphs">{s1?.glyph ?? ''} × {s2?.glyph ?? ''}</span>
+                  <span class="pair-title">{p.title}</span>
+                  <span class="pair-score">{p.overall}%</span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
       </section>
 
       <section class="picker" aria-label="Daily horoscope by sign">
         <p class="b-head">READ YOUR DAILY HOROSCOPE</p>
         <ul class="picker-grid">
-          {signs.map((s) => (
+          {SIGNS.map((s) => (
             <li>
               <a class="pick" href={`/horoscopes/${s.slug}/`}>
                 <span class="pg" aria-hidden="true">{s.glyph}</span>
@@ -95,26 +79,14 @@ const signs = [
           ))}
         </ul>
       </section>
-
-      <section class="more-pairs">
-        <p class="b-head">MORE PAIRINGS COMING SOON</p>
-        <p class="more-desc">We're building compatibility readings for all 144 zodiac pairings. Check back soon for yours.</p>
-      </section>
     </div>
   </main>
 </BaseLayout>
 
 <style>
-  .compat { padding-bottom: 6rem; position: relative; }
-  .crumb {
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    margin-bottom: 2.5rem;
-  }
+  .compat { padding-bottom: 6rem; }
 
-  .hero { text-align: center; margin-bottom: 4rem; }
+  .hero { text-align: center; margin-bottom: 3rem; }
   .eyebrow {
     font-size: 0.72rem;
     letter-spacing: 0.22em;
@@ -137,48 +109,85 @@ const signs = [
     margin: 0 auto;
   }
 
-  .signs {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: clamp(2rem, 6vw, 5rem);
-    margin: 4rem 0 4.5rem;
+  .selector {
+    max-width: 860px;
+    margin: 0 auto 4rem;
+    text-align: center;
   }
-  .sign-cell { text-align: center; }
-  .emblem {
-    width: clamp(180px, 18vw, 240px);
-    aspect-ratio: 1;
-    background: #f5ebdd;
-    border: none;
-    border-radius: 50%;
-    padding: 0;
-    box-shadow: 0 20px 40px rgba(22,24,58,0.1);
-  }
-  .emblem svg { width: 70%; height: 70%; }
-
-  .cap-1 {
-    font-size: 0.72rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--ink);
-    margin-top: 1.25rem;
-  }
-  .cap-2 {
-    font-size: 0.7rem;
+  .sel-label {
+    font-size: 0.68rem;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--gold);
-    margin-top: 0.35rem;
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
   }
-  .amp {
-    font-size: clamp(3rem, 5vw, 4.5rem);
+  .sel-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: clamp(1.5rem, 4vw, 3rem);
+  }
+  @media (max-width: 640px) { .sel-row { flex-direction: column; align-items: center; } }
+  .sel-col { flex: 1; max-width: 360px; }
+  .sel-heading {
+    display: block;
+    font-size: 0.66rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+    text-align: center;
+  }
+  .sel-amp {
+    font-size: clamp(2rem, 4vw, 3.5rem);
     color: var(--gold);
     font-family: Georgia, serif;
-    align-self: center;
-    margin-top: -1.5rem;
+    padding-top: 2rem;
   }
+  @media (max-width: 640px) { .sel-amp { padding-top: 0; } }
+  .sign-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+  }
+  @media (max-width: 440px) { .sign-grid { grid-template-columns: repeat(3, 1fr); } }
+  .sign-pick {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 0.6rem 0.3rem;
+    background: #fbf6ea;
+    border: 1.5px solid var(--surface-border);
+    border-radius: 14px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+  }
+  .sign-pick:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(22,24,58,0.06); }
+  .sign-pick.selected {
+    border-color: var(--gold);
+    background: rgba(217,164,65,0.12);
+    box-shadow: 0 0 0 2px rgba(217,164,65,0.25);
+  }
+  .sp-glyph { font-size: 1.2rem; color: var(--ink); }
+  .sp-name { font-size: 0.62rem; letter-spacing: 0.04em; color: var(--ink-soft); }
+  .sel-go {
+    display: inline-block;
+    margin-top: 1.5rem;
+    background: var(--ink);
+    color: #fff;
+    padding: 0.9rem 2rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+  .sel-go[aria-disabled="true"] { opacity: 0.4; pointer-events: none; }
+  .sel-go:hover { transform: translateY(-1px); }
 
-  .breakdown { max-width: 760px; margin: 0 auto; }
+  .all-pairs { max-width: 860px; margin: 0 auto 4rem; }
   .b-head {
     font-size: 0.72rem;
     letter-spacing: 0.22em;
@@ -187,32 +196,29 @@ const signs = [
     margin-bottom: 1.5rem;
     text-align: center;
   }
-  .rows { display: flex; flex-direction: column; gap: 1.1rem; }
-  .row {
+  .pairs-grid {
+    list-style: none;
     display: grid;
-    grid-template-columns: 130px 1fr 50px;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 0.7rem;
+  }
+  .pair-card {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 1.2rem;
+    gap: 0.3rem;
+    padding: 1rem 0.6rem;
+    background: var(--surface);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--surface-border);
+    border-radius: 14px;
+    text-align: center;
+    transition: transform 0.18s, box-shadow 0.18s;
   }
-  .m-label { font-size: 0.95rem; color: var(--ink); }
-  .bar {
-    height: 8px;
-    background: #efe6d6;
-    border-radius: 999px;
-    overflow: hidden;
-  }
-  .fill {
-    height: 100%;
-    background: linear-gradient(90deg, #d9a441, #c9a856);
-    border-radius: 999px;
-  }
-  .m-score {
-    font-size: 0.85rem;
-    color: var(--gold);
-    font-weight: 600;
-    text-align: right;
-    letter-spacing: 0.05em;
-  }
+  .pair-card:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(22,24,58,0.08); }
+  .pair-glyphs { font-size: 1.1rem; color: var(--ink); }
+  .pair-title { font-size: 0.78rem; font-weight: 500; color: var(--ink); }
+  .pair-score { font-size: 0.7rem; color: var(--gold); font-weight: 600; }
 
   .picker { max-width: 760px; margin: 4.5rem auto 0; }
   .picker .b-head { margin-bottom: 1.6rem; }
@@ -238,21 +244,40 @@ const signs = [
   .pn { font-size: 0.72rem; letter-spacing: 0.04em; color: var(--ink-soft); }
   @media (max-width: 760px) { .picker-grid { grid-template-columns: repeat(4, 1fr); } }
   @media (max-width: 440px) { .picker-grid { grid-template-columns: repeat(3, 1fr); } }
-
-  .more-pairs {
-    max-width: 760px;
-    margin: 3.5rem auto 0;
-    text-align: center;
-  }
-  .more-desc {
-    font-size: 0.95rem;
-    color: var(--ink-soft);
-    line-height: 1.6;
-    max-width: 480px;
-    margin: 0 auto;
-  }
-
-  @media (max-width: 640px) {
-    .row { grid-template-columns: 100px 1fr 44px; gap: 0.8rem; }
-  }
 </style>
+
+<script>
+  const grids = { '1': document.getElementById('sign1-grid'), '2': document.getElementById('sign2-grid') };
+  const goBtn = document.getElementById('sel-go') as HTMLAnchorElement | null;
+  const selected: Record<string, string | null> = { '1': null, '2': null };
+  const slugs = JSON.parse(JSON.stringify({COMPAT_PAIRS_SLUGS: []}));
+
+  document.querySelectorAll('.sign-pick').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const el = btn as HTMLElement;
+      const grid = el.dataset.grid!;
+      const sign = el.dataset.sign!;
+      const container = grids[grid];
+      if (!container) return;
+      container.querySelectorAll('.sign-pick').forEach(b => b.classList.remove('selected'));
+      el.classList.add('selected');
+      selected[grid] = sign;
+      updateGoBtn();
+    });
+  });
+
+  function updateGoBtn() {
+    if (!goBtn) return;
+    const s1 = selected['1'];
+    const s2 = selected['2'];
+    if (s1 && s2) {
+      const sorted = [s1, s2].sort();
+      const slug = sorted[0] + '-' + sorted[1];
+      goBtn.href = '/compatibility/' + slug + '/';
+      goBtn.removeAttribute('aria-disabled');
+    } else {
+      goBtn.href = '/compatibility/';
+      goBtn.setAttribute('aria-disabled', 'true');
+    }
+  }
+</script>

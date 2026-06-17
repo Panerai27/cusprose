@@ -1,0 +1,55 @@
+---
+export interface Props {
+  items: { label: string; href?: string }[];
+}
+const { items } = Astro.props;
+
+const schemaItems = items.map((item, i) => ({
+  '@type': 'ListItem',
+  position: i + 1,
+  name: item.label,
+  ...(item.href ? { item: `https://cusprose.com${item.href}` } : {}),
+}));
+---
+<nav class="crumb" aria-label="Breadcrumb">
+  <ol>
+    {items.map((item, i) => (
+      <li>
+        {item.href ? <a href={item.href}>{item.label}</a> : <span>{item.label}</span>}
+        {i < items.length - 1 && <span class="sep" aria-hidden="true">/</span>}
+      </li>
+    ))}
+  </ol>
+</nav>
+<script type="application/ld+json" set:html={JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: schemaItems,
+})} />
+
+<style>
+  .crumb ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    list-style: none;
+    margin-bottom: 2.5rem;
+  }
+  .crumb li {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .crumb a {
+    color: var(--ink-soft);
+    transition: color 0.2s;
+  }
+  .crumb a:hover { color: var(--ink); }
+  .crumb span:not(.sep) { color: var(--ink); }
+  .sep { opacity: 0.4; }
+</style>

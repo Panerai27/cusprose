@@ -1,6 +1,7 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Nav from '../components/Nav.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import { HEXAGRAMS } from '../../data/ichingHexagrams';
 
 // I-Ching — mockup 05 — Hexagram 11 Tài (Peace)
 // Lines bottom→top: Y Y Y / y y y  (Heaven below, Earth above)
@@ -79,6 +80,22 @@ const lines = [
           </div>
         </section>
       </div>
+
+      <section class="all-hex">
+        <p class="all-head">ALL HEXAGRAMS</p>
+        <ul class="hex-grid">
+          {HEXAGRAMS.map((h) => (
+            <li>
+              <a class="hex-card" href={`/iching/${h.slug}/`}>
+                <span class="hex-num">{h.number}</span>
+                <span class="hex-cn" aria-hidden="true">{h.chinese}</span>
+                <span class="hex-name">{h.name}</span>
+                <span class="hex-eng">{h.english}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
     </div>
   </main>
 </BaseLayout>
@@ -242,4 +259,56 @@ const lines = [
     margin-bottom: 0.5rem;
   }
   .attr { font-size: 0.78rem; color: var(--ink-soft); }
+
+  /* all hexagrams grid */
+  .all-hex { margin-top: 5rem; }
+  .all-head {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  .hex-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 0.7rem;
+  }
+  .hex-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.9rem 0.5rem;
+    background: var(--surface);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--surface-border);
+    border-radius: 14px;
+    text-align: center;
+    transition: transform 0.18s, box-shadow 0.18s;
+  }
+  .hex-card:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(22,24,58,0.08); }
+  .hex-num {
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: var(--ink-soft);
+  }
+  .hex-cn {
+    font-size: 1.4rem;
+    color: var(--gold);
+    line-height: 1.2;
+  }
+  .hex-name {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .hex-eng {
+    font-size: 0.62rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.04em;
+  }
 </style>

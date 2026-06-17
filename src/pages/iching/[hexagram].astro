@@ -1,0 +1,257 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import FaqSection from '../../components/FaqSection.astro';
+import { HEXAGRAMS, type Hexagram } from '../../data/ichingHexagrams';
+
+export function getStaticPaths() {
+  return HEXAGRAMS.map((h) => ({ params: { hexagram: h.slug }, props: { hex: h } }));
+}
+
+const { hex } = Astro.props as { hex: Hexagram };
+
+const crumbs = [
+  { label: 'East', href: '/east/' },
+  { label: 'I Ching', href: '/iching/' },
+  { label: `Hexagram ${hex.number}` },
+];
+
+const paragraphs = hex.interpretation.split('\n\n');
+---
+<BaseLayout
+  title={`Hexagram ${hex.number} · ${hex.name} (${hex.english}) · I Ching · cusprose`}
+  description={`I Ching Hexagram ${hex.number} ${hex.name} — ${hex.english}. ${hex.judgment}`}
+  path={`/iching/${hex.slug}/`}
+>
+  <Nav current="East" />
+
+  <main class="hex-page">
+    <div class="container">
+      <Breadcrumb items={crumbs} />
+
+      <div class="grid">
+        <section class="hero">
+          <p class="eyebrow"><span class="star">✦</span> HEXAGRAM {hex.number}</p>
+          <h1>{hex.name} —<br/>{hex.english}.</h1>
+          <p class="chinese-char" aria-hidden="true">{hex.chinese}</p>
+          <p class="lede">
+            {hex.trigrams.upper} above, {hex.trigrams.lower} below.
+          </p>
+
+          {hex.changingInto && (
+            <p class="changing">
+              <span class="changing-label">CHANGES INTO</span>
+              <a href={`/iching/${hex.changingInto}/`}>{hex.changingInto} →</a>
+            </p>
+          )}
+        </section>
+
+        <aside class="figure">
+          <p class="fig-head">THE FIGURE</p>
+          <div class="lines">
+            {[...hex.lines].reverse().map((l, i) => (
+              <div class="line-row">
+                <span class="line-num">{6 - i}</span>
+                <span class={`line-glyph ${l}`}>
+                  {l === 'yang' ? (
+                    <span class="bar full"></span>
+                  ) : (
+                    <><span class="bar half"></span><span class="bar half"></span></>
+                  )}
+                </span>
+              </div>
+            ))}
+          </div>
+          <div class="trigram-labels">
+            <span>{hex.trigrams.upper}</span>
+            <span>{hex.trigrams.lower}</span>
+          </div>
+        </aside>
+
+        <section class="reading">
+          <div class="panel">
+            <p class="p-head">JUDGMENT</p>
+            <blockquote>{hex.judgment}</blockquote>
+          </div>
+          <div class="panel">
+            <p class="p-head">THE IMAGE</p>
+            <p class="p-body">{hex.image}</p>
+          </div>
+          <div class="panel">
+            <p class="p-head">INTERPRETATION</p>
+            {paragraphs.map((p) => <p class="p-body">{p}</p>)}
+          </div>
+        </section>
+      </div>
+
+      <div class="faq-wrap">
+        {hex.faq && hex.faq.length > 0 && <FaqSection items={hex.faq} />}
+      </div>
+
+      <div class="actions">
+        <a href="/iching/" class="btn-primary">BROWSE ALL HEXAGRAMS →</a>
+        <a href="/east/" class="link-secondary">Eastern divination →</a>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .hex-page { padding-bottom: 6rem; }
+  .grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr 1fr;
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+  @media (max-width: 980px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+
+  .eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
+  }
+  .eyebrow .star { color: var(--gold); margin-right: 0.4rem; }
+  h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    margin-bottom: 1rem;
+  }
+  .chinese-char {
+    font-size: 3rem;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+  }
+  .lede {
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    margin-bottom: 2rem;
+    max-width: 460px;
+  }
+
+  .changing { font-size: 0.82rem; color: var(--ink-soft); }
+  .changing-label {
+    font-size: 0.66rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-right: 0.5rem;
+  }
+  .changing a {
+    color: var(--ink);
+    border-bottom: 1px solid var(--ink-soft);
+  }
+
+  .figure {
+    background: var(--surface);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--surface-border);
+    border-radius: 20px;
+    padding: 1.8rem 1.6rem;
+    box-shadow: 0 14px 40px rgba(22,24,58,0.08);
+    text-align: center;
+  }
+  .fig-head {
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
+  }
+  .lines { display: flex; flex-direction: column; gap: 0.7rem; }
+  .line-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.3rem 0.4rem;
+  }
+  .line-num {
+    font-size: 0.7rem;
+    color: var(--ink-soft);
+    width: 14px;
+    text-align: right;
+  }
+  .line-glyph {
+    flex: 1;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+  }
+  .bar {
+    height: 8px;
+    background: var(--ink);
+    border-radius: 2px;
+  }
+  .bar.full { width: 100%; }
+  .bar.half { width: calc(50% - 4px); }
+  .trigram-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.2rem;
+    font-size: 0.7rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .reading { display: flex; flex-direction: column; gap: 1.6rem; }
+  .p-head {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 0.7rem;
+  }
+  .p-body {
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--ink);
+    margin-bottom: 0.75rem;
+  }
+  blockquote {
+    font-size: 1.3rem;
+    line-height: 1.3;
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  .faq-wrap { max-width: 760px; margin: 0 auto; }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .btn-primary {
+    background: var(--ink);
+    color: #fff;
+    padding: 1rem 1.8rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    transition: transform 0.2s;
+  }
+  .btn-primary:hover { transform: translateY(-1px); }
+  .link-secondary {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink);
+    border-bottom: 1px solid transparent;
+  }
+  .link-secondary:hover { border-bottom-color: var(--ink); }
+</style>
