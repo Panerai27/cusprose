@@ -1,40 +1,6 @@
 ---
-const title = 'cusprose — daily divination for the modern soul';
-const description = 'Tarot, horoscopes & cosmic insights — designed for who you are now.';
-const site = 'https://cusprose.com';
-const ogImage = `${site}/favicon.svg`;
-
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'Organization',
-      '@id': `${site}/#organization`,
-      name: 'cusprose',
-      url: site,
-      logo: ogImage,
-    },
-    {
-      '@type': 'WebSite',
-      '@id': `${site}/#website`,
-      url: site,
-      name: 'cusprose',
-      description,
-      publisher: { '@id': `${site}/#organization` },
-    },
-  ],
-};
-
-import Footer from '../components/Footer.astro';
-
-const navLinks = [
-  { label: 'Today',         href: '/' },
-  { label: 'Tarot',         href: '/tarot' },
-  { label: 'Horoscopes',    href: '/horoscopes' },
-  { label: 'Compatibility', href: '/compatibility' },
-  { label: 'Birth Chart',   href: '/birth-chart' },
-  { label: 'Shop',          href: '#' },
-];
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
 
 const cards = [
   { roman: 'XVII', name: 'The Star', keywords: 'HOPE · RENEWAL', bg: '#DCD4E8', symbol: 'star',     rotate: -8 },
@@ -42,421 +8,343 @@ const cards = [
   { roman: 'XIX', name: 'The Sun',   keywords: 'JOY · VITALITY',     bg: '#C9DCB8', symbol: 'sun',   rotate: 10 },
 ];
 
-const features = [
-  { tag: 'TAROT',         title: '78 cards, infinite stories.',     meta: 'Major & Minor Arcana, upright & reversed', icon: 'tarot' },
-  { tag: 'HOROSCOPE',     title: 'Daily, weekly, just for you.',    meta: '12 signs · written, not generated',        icon: 'horoscope' },
-  { tag: 'COMPATIBILITY', title: 'Lovers, friends, cosmic matches.',meta: '144 sign pairings, decoded',               icon: 'compat' },
-  { tag: 'BIRTH CHART',   title: 'A portrait of you.',              meta: 'Free natal chart · in 60 seconds',         icon: 'chart' },
+const westernFeatures = [
+  { tag: 'TAROT',         title: '78 cards, infinite stories.',      meta: 'Major & Minor Arcana, upright & reversed', icon: 'tarot',     href: '/tarot' },
+  { tag: 'HOROSCOPE',     title: 'Daily, weekly, just for you.',     meta: '12 signs · written, not generated',        icon: 'horoscope', href: '/horoscopes' },
+  { tag: 'COMPATIBILITY', title: 'Lovers, friends, cosmic matches.', meta: '144 sign pairings, decoded',               icon: 'compat',    href: '/compatibility' },
+  { tag: 'BIRTH CHART',   title: 'A portrait of you.',               meta: 'Free natal chart · in 60 seconds',         icon: 'chart',     href: '/birth-chart' },
+];
+
+const easternFeatures = [
+  { tag: 'I CHING',    cn: '易经', title: '64 hexagrams, read the moment.', meta: 'Coin or yarrow · plain-English line readings', href: '/iching' },
+  { tag: 'BAZI',       cn: '八字', title: 'Your four pillars, in English.', meta: 'Year · Month · Day · Hour — destiny chart',    href: '/east/bazi' },
+  { tag: 'FENG SHUI',  cn: '风水', title: 'How space shapes the day.',      meta: 'Bagua, five elements, modern rooms',           href: '/east/feng-shui' },
 ];
 ---
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <meta name="robots" content="index, follow, max-image-preview:large" />
-    <meta name="keywords" content="tarot, horoscopes, astrology, birth chart, compatibility, I Ching, BaZi, Feng Shui, Zi Wei Dou Shu, divination" />
-    <link rel="canonical" href="https://cusprose.com/" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:url" content="https://cusprose.com/" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="cusprose" />
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:image" content={ogImage} />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
-    <meta name="theme-color" content="#e8d4e4" />
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
-    <style>
-      :root {
-        --ink: #16172F;
-        --muted: #6B6B7B;
-        --accent: #5B5BD6;
-        --gold: #C9A24A;
-        --sun: #E89B5C;
-        --card-bg: rgba(255, 255, 255, 0.55);
-        --card-border: rgba(255, 255, 255, 0.7);
-      }
-      * { box-sizing: border-box; margin: 0; padding: 0; }
-      html { -webkit-text-size-adjust: 100%; }
-      body {
-        font-family: 'Inter', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
-        color: var(--ink);
-        background: linear-gradient(135deg, #E8DCEC 0%, #F2C9B0 50%, #CDE0B8 100%);
-        min-height: 100vh;
-        background-attachment: fixed;
-        -webkit-font-smoothing: antialiased;
-        position: relative;
-        overflow-x: hidden;
-      }
-      body::before {
-        content: '';
-        position: fixed;
-        inset: 0;
-        background-image:
-          radial-gradient(circle at 12% 20%, rgba(91, 91, 214, 0.18) 1px, transparent 1.5px),
-          radial-gradient(circle at 78% 14%, rgba(91, 91, 214, 0.14) 1px, transparent 1.5px),
-          radial-gradient(circle at 22% 78%, rgba(91, 91, 214, 0.12) 1px, transparent 1.5px),
-          radial-gradient(circle at 88% 64%, rgba(91, 91, 214, 0.16) 1px, transparent 1.5px),
-          radial-gradient(circle at 50% 92%, rgba(91, 91, 214, 0.10) 1px, transparent 1.5px);
-        pointer-events: none;
-        z-index: 0;
-      }
-      .container {
-        max-width: 1280px;
-        margin: 0 auto;
-        padding: 0 clamp(20px, 4vw, 64px);
-        position: relative;
-        z-index: 1;
-      }
+<BaseLayout
+  title="cusprose — daily divination for the modern soul"
+  description="Tarot, horoscopes & cosmic insights — designed for who you are now."
+  path="/"
+>
+  <Nav />
 
-      /* nav */
-      nav {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 28px 0;
-        gap: 24px;
-      }
-      .logo {
-        font-size: 22px;
-        font-weight: 600;
-        letter-spacing: -0.01em;
-        color: var(--ink);
-        text-decoration: none;
-      }
-      .logo .dot { color: var(--accent); }
-      .nav-links {
-        display: flex;
-        gap: 32px;
-        list-style: none;
-      }
-      .nav-links a {
-        font-size: 14px;
-        font-weight: 500;
-        color: var(--ink);
-        text-decoration: none;
-        opacity: 0.85;
-        transition: opacity 0.2s;
-      }
-      .nav-links a:hover { opacity: 1; }
-      .sign-in {
-        background: var(--ink);
-        color: #fff;
-        padding: 12px 22px;
-        border-radius: 999px;
-        font-size: 12px;
-        font-weight: 600;
-        letter-spacing: 0.1em;
-        text-decoration: none;
-        white-space: nowrap;
-        transition: transform 0.2s;
-      }
-      .sign-in:hover { transform: translateY(-1px); }
-      @media (max-width: 900px) {
-        .nav-links { display: none; }
-      }
-
-      /* hero */
-      .hero {
-        display: grid;
-        grid-template-columns: 1.05fr 1fr;
-        gap: 64px;
-        align-items: center;
-        padding: clamp(60px, 9vw, 120px) 0 clamp(80px, 10vw, 140px);
-      }
-      .eyebrow {
-        font-size: 12px;
-        font-weight: 600;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        color: var(--accent);
-        margin-bottom: 28px;
-      }
-      h1 {
-        font-size: clamp(48px, 7.5vw, 88px);
-        font-weight: 600;
-        line-height: 1.02;
-        letter-spacing: -0.025em;
-        color: var(--ink);
-        margin-bottom: 28px;
-      }
-      .lede {
-        font-size: clamp(16px, 1.4vw, 19px);
-        line-height: 1.55;
-        color: var(--muted);
-        max-width: 480px;
-        margin-bottom: 40px;
-      }
-      .cta-row {
-        display: flex;
-        align-items: center;
-        gap: 28px;
-        flex-wrap: wrap;
-      }
-      .btn-primary {
-        background: var(--ink);
-        color: #fff;
-        padding: 18px 32px;
-        border-radius: 999px;
-        font-size: 13px;
-        font-weight: 600;
-        letter-spacing: 0.12em;
-        text-decoration: none;
-        transition: transform 0.2s;
-      }
-      .btn-primary:hover { transform: translateY(-1px); }
-      .link-secondary {
-        font-size: 15px;
-        font-weight: 500;
-        color: var(--ink);
-        text-decoration: none;
-        border-bottom: 1px solid transparent;
-      }
-      .link-secondary:hover { border-bottom-color: var(--ink); }
-
-      /* card cluster */
-      .cards {
-        position: relative;
-        height: clamp(360px, 42vw, 480px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .card {
-        position: absolute;
-        width: clamp(150px, 16vw, 200px);
-        aspect-ratio: 2 / 3;
-        border-radius: 18px;
-        padding: 18px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-        box-shadow:
-          0 20px 50px rgba(22, 23, 47, 0.15),
-          0 8px 20px rgba(22, 23, 47, 0.08);
-        text-align: center;
-      }
-      .card-left   { transform: translateX(-65%) rotate(-8deg); z-index: 1; }
-      .card-center { transform: translateY(-8%) rotate(0deg);   z-index: 3; }
-      .card-right  { transform: translateX(65%)  rotate(10deg); z-index: 2; }
-      .card-roman {
-        font-size: 13px;
-        font-weight: 600;
-        letter-spacing: 0.18em;
-        color: var(--gold);
-      }
-      .card-symbol {
-        font-size: clamp(48px, 5.5vw, 64px);
-        line-height: 1;
-        color: var(--gold);
-      }
-      .card-right .card-symbol { color: var(--sun); }
-      .card-name {
-        font-size: 14px;
-        font-weight: 600;
-        font-style: italic;
-        color: var(--ink);
-        margin-bottom: 4px;
-      }
-      .card-keywords {
-        font-size: 9px;
-        font-weight: 600;
-        letter-spacing: 0.14em;
-        color: var(--ink);
-        opacity: 0.55;
-      }
-      @media (max-width: 860px) {
-        .hero { grid-template-columns: 1fr; gap: 40px; }
-        .cards { order: -1; height: 340px; }
-        .card-left   { transform: translateX(-50%) rotate(-8deg); }
-        .card-right  { transform: translateX(50%)  rotate(10deg); }
-      }
-
-      /* explore */
-      .explore { padding-bottom: clamp(80px, 10vw, 140px); }
-      .explore .eyebrow { margin-bottom: 36px; }
-      .feature-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 20px;
-      }
-      .feature {
-        background: var(--card-bg);
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
-        border: 1px solid var(--card-border);
-        border-radius: 22px;
-        padding: 32px 28px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        min-height: 260px;
-        position: relative;
-        overflow: hidden;
-        transition: transform 0.25s, box-shadow 0.25s;
-      }
-      .feature-icon {
-        position: absolute;
-        right: 22px;
-        bottom: 22px;
-        width: 54px;
-        height: 54px;
-        color: var(--accent);
-        opacity: 0.55;
-      }
-      .feature:hover .feature-icon { opacity: 0.85; }
-      .feature:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 16px 40px rgba(22, 23, 47, 0.08);
-      }
-      .feature-tag {
-        font-size: 11px;
-        font-weight: 600;
-        letter-spacing: 0.16em;
-        color: var(--accent);
-        margin-bottom: 24px;
-      }
-      .feature-title {
-        font-size: clamp(22px, 2vw, 28px);
-        font-weight: 600;
-        line-height: 1.18;
-        letter-spacing: -0.015em;
-        color: var(--ink);
-        margin-bottom: 28px;
-      }
-      .feature-meta {
-        font-size: 13px;
-        color: var(--muted);
-        line-height: 1.45;
-        padding-right: 72px;
-      }
-      @media (max-width: 980px) { .feature-grid { grid-template-columns: repeat(2, 1fr); } }
-      @media (max-width: 540px) { .feature-grid { grid-template-columns: 1fr; } }
-
-      /* footer */
-      footer.coming-soon {
-        padding: 40px 0 60px;
-        text-align: center;
-        font-size: 11px;
-        font-weight: 600;
-        letter-spacing: 0.2em;
-        color: var(--muted);
-        text-transform: uppercase;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <nav>
-        <a href="/" class="logo">cusprose<span class="dot">.</span></a>
-        <ul class="nav-links">
-          {navLinks.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
-        </ul>
-        <a href="#" class="sign-in">SIGN IN →</a>
-      </nav>
-
-      <section class="hero">
-        <div>
-          <p class="eyebrow">✦ Daily Divination for the Modern Soul</p>
-          <h1>Your stars,<br/>softly spoken.</h1>
-          <p class="lede">Tarot, horoscopes &amp; cosmic insights — designed for who you are now.</p>
-          <div class="cta-row">
-            <a href="/tarot" class="btn-primary">PULL TODAY'S CARD</a>
-            <a href="/horoscopes" class="link-secondary">Read horoscope →</a>
-          </div>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <p class="eyebrow"><span class="star">✦</span> DAILY DIVINATION FOR THE MODERN SOUL</p>
+        <h1>Your stars,<br/>softly spoken.</h1>
+        <p class="subtitle">Tarot, horoscopes &amp; Eastern divination — blending ancient wisdom for the modern soul.</p>
+        <p class="lede">Daily readings, cosmic compatibility, birth charts, I Ching, BaZi &amp; more — written, not generated.</p>
+        <div class="cta-row">
+          <a href="/tarot" class="btn-primary">PULL TODAY'S CARD</a>
+          <a href="/horoscopes" class="link-secondary">Read horoscope →</a>
         </div>
+      </div>
 
-        <div class="cards">
-          {cards.map((c, i) => (
-            <div class={`card card-${['left','center','right'][i]}`} style={`background:${c.bg};`}>
-              <span class="card-roman">{c.roman}</span>
-              <span class="card-symbol">
-                {c.symbol === 'star' && '✦'}
-                {c.symbol === 'moon' && '☾'}
-                {c.symbol === 'sun' && '☼'}
-              </span>
-              <div>
-                <div class="card-name">{c.name}</div>
-                <div class="card-keywords">{c.keywords}</div>
-              </div>
+      <div class="cards">
+        {cards.map((c, i) => (
+          <div class={`card card-${['left','center','right'][i]}`} style={`background:${c.bg};`}>
+            <span class="card-roman">{c.roman}</span>
+            <span class="card-symbol">
+              {c.symbol === 'star' && '✦'}
+              {c.symbol === 'moon' && '☾'}
+              {c.symbol === 'sun' && '☼'}
+            </span>
+            <div>
+              <div class="card-name">{c.name}</div>
+              <div class="card-keywords">{c.keywords}</div>
             </div>
-          ))}
-        </div>
-      </section>
-
-      <section class="explore">
-        <p class="eyebrow">✦ Explore</p>
-        <div class="feature-grid">
-          {features.map((f) => (
-            <article class="feature">
-              <div>
-                <p class="feature-tag">{f.tag}</p>
-                <h2 class="feature-title">{f.title}</h2>
-              </div>
-              <p class="feature-meta">{f.meta}</p>
-              <svg class="feature-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                {f.icon === 'tarot' && (
-                  <>
-                    <rect x="14" y="10" width="22" height="34" rx="3" transform="rotate(-10 25 27)" />
-                    <rect x="28" y="14" width="22" height="34" rx="3" transform="rotate(8 39 31)" />
-                    <path d="M39 26 l1.6 3.4 3.6.5 -2.6 2.5 .6 3.7 -3.2 -1.8 -3.2 1.8 .6 -3.7 -2.6 -2.5 3.6 -.5z" />
-                  </>
-                )}
-                {f.icon === 'horoscope' && (
-                  <>
-                    <circle cx="32" cy="32" r="22" />
-                    <path d="M32 10 a22 22 0 0 1 0 44" />
-                    <path d="M22 18 q-8 14 0 28" />
-                    <path d="M42 18 q8 14 0 28" />
-                    <circle cx="20" cy="20" r="1.6" fill="currentColor" />
-                    <circle cx="46" cy="22" r="1.6" fill="currentColor" />
-                    <circle cx="42" cy="44" r="1.6" fill="currentColor" />
-                    <circle cx="18" cy="40" r="1.6" fill="currentColor" />
-                  </>
-                )}
-                {f.icon === 'compat' && (
-                  <>
-                    <circle cx="24" cy="32" r="14" />
-                    <circle cx="40" cy="32" r="14" />
-                    <path d="M28 26 l4 4 4 -4 M28 26 a3 3 0 0 1 4 -1 a3 3 0 0 1 4 1" />
-                  </>
-                )}
-                {f.icon === 'chart' && (
-                  <>
-                    <circle cx="32" cy="32" r="22" />
-                    <path d="M32 10 v44 M10 32 h44" />
-                    <path d="M16 16 l32 32 M48 16 l-32 32" stroke-dasharray="2 3" />
-                    <circle cx="32" cy="32" r="3" fill="currentColor" stroke="none" />
-                  </>
-                )}
-              </svg>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <footer class="coming-soon">— coming soon · launching 2026 —</footer>
+          </div>
+        ))}
+      </div>
     </div>
-    <Footer />
-    <script>
-      document.querySelectorAll('a[href="#"]').forEach((a) => {
-        a.setAttribute('aria-disabled', 'true');
-        a.style.cursor = 'default';
-        a.addEventListener('click', (e) => e.preventDefault());
-      });
-    </script>
-  </body>
-</html>
+  </section>
+
+  <section class="explore">
+    <div class="container">
+      <p class="eyebrow"><span class="star">✦</span> WESTERN TRADITIONS</p>
+      <div class="feature-grid">
+        {westernFeatures.map((f) => (
+          <a class="feature" href={f.href}>
+            <div>
+              <p class="feature-tag">{f.tag}</p>
+              <h2 class="feature-title">{f.title}</h2>
+            </div>
+            <p class="feature-meta">{f.meta}</p>
+            <svg class="feature-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              {f.icon === 'tarot' && (
+                <>
+                  <rect x="14" y="10" width="22" height="34" rx="3" transform="rotate(-10 25 27)" />
+                  <rect x="28" y="14" width="22" height="34" rx="3" transform="rotate(8 39 31)" />
+                  <path d="M39 26 l1.6 3.4 3.6.5 -2.6 2.5 .6 3.7 -3.2 -1.8 -3.2 1.8 .6 -3.7 -2.6 -2.5 3.6 -.5z" />
+                </>
+              )}
+              {f.icon === 'horoscope' && (
+                <>
+                  <circle cx="32" cy="32" r="22" />
+                  <path d="M32 10 a22 22 0 0 1 0 44" />
+                  <path d="M22 18 q-8 14 0 28" />
+                  <path d="M42 18 q8 14 0 28" />
+                  <circle cx="20" cy="20" r="1.6" fill="currentColor" />
+                  <circle cx="46" cy="22" r="1.6" fill="currentColor" />
+                  <circle cx="42" cy="44" r="1.6" fill="currentColor" />
+                  <circle cx="18" cy="40" r="1.6" fill="currentColor" />
+                </>
+              )}
+              {f.icon === 'compat' && (
+                <>
+                  <circle cx="24" cy="32" r="14" />
+                  <circle cx="40" cy="32" r="14" />
+                  <path d="M28 26 l4 4 4 -4 M28 26 a3 3 0 0 1 4 -1 a3 3 0 0 1 4 1" />
+                </>
+              )}
+              {f.icon === 'chart' && (
+                <>
+                  <circle cx="32" cy="32" r="22" />
+                  <path d="M32 10 v44 M10 32 h44" />
+                  <path d="M16 16 l32 32 M48 16 l-32 32" stroke-dasharray="2 3" />
+                  <circle cx="32" cy="32" r="3" fill="currentColor" stroke="none" />
+                </>
+              )}
+            </svg>
+          </a>
+        ))}
+      </div>
+
+      <p class="eyebrow section-eyebrow"><span class="star">✦</span> EASTERN DIVINATION · 东方占卜</p>
+      <div class="feature-grid east-grid">
+        {easternFeatures.map((f) => (
+          <a class="feature east-feature" href={f.href}>
+            <div>
+              <div class="east-head">
+                <p class="feature-tag">{f.tag}</p>
+                <span class="cn" aria-hidden="true">{f.cn}</span>
+              </div>
+              <h2 class="feature-title">{f.title}</h2>
+            </div>
+            <p class="feature-meta">{f.meta}</p>
+            <span class="feature-arrow" aria-hidden="true">→</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* hero */
+  .hero { padding: clamp(3rem, 6vw, 6rem) 0 clamp(4rem, 8vw, 8rem); }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .eyebrow {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 1.75rem;
+  }
+  .eyebrow .star { color: var(--gold); margin-right: 0.35rem; }
+  h1 {
+    font-size: clamp(3rem, 7.5vw, 5.5rem);
+    font-weight: 600;
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin-bottom: 1.25rem;
+  }
+  .subtitle {
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    line-height: 1.5;
+    color: var(--ink);
+    max-width: 480px;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+  }
+  .lede {
+    font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+  }
+  .cta-row {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--ink);
+    color: #fff;
+    padding: 1.1rem 2rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    transition: transform 0.2s;
+  }
+  .btn-primary:hover { transform: translateY(-1px); }
+  .link-secondary {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--ink);
+    border-bottom: 1px solid transparent;
+  }
+  .link-secondary:hover { border-bottom-color: var(--ink); }
+
+  /* card cluster */
+  .cards {
+    position: relative;
+    height: clamp(360px, 42vw, 480px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .card {
+    position: absolute;
+    width: clamp(150px, 16vw, 200px);
+    aspect-ratio: 2 / 3;
+    border-radius: 18px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow:
+      0 20px 50px rgba(22, 23, 47, 0.15),
+      0 8px 20px rgba(22, 23, 47, 0.08);
+    text-align: center;
+  }
+  .card-left   { transform: translateX(-65%) rotate(-8deg); z-index: 1; }
+  .card-center { transform: translateY(-8%) rotate(0deg);   z-index: 3; }
+  .card-right  { transform: translateX(65%)  rotate(10deg); z-index: 2; }
+  .card-roman {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+  }
+  .card-symbol {
+    font-size: clamp(3rem, 5.5vw, 4rem);
+    line-height: 1;
+    color: var(--gold);
+  }
+  .card-right .card-symbol { color: #E89B5C; }
+  .card-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .card-keywords {
+    font-size: 0.55rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: var(--ink);
+    opacity: 0.55;
+  }
+  @media (max-width: 860px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .cards { order: -1; height: 340px; }
+    .card-left   { transform: translateX(-50%) rotate(-8deg); }
+    .card-right  { transform: translateX(50%)  rotate(10deg); }
+  }
+
+  /* explore */
+  .explore { padding-bottom: clamp(5rem, 10vw, 8rem); }
+  .section-eyebrow { margin-top: 3rem; }
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+  .east-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .feature {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: var(--surface);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid var(--surface-border);
+    border-radius: 22px;
+    padding: 2rem 1.75rem;
+    min-height: 260px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .feature:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 40px rgba(22, 23, 47, 0.08);
+  }
+  .feature-icon {
+    position: absolute;
+    right: 1.375rem;
+    bottom: 1.375rem;
+    width: 3.375rem;
+    height: 3.375rem;
+    color: var(--gold);
+    opacity: 0.55;
+  }
+  .feature:hover .feature-icon { opacity: 0.85; }
+  .feature-tag {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+  .feature-title {
+    font-size: clamp(1.375rem, 2vw, 1.75rem);
+    font-weight: 600;
+    line-height: 1.18;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    margin-bottom: 1.75rem;
+  }
+  .feature-meta {
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    line-height: 1.45;
+    padding-right: 4.5rem;
+  }
+
+  .east-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .cn {
+    font-size: 1.3rem;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+  }
+  .east-feature .feature-meta { padding-right: 2rem; }
+  .feature-arrow {
+    position: absolute;
+    right: 1.75rem;
+    bottom: 1.5rem;
+    font-size: 1.1rem;
+    color: var(--ink);
+    opacity: 0.5;
+  }
+  .feature:hover .feature-arrow { opacity: 1; }
+
+  @media (max-width: 980px) {
+    .feature-grid { grid-template-columns: repeat(2, 1fr); }
+    .east-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 540px) {
+    .feature-grid { grid-template-columns: 1fr; }
+    .east-grid { grid-template-columns: 1fr; }
+  }
+</style>

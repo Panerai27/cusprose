@@ -18,35 +18,41 @@ const zodiac = ['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒
           <h1>Your birth chart,<br/>in 60 seconds.</h1>
           <p class="lede">Sun, Moon &amp; Rising plus all twelve houses — free, no signup.</p>
 
-          <div class="form-card">
+          <div class="coming-banner">
+            <span class="coming-icon">✦</span>
+            <div>
+              <p class="coming-title">Launching Soon</p>
+              <p class="coming-desc">The birth chart calculator is being built. Leave your email and we'll notify you the moment it's live.</p>
+            </div>
+          </div>
+
+          <div class="form-card form-disabled">
             <p class="step">STEP 1 OF 1</p>
             <p class="form-title">Tell us when &amp; where you arrived.</p>
 
-            <form class="form" onsubmit="event.preventDefault();">
+            <div class="form">
               <label class="field">
                 <span class="lab">YOUR NAME (OPTIONAL)</span>
-                <input type="text" placeholder="Hawaii" />
+                <input type="text" placeholder="Hawaii" disabled />
               </label>
               <div class="row-2">
                 <label class="field">
                   <span class="lab">BIRTH DATE</span>
-                  <input type="text" placeholder="May 14, 1996" />
+                  <input type="text" placeholder="May 14, 1996" disabled />
                 </label>
                 <label class="field">
                   <span class="lab">EXACT TIME</span>
-                  <input type="text" placeholder="06:47 AM" />
-                  <span class="helper">Not sure? <span class="soon-link">Use sunrise <em>(soon)</em></span></span>
+                  <input type="text" placeholder="06:47 AM" disabled />
                 </label>
               </div>
               <label class="field">
                 <span class="lab">BIRTH PLACE</span>
-                <input type="text" placeholder="Honolulu, Hawaii, USA" />
+                <input type="text" placeholder="Honolulu, Hawaii, USA" disabled />
               </label>
 
-              <button type="submit" class="cast">CAST MY CHART →</button>
+              <button type="button" class="cast" disabled>CAST MY CHART →</button>
               <p class="meta-row">Tropical · Placidus · we never store this</p>
-              <p class="form-notice" hidden>✦ Chart calculation is launching soon — join the list and we'll cast yours the moment it's live.</p>
-            </form>
+            </div>
           </div>
 
           <p class="unlock-head">SAME BIRTH DATA WILL UNLOCK</p>
@@ -54,7 +60,6 @@ const zodiac = ['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒
             <span class="soon-link">Your BaZi (八字) pillars</span> ·
             <span class="soon-link">Zi Wei Dou Shu chart</span> ·
             <span class="soon-link">Lunar mansion</span>
-            <span class="soon-tag">COMING SOON</span>
           </p>
         </section>
 
@@ -143,6 +148,39 @@ const zodiac = ['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒
     color: var(--ink-soft);
     margin-bottom: 2.5rem;
     max-width: 480px;
+  }
+
+  .coming-banner {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 1.2rem 1.4rem;
+    background: rgba(217, 164, 65, 0.12);
+    border: 1px solid rgba(217, 164, 65, 0.35);
+    border-radius: 14px;
+    margin-bottom: 1.5rem;
+  }
+  .coming-icon {
+    font-size: 1.2rem;
+    color: var(--gold);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .coming-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.3rem;
+  }
+  .coming-desc {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .form-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    user-select: none;
   }
 
   .form-card {
@@ -241,17 +279,6 @@ const zodiac = ['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒
     color: #a8801f;
     vertical-align: middle;
   }
-  .form-notice {
-    margin-top: 1rem;
-    padding: 0.9rem 1.1rem;
-    border-radius: 12px;
-    background: rgba(217, 164, 65, 0.1);
-    border: 1px solid rgba(217, 164, 65, 0.4);
-    font-size: 0.9rem;
-    line-height: 1.5;
-    color: var(--ink);
-  }
-
   /* right wheel */
   .prev-head {
     font-size: 0.66rem;
@@ -264,15 +291,4 @@ const zodiac = ['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒
   .wheel { width: 100%; max-width: 540px; height: auto; }
 </style>
 
-<script>
-  const form = document.querySelector('.form');
-  const notice = document.querySelector('.form-notice');
-  form?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (notice) {
-      notice.hidden = false;
-      notice.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  });
-</script>
 

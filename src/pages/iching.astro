@@ -30,10 +30,10 @@ const lines = [
           <div class="actions">
             <p class="jump-label">JUMP TO</p>
             <div class="jump-row">
-              <a href="#" class="jump-btn primary">Six lines →</a>
-              <a href="#" class="jump-btn">Changing into ䷨</a>
-              <a href="#" class="jump-btn">Cast a hexagram</a>
-              <a href="#" class="jump-btn">Save reading</a>
+              <button type="button" class="jump-btn primary">Six lines →</button>
+              <button type="button" class="jump-btn">Changing into ䷨</button>
+              <button type="button" class="jump-btn soon" disabled>Cast a hexagram <span class="soon-tag">SOON</span></button>
+              <button type="button" class="jump-btn soon" disabled>Save reading <span class="soon-tag">SOON</span></button>
             </div>
           </div>
 
@@ -136,13 +136,27 @@ const lines = [
   .jump-row { display: flex; flex-wrap: wrap; gap: 0.55rem; }
   .jump-btn {
     font-size: 0.74rem;
+    font-family: inherit;
     letter-spacing: 0.08em;
     padding: 0.6rem 1rem;
     border-radius: 999px;
     border: 1px solid var(--ink);
     color: var(--ink);
+    background: transparent;
+    cursor: pointer;
   }
   .jump-btn.primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .jump-btn.soon {
+    opacity: 0.5;
+    cursor: default;
+    border-style: dashed;
+  }
+  .jump-btn .soon-tag {
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+    margin-left: 0.3rem;
+    color: var(--gold);
+  }
 
   .pairs { font-size: 0.78rem; color: var(--ink-soft); }
   .pairs-label {

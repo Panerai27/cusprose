@@ -96,12 +96,10 @@ const signs = [
         </ul>
       </section>
 
-      <aside class="cta-card">
-        <p class="cta-eye">READ THE FULL REPORT</p>
-        <p class="cta-title">8-page deep dive</p>
-        <p class="cta-sub">Personalized with your charts</p>
-        <span class="cta-btn cta-soon">UNLOCK · <span class="price">$9.99</span> <span class="soon-pill">SOON</span></span>
-      </aside>
+      <section class="more-pairs">
+        <p class="b-head">MORE PAIRINGS COMING SOON</p>
+        <p class="more-desc">We're building compatibility readings for all 144 zodiac pairings. Check back soon for yours.</p>
+      </section>
     </div>
   </main>
 </BaseLayout>
@@ -241,51 +239,20 @@ const signs = [
   @media (max-width: 760px) { .picker-grid { grid-template-columns: repeat(4, 1fr); } }
   @media (max-width: 440px) { .picker-grid { grid-template-columns: repeat(3, 1fr); } }
 
-  .cta-card {
-    position: fixed;
-    right: clamp(1rem, 3vw, 2.5rem);
-    bottom: clamp(1rem, 3vw, 2.5rem);
-    background: #fbf6ea;
-    border-radius: 18px;
-    padding: 1.4rem 1.6rem;
-    box-shadow: 0 20px 50px rgba(22,24,58,0.18);
-    max-width: 280px;
-    z-index: 10;
+  .more-pairs {
+    max-width: 760px;
+    margin: 3.5rem auto 0;
+    text-align: center;
   }
-  .cta-eye {
-    font-size: 0.62rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
+  .more-desc {
+    font-size: 0.95rem;
     color: var(--ink-soft);
-    margin-bottom: 0.4rem;
-  }
-  .cta-title { font-size: 1.15rem; font-weight: 600; color: var(--ink); margin-bottom: 0.2rem; }
-  .cta-sub { font-size: 0.78rem; color: var(--ink-soft); margin-bottom: 0.9rem; }
-  .cta-btn {
-    display: inline-block;
-    background: var(--ink);
-    color: var(--gold);
-    padding: 0.7rem 1.2rem;
-    border-radius: 999px;
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-  }
-  .cta-btn .price { color: #fff; margin-left: 0.2rem; }
-  .cta-soon { cursor: default; opacity: 0.92; }
-  .soon-pill {
-    display: inline-block;
-    margin-left: 0.4rem;
-    font-size: 0.58rem;
-    letter-spacing: 0.16em;
-    padding: 0.12rem 0.45rem;
-    border-radius: 999px;
-    background: rgba(217, 164, 65, 0.25);
-    color: var(--gold);
+    line-height: 1.6;
+    max-width: 480px;
+    margin: 0 auto;
   }
 
   @media (max-width: 640px) {
-    .cta-card { position: static; max-width: 100%; margin-top: 3rem; }
     .row { grid-template-columns: 100px 1fr 44px; gap: 0.8rem; }
   }
 </style>
