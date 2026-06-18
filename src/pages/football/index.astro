@@ -1,0 +1,177 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { FOOTBALL_ATHLETES, FOOTBALL_BY_SIGN } from '../../data/athletes';
+import { SIGN_BY_SLUG, SIGNS } from '../../data/signs';
+
+const sportCounts = FOOTBALL_ATHLETES.reduce<Record<string, number>>((counts, athlete) => {
+  counts[athlete.sport] = (counts[athlete.sport] || 0) + 1;
+  return counts;
+}, {});
+const sports = Object.entries(sportCounts).sort((a, b) => b[1] - a[1]);
+const site = 'https://cusprose.com';
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Football Players Astrology',
+  description: 'A respectful astrology index for world-class football players across major leagues and national teams.',
+  url: `${site}/football/`,
+  mainEntity: {
+    '@type': 'ItemList',
+    name: 'Football athlete astrology profiles',
+    numberOfItems: FOOTBALL_ATHLETES.length,
+    itemListElement: FOOTBALL_ATHLETES.map((athlete, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: `${athlete.name}'s Zodiac Sign and Career Astrology Notes`,
+      url: `${site}/football/${athlete.slug}/astrology/`,
+    })),
+  },
+};
+---
+<BaseLayout title="Football Players Astrology · cusprose" path="/football/" description="Football astrology for 15 world-class players: sun signs, birth dates, career symbolism, and cosmic themes.">
+  <Nav current="Football" />
+  <script type="application/ld+json" set:html={JSON.stringify(itemListSchema)} />
+
+  <main class="athletes-page">
+    <div class="container">
+      <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Football Players' }]} />
+
+      <header class="hero">
+        <p class="eyebrow"><span class="star">✦</span> FOOTBALL ASTROLOGY</p>
+        <h1>World football players, read with care.</h1>
+        <p class="lede">A public-figure astrology library for football fans: 15 world-class athletes, birthdays, sun signs, career themes, and symbolic notes without private claims or betting language.</p>
+      </header>
+
+      <section class="notice" aria-label="Editorial note">
+        <p>This collection uses publicly available birth dates and symbolic astrology language. It does not describe private facts, health, relationships, or personal intentions.</p>
+      </section>
+
+      <section class="summary" aria-label="Collection summary">
+        <div>
+          <p class="metric">{FOOTBALL_ATHLETES.length}</p>
+          <p class="metric-label">football player profiles</p>
+        </div>
+        <div>
+          <p class="metric">12</p>
+          <p class="metric-label">zodiac signs represented</p>
+        </div>
+        <div>
+          <p class="metric">∞</p>
+          <p class="metric-label">World moments</p>
+        </div>
+      </section>
+
+      <section class="grid-section">
+        <div class="section-head">
+          <p class="eyebrow"><span class="star">✦</span> FEATURED PROFILES</p>
+          <h2>The stars of the pitch.</h2>
+        </div>
+        <div class="cards">
+          {FOOTBALL_ATHLETES.slice(0, 12).map((athlete) => {
+            const sign = SIGN_BY_SLUG[athlete.signSlug];
+            return (
+              <a class="athlete-card" href={`/football/${athlete.slug}/astrology/`}>
+                <span class="glyph" aria-hidden="true">{sign.glyph}</span>
+                <div>
+                  <p class="sport">{athlete.nationality}</p>
+                  <h3>{athlete.name}</h3>
+                  <p class="meta">{sign.name} Sun · {athlete.birthDate}</p>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </section>
+
+      <section class="directory-section">
+        <div class="section-head">
+          <p class="eyebrow"><span class="star">✦</span> FULL DIRECTORY</p>
+          <h2>All 15 football players.</h2>
+        </div>
+        <ol class="directory-list">
+          {FOOTBALL_ATHLETES.map((athlete) => {
+            const sign = SIGN_BY_SLUG[athlete.signSlug];
+            return (
+              <li>
+                <a href={`/football/${athlete.slug}/astrology/`}>
+                  <span>{athlete.name}</span>
+                  <small>{athlete.nationality} · {sign.name} Sun</small>
+                </a>
+              </li>
+            );
+          })}
+        </ol>
+      </section>
+
+      <section class="sign-index">
+        <div class="section-head">
+          <p class="eyebrow"><span class="star">✦</span> BY ZODIAC SIGN</p>
+          <h2>Find football players through their sun sign.</h2>
+        </div>
+        <div class="sign-grid">
+          {SIGNS.map((sign) => {
+            const group = FOOTBALL_BY_SIGN[sign.slug] || [];
+            return (
+              <article class="sign-panel">
+                <div class="sign-top">
+                  <span aria-hidden="true">{sign.glyph}</span>
+                  <div>
+                    <h3>{sign.name}</h3>
+                    <p>{group.length} {group.length === 1 ? 'player' : 'players'}</p>
+                  </div>
+                </div>
+                <ul>
+                  {group.map((athlete) => (
+                    <li><a href={`/football/${athlete.slug}/astrology/`}>{athlete.name}</a></li>
+                  ))}
+                </ul>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .athletes-page { padding-bottom: 6rem; }
+  .container { max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; }
+  .eyebrow { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1rem; }
+  .eyebrow .star { color: var(--gold); margin-right: 0.4rem; }
+  h1 { font-size: clamp(2.4rem, 5vw, 4.3rem); font-weight: 500; line-height: 1.05; letter-spacing: -0.025em; max-width: 860px; margin: 1rem 0 1.2rem; }
+  h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 500; line-height: 1.2; letter-spacing: -0.015em; margin-bottom: 1.5rem; }
+  .lede { color: var(--ink-soft); font-size: 1.06rem; line-height: 1.6; max-width: 760px; margin-bottom: 1rem; }
+  .hero { margin-bottom: 3rem; }
+  .notice { background: var(--surface); border: 1px solid var(--surface-border); border-radius: 12px; padding: 1.2rem; color: var(--ink-soft); font-size: 0.95rem; line-height: 1.6; margin-bottom: 2rem; }
+  .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
+  .summary > div { text-align: center; padding: 1.5rem; background: var(--surface); border-radius: 12px; }
+  .metric { font-size: 2.8rem; font-weight: 600; color: var(--gold); line-height: 1; margin-bottom: 0.4rem; }
+  .metric-label { font-size: 0.85rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.1em; }
+  .grid-section, .directory-section, .sign-index { margin-bottom: 3rem; }
+  .section-head { margin-bottom: 2rem; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.2rem; }
+  .athlete-card { display: flex; gap: 1rem; align-items: center; padding: 1rem; background: var(--surface); border: 1px solid var(--surface-border); border-radius: 12px; text-decoration: none; transition: all 0.2s ease; }
+  .athlete-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+  .athlete-card .glyph { font-size: 2rem; color: var(--gold); }
+  .athlete-card h3 { margin: 0.4rem 0 0; font-size: 1rem; font-weight: 500; }
+  .athlete-card .sport { font-size: 0.8rem; color: var(--ink-soft); margin: 0; }
+  .athlete-card .meta { font-size: 0.8rem; color: var(--ink-soft); margin: 0.4rem 0 0; }
+  .directory-list { list-style: decimal; padding-left: 2rem; }
+  .directory-list li { margin-bottom: 0.8rem; }
+  .directory-list a { text-decoration: none; display: flex; justify-content: space-between; align-items: center; }
+  .directory-list span { font-weight: 500; }
+  .directory-list small { color: var(--ink-soft); font-size: 0.85rem; }
+  .sign-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1.2rem; }
+  .sign-panel { background: var(--surface); border: 1px solid var(--surface-border); border-radius: 12px; padding: 1.2rem; }
+  .sign-top { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+  .sign-top span { font-size: 2rem; color: var(--gold); }
+  .sign-panel h3 { margin: 0; font-size: 1rem; font-weight: 500; }
+  .sign-panel p { margin: 0.2rem 0 0; font-size: 0.8rem; color: var(--ink-soft); }
+  .sign-panel ul { list-style: none; padding: 0; margin: 0; }
+  .sign-panel li { margin-bottom: 0.5rem; }
+  .sign-panel a { color: var(--ink); text-decoration: none; font-size: 0.9rem; }
+  .sign-panel a:hover { color: var(--gold); }
+</style>

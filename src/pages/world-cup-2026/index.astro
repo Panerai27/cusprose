@@ -1,0 +1,207 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { FOOTBALL_ATHLETES } from '../../data/athletes';
+import { SIGN_BY_SLUG } from '../../data/signs';
+
+const footballAthletes = FOOTBALL_ATHLETES;
+const matchdaySections = [
+  { title: 'Tarot match previews', body: 'A pre-match spread built around momentum, pressure, and turning point. These readings describe the symbolic atmosphere of a match, not a guaranteed result.' },
+  { title: 'Athlete astrology notes', body: 'Public birth dates and sun-sign symbolism for major players, written around career themes rather than private claims.' },
+  { title: 'Post-match reflections', body: 'After the match, the reading can be revisited honestly: what matched the public story, what missed, and what the symbols can teach.' },
+];
+const site = 'https://cusprose.com';
+const canonical = `${site}/world-cup-2026/`;
+const pageDescription = 'World Cup 2026 tarot previews, athlete astrology notes, and post-match reflections for entertainment and symbolic reflection, not betting advice.';
+const forecastSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      '@id': `${canonical}#collection`,
+      url: canonical,
+      name: 'World Cup 2026 Cosmic Forecasts',
+      description: pageDescription,
+      isPartOf: { '@id': `${site}/#website` },
+      mainEntity: {
+        '@type': 'ItemList',
+        name: 'World Cup athlete astrology profiles',
+        numberOfItems: footballAthletes.length,
+        itemListElement: footballAthletes.map((athlete, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          url: `${site}/football/${athlete.slug}/astrology/`,
+          name: `${athlete.name}`,
+        })),
+      },
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': `${canonical}#faq`,
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'Is this a betting prediction service?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'No. These previews use tarot and astrology for entertainment and symbolic reflection. They do not predict match results or advise betting. World Cup outcomes depend on skill, strategy, and chance—not cosmic forces.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Are the player astrology profiles scientific?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'No. Sun-sign astrology is a symbolic language, not a scientific model of personality or performance. These profiles are public-facing narratives based on birth dates, not private psychological claims.',
+          },
+        },
+      ],
+    },
+  ],
+};
+---
+<BaseLayout 
+  title="World Cup 2026 Cosmic Forecasts and Athlete Astrology · cusprose" 
+  path="/world-cup-2026/" 
+  description="World Cup 2026 tarot previews, football player astrology, and post-match reflections. Entertainment and symbolic commentary, not betting advice."
+>
+  <Nav current="World Cup" />
+  <script type="application/ld+json" set:html={JSON.stringify(forecastSchema)} />
+
+  <main class="world-cup-page">
+    <div class="container">
+      <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'World Cup 2026' }]} />
+
+      <header class="hero">
+        <p class="eyebrow"><span class="star">✦</span> WORLD CUP 2026 · COSMIC FORECASTS</p>
+        <h1>The stars above the pitch.</h1>
+        <p class="lede">Tarot previews, athlete astrology profiles, and post-match reflections for World Cup 2026. This is entertainment and symbolic commentary—not betting prediction or scientific forecasting.</p>
+      </header>
+
+      <section class="notice editorial-notice" aria-label="Editorial disclaimer">
+        <p><strong>Editorial note:</strong> These previews use tarot spreads and sun-sign astrology for storytelling and reflection. They do not predict match outcomes, advise betting, or describe private lives. World Cup results depend on athletic skill, strategy, and chance.</p>
+      </section>
+
+      <section class="methodology-section">
+        <h2>How these forecasts work</h2>
+        <div class="methodology-grid">
+          {matchdaySections.map((section) => (
+            <article class="method-card">
+              <h3>{section.title}</h3>
+              <p>{section.body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="athlete-index">
+        <div class="section-head">
+          <p class="eyebrow"><span class="star">✦</span> FEATURED PLAYERS</p>
+          <h2>World Cup 2026 football players and their sun signs.</h2>
+        </div>
+        <ol class="athlete-list">
+          {footballAthletes.map((athlete, i) => {
+            const sign = SIGN_BY_SLUG[athlete.signSlug];
+            return (
+              <li>
+                <a href={`/football/${athlete.slug}/astrology/`}>
+                  <span class="number">{i + 1}.</span>
+                  <span class="name">{athlete.name}</span>
+                  <span class="sign">
+                    <span class="glyph">{sign.glyph}</span>
+                    {sign.name}
+                  </span>
+                </a>
+              </li>
+            );
+          })}
+        </ol>
+      </section>
+
+      <section class="related-section">
+        <h2>Related cosmic guides</h2>
+        <div class="related-links">
+          <a href="/football/" class="link-card">
+            <p class="label">Football Players Directory</p>
+            <p class="desc">Complete astrology profiles for all 15 featured players.</p>
+          </a>
+          <a href="/basketball/" class="link-card">
+            <p class="label">Basketball Players Directory</p>
+            <p class="desc">Explore astrology profiles for NBA and international basketball stars.</p>
+          </a>
+          <a href="/horoscopes/" class="link-card">
+            <p class="label">Zodiac Horoscopes</p>
+            <p class="desc">General sun-sign forecasts for all 12 zodiac signs.</p>
+          </a>
+          <a href="/tarot/" class="link-card">
+            <p class="label">Tarot Readings</p>
+            <p class="desc">Explore 78-card tarot meanings and spreads.</p>
+          </a>
+        </div>
+      </section>
+
+      <section class="faq-section">
+        <h2>Common questions</h2>
+        <div class="faq-grid">
+          <article class="faq-item">
+            <h3>Is this a betting service?</h3>
+            <p>No. These cosmic previews are for entertainment and reflection only. They do not predict match results or advise wagering. World Cup outcomes depend on athletic skill, tactical preparation, and chance.</p>
+          </article>
+          <article class="faq-item">
+            <h3>Are the player profiles scientific?</h3>
+            <p>No. Sun-sign astrology is a symbolic language, not a scientific model. These profiles are public narratives based on birth dates—not claims about private personality, health, or psychology.</p>
+          </article>
+          <article class="faq-item">
+            <h3>Why astrology for the World Cup?</h3>
+            <p>The World Cup is a global celebration of sport, rivalry, and symbolism. Astrology and tarot offer a cultural lens for exploring public narratives and fan engagement—alongside the real athleticism and skill on display.</p>
+          </article>
+          <article class="faq-item">
+            <h3>Can I share these forecasts?</h3>
+            <p>Yes. These readings are created for fans and can be shared freely as entertainment. Attribute them to cusprose when republishing. Respect the editorial disclaimers that frame them as symbolic commentary.</p>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .world-cup-page { padding-bottom: 6rem; }
+  .container { max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; }
+  .eyebrow { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1rem; }
+  .eyebrow .star { color: var(--gold); margin-right: 0.4rem; }
+  h1 { font-size: clamp(2.4rem, 5vw, 4.3rem); font-weight: 500; line-height: 1.05; letter-spacing: -0.025em; max-width: 860px; margin: 1rem 0 1.2rem; }
+  h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 500; line-height: 1.2; letter-spacing: -0.015em; margin-bottom: 1.5rem; }
+  h3 { font-size: 1.15rem; font-weight: 500; line-height: 1.2; margin-bottom: 0.8rem; }
+  .lede { color: var(--ink-soft); font-size: 1.06rem; line-height: 1.6; max-width: 760px; margin-bottom: 1rem; }
+  .hero { margin-bottom: 3rem; }
+  .editorial-notice { background: rgba(217, 164, 65, 0.12); border: 1px solid rgba(217, 164, 65, 0.35); border-radius: 12px; padding: 1.2rem; color: var(--ink-soft); font-size: 0.95rem; line-height: 1.6; margin-bottom: 2rem; }
+  .editorial-notice p { margin: 0; }
+  .methodology-section { margin-bottom: 3rem; }
+  .methodology-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+  .method-card { background: var(--surface); border: 1px solid var(--surface-border); border-radius: 12px; padding: 1.5rem; }
+  .method-card h3 { font-size: 1rem; margin: 0 0 0.8rem; }
+  .method-card p { color: var(--ink-soft); line-height: 1.6; margin: 0; font-size: 0.95rem; }
+  .section-head { margin-bottom: 2rem; }
+  .athlete-index { margin-bottom: 3rem; }
+  .athlete-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.6rem; }
+  .athlete-list li { background: var(--surface); border: 1px solid var(--surface-border); border-radius: 10px; overflow: hidden; }
+  .athlete-list a { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.2rem; text-decoration: none; transition: all 0.2s ease; }
+  .athlete-list a:hover { background: rgba(217, 164, 65, 0.08); border-color: var(--gold); }
+  .athlete-list .number { font-size: 0.85rem; color: var(--ink-soft); min-width: 2rem; text-align: right; }
+  .athlete-list .name { flex: 1; font-weight: 500; color: var(--ink); }
+  .athlete-list .sign { display: flex; align-items: center; gap: 0.4rem; font-size: 0.9rem; color: var(--ink-soft); }
+  .athlete-list .glyph { font-size: 1.2rem; color: var(--gold); }
+  .related-section { margin-bottom: 3rem; }
+  .related-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; }
+  .link-card { display: block; background: var(--surface); border: 1px solid var(--surface-border); border-radius: 12px; padding: 1.5rem; text-decoration: none; transition: all 0.2s ease; }
+  .link-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+  .link-card .label { font-weight: 500; color: var(--ink); margin: 0 0 0.4rem; }
+  .link-card .desc { color: var(--ink-soft); font-size: 0.9rem; line-height: 1.5; margin: 0; }
+  .faq-section { margin-bottom: 2rem; }
+  .faq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+  .faq-item { background: var(--surface); border: 1px solid var(--surface-border); border-radius: 12px; padding: 1.5rem; }
+  .faq-item h3 { margin: 0 0 0.8rem; }
+  .faq-item p { color: var(--ink-soft); line-height: 1.6; margin: 0; font-size: 0.95rem; }
+</style>

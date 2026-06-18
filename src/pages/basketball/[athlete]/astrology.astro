@@ -1,0 +1,206 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Nav from '../../../components/Nav.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import { BASKETBALL_ATHLETES, BASKETBALL_BY_SIGN } from '../../../data/athletes';
+import { SIGN_BY_SLUG } from '../../../data/signs';
+
+export function getStaticPaths() {
+  return BASKETBALL_ATHLETES.map((athlete) => ({ params: { athlete: athlete.slug }, props: { athlete } }));
+}
+
+const { athlete } = Astro.props;
+const sign = SIGN_BY_SLUG[athlete.signSlug];
+const relatedAthletes = (BASKETBALL_BY_SIGN[athlete.signSlug] || []).filter((item) => item.slug !== athlete.slug).slice(0, 4);
+const title = `${athlete.name}'s Zodiac Sign and Career Astrology Notes · cusprose`;
+const description = `${athlete.name} is a ${sign.name} Sun. Read a respectful public astrology profile covering birthday, sport, career themes, and symbolic notes.`;
+const site = 'https://cusprose.com';
+const canonical = `${site}/basketball/${athlete.slug}/astrology/`;
+// Timezone-safe: parse the human-readable date string without relying on Date UTC conversion
+const _MONTHS: Record<string, string> = { January:'01', February:'02', March:'03', April:'04', May:'05', June:'06', July:'07', August:'08', September:'09', October:'10', November:'11', December:'12' };
+const [_m, _d, _y] = athlete.birthDate.replace(',', '').split(' ');
+const birthDateIso = `${_y}-${_MONTHS[_m]}-${_d.padStart(2, '0')}`;
+const profileSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'ProfilePage',
+      '@id': `${canonical}#profilepage`,
+      url: canonical,
+      name: title,
+      description,
+      about: { '@id': `${canonical}#person` },
+      isPartOf: { '@id': `${site}/#website` },
+    },
+    {
+      '@type': 'Person',
+      '@id': `${canonical}#person`,
+      name: athlete.name,
+      birthDate: birthDateIso,
+      birthPlace: athlete.birthPlace,
+      nationality: athlete.nationality,
+      jobTitle: 'Basketball player',
+      description: `${athlete.name} is a public basketball athlete with a ${sign.name} Sun sign in this symbolic astrology profile.`,
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': `${canonical}#faq`,
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: `What is ${athlete.name}'s zodiac sign?`,
+          acceptedAnswer: { '@type': 'Answer', text: `${athlete.name}'s sun sign is ${sign.name}, based on the public birth date ${athlete.birthDate}.` },
+        },
+        {
+          '@type': 'Question',
+          name: `Does this page use ${athlete.name}'s full birth chart?`,
+          acceptedAnswer: { '@type': 'Answer', text: 'No. This page focuses on the public birth date and sun sign unless reliable birth-time information is available.' },
+        },
+      ],
+    },
+  ],
+};
+---
+<BaseLayout title={title} path={`/basketball/${athlete.slug}/astrology/`} description={description}>
+  <Nav current="Basketball" />
+  <script type="application/ld+json" set:html={JSON.stringify(profileSchema)} />
+
+  <main class="profile-page">
+    <div class="container">
+      <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Basketball Players', href: '/basketball/' }, { label: athlete.name }]} />
+
+      <header class="hero">
+        <div class="glyph-card" aria-hidden="true">
+          <span>{sign.glyph}</span>
+          <p>{sign.name}</p>
+        </div>
+        <div>
+          <p class="eyebrow"><span class="star">✦</span> BASKETBALL ASTROLOGY</p>
+          <h1>{athlete.name}'s zodiac sign and career astrology notes.</h1>
+          <p class="lede">{athlete.profile}</p>
+        </div>
+      </header>
+
+      <div class="layout">
+        <article class="content">
+          <section class="panel intro-panel">
+            <h2>Public profile</h2>
+            <dl class="facts">
+              <div><dt>Sport</dt><dd>{athlete.sport}</dd></div>
+              <div><dt>Nationality</dt><dd>{athlete.nationality}</dd></div>
+              <div><dt>Birth date</dt><dd>{athlete.birthDate}</dd></div>
+              {athlete.birthPlace && <div><dt>Birth place</dt><dd>{athlete.birthPlace}</dd></div>}
+              <div><dt>Sun sign</dt><dd>{sign.name}</dd></div>
+              <div><dt>Element</dt><dd>{sign.element}</dd></div>
+              <div><dt>Modality</dt><dd>{sign.modality}</dd></div>
+            </dl>
+          </section>
+
+          <section class="panel">
+            <p class="kicker">Zodiac basics</p>
+            <h2>{sign.name} symbolism in professional basketball</h2>
+            <p>{sign.name} is a {sign.element.toLowerCase()} sign with a {sign.modality.toLowerCase()} mode. In an athlete profile, that does not define a private personality. It gives us a symbolic vocabulary for reading public themes: how a career appears to move, where pressure gathers, and what kind of story fans repeatedly see on the court and in the league.</p>
+            <p>For {athlete.name}, the useful lens is not prediction. It is pattern language. The public record points toward themes of {athlete.publicThemes.join(', ')}, which can be explored without making claims about private motives or future results.</p>
+          </section>
+
+          <section class="panel">
+            <p class="kicker">Career symbolism</p>
+            <h2>Public themes around {athlete.name}</h2>
+            <p>{athlete.name}'s career is often discussed through visible achievements, game moments, and the role they occupy in professional basketball. A symbolic reading can frame those public facts as a story of pressure, timing, growth, and fan expectation.</p>
+            <ul class="theme-list">
+              {athlete.publicThemes.map((theme) => <li>{theme}</li>)}
+            </ul>
+          </section>
+
+          <section class="panel">
+            <p class="kicker">Public timeline</p>
+            <h2>Career highlights</h2>
+            <ul class="highlight-list">
+              {athlete.careerHighlights.map((highlight) => <li>{highlight}</li>)}
+            </ul>
+          </section>
+
+          <section class="panel disclaimer">
+            <p class="kicker">Editorial note</p>
+            <h2>What this astrology profile can and cannot say</h2>
+            <p>This profile uses publicly available information and symbolic astrology language. It does not claim to describe private facts, health, relationships, or personal intentions.</p>
+          </section>
+
+          <section class="panel faq-panel">
+            <p class="kicker">FAQ</p>
+            <h2>Quick answers about {athlete.name}'s zodiac profile</h2>
+            <div class="faq-item">
+              <h3>What is {athlete.name}'s zodiac sign?</h3>
+              <p>{athlete.name}'s sun sign is {sign.name}, based on the public birth date {athlete.birthDate}.</p>
+            </div>
+            <div class="faq-item">
+              <h3>Is this a full birth chart?</h3>
+              <p>No. This page focuses on the public birth date and sun sign. It does not use rising sign, houses, or private chart claims without reliable birth-time information.</p>
+            </div>
+          </section>
+        </article>
+
+        <aside class="side">
+          <div class="side-panel">
+            <p class="side-head">RELATED READING</p>
+            <ul>
+              <li><a href="/basketball/">All Basketball Players</a></li>
+              <li><a href={`/horoscopes/${sign.slug}/`}>{sign.name} horoscope</a></li>
+              <li><a href={`/tarot/cards/${sign.tarot.slug}/`}>{sign.tarot.name} tarot card</a></li>
+              <li><a href="/birth-chart/">Birth chart guide</a></li>
+            </ul>
+          </div>
+          {relatedAthletes.length > 0 && (
+            <div class="side-panel">
+              <p class="side-head">MORE {sign.name.toUpperCase()} BASKETBALL PLAYERS</p>
+              <ul>
+                {relatedAthletes.map((item) => <li><a href={`/basketball/${item.slug}/astrology/`}>{item.name}</a></li>)}
+              </ul>
+            </div>
+          )}
+        </aside>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .profile-page { padding-bottom: 6rem; }
+  .hero { display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: center; margin-bottom: 3rem; }
+  .glyph-card { width: 150px; aspect-ratio: 2 / 3; border-radius: 14px; background: var(--card-lavender); box-shadow: 0 24px 48px -16px rgba(22,24,58,0.22), inset 0 0 0 1px rgba(255,255,255,0.5); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; }
+  .glyph-card span { font-size: 4rem; color: var(--gold); line-height: 1; }
+  .glyph-card p { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); }
+  .eyebrow { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1rem; }
+  .eyebrow .star { color: var(--gold); margin-right: 0.4rem; }
+  h1 { font-size: clamp(2.4rem, 5vw, 4.3rem); font-weight: 500; line-height: 1.05; letter-spacing: -0.025em; max-width: 860px; margin-bottom: 1.2rem; }
+  .lede { color: var(--ink-soft); font-size: 1.06rem; line-height: 1.6; max-width: 760px; }
+  .layout { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(280px, 0.8fr); gap: 2rem; align-items: start; }
+  .content { display: flex; flex-direction: column; gap: 1.2rem; }
+  .panel, .side-panel { background: var(--surface); border: 1px solid var(--surface-border); border-radius: 18px; backdrop-filter: blur(8px); }
+  .panel { padding: 1.8rem; }
+  .intro-panel dl.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0 0; }
+  .intro-panel dl.facts > div { border-top: 1px solid var(--surface-border); padding: 1rem 0; }
+  .intro-panel dl.facts dt { font-weight: 500; font-size: 0.85rem; color: var(--ink-soft); }
+  .intro-panel dl.facts dd { margin: 0.4rem 0 0; font-size: 1rem; color: var(--ink); }
+  h2 { font-size: clamp(1.3rem, 3vw, 1.8rem); font-weight: 500; line-height: 1.2; letter-spacing: -0.015em; margin-bottom: 1rem; }
+  .kicker { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 0.6rem; }
+  .panel p { color: var(--ink); line-height: 1.7; margin-bottom: 1rem; }
+  .panel p:last-child { margin-bottom: 0; }
+  .theme-list, .highlight-list { list-style: none; padding: 0; margin: 0; }
+  .theme-list li, .highlight-list li { padding: 0.6rem 0; border-top: 1px solid var(--surface-border); }
+  .theme-list li:first-child, .highlight-list li:first-child { border-top: none; padding-top: 0; }
+  .theme-list li:last-child, .highlight-list li:last-child { padding-bottom: 0; }
+  .disclaimer { background: var(--surface-accent); }
+  .faq-panel .faq-item { margin-bottom: 1.5rem; }
+  .faq-panel .faq-item:last-child { margin-bottom: 0; }
+  .faq-panel h3 { font-size: 1rem; font-weight: 500; margin-bottom: 0.6rem; }
+  .faq-panel p { margin: 0; }
+  .side { display: flex; flex-direction: column; gap: 1.2rem; }
+  .side-panel { padding: 1.2rem; }
+  .side-head { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 1rem; }
+  .side-panel ul { list-style: none; padding: 0; margin: 0; }
+  .side-panel li { margin-bottom: 0.8rem; }
+  .side-panel a { color: var(--ink); text-decoration: none; }
+  .side-panel a:hover { color: var(--gold); }
+  .container { max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; }
+</style>
