@@ -3,86 +3,132 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Nav from '../../components/Nav.astro';
 import { HEXAGRAMS } from '../../data/ichingHexagrams';
 
-// I-Ching — mockup 05 — Hexagram 11 Tài (Peace)
-// Lines bottom→top: Y Y Y / y y y  (Heaven below, Earth above)
-const lines = [
-  { type: 'yin',  pos: 6, note: 'top' },
-  { type: 'yin',  pos: 5 },
-  { type: 'yin',  pos: 4 },
-  { type: 'yang', pos: 3 },
-  { type: 'yang', pos: 2 },
-  { type: 'yang', pos: 1, note: 'bottom' },
-];
+const TRIGRAM_LINES: Record<string, string[]> = {
+  'Heaven':  ['yang','yang','yang'],
+  'Earth':   ['yin','yin','yin'],
+  'Water':   ['yin','yang','yin'],
+  'Fire':    ['yang','yin','yang'],
+  'Thunder': ['yang','yin','yin'],
+  'Mountain':['yin','yin','yang'],
+  'Wind':    ['yang','yang','yin'],
+  'Lake':    ['yin','yang','yang'],
+};
+
+interface HexSummary {
+  slug: string; number: number; name: string;
+  chinese: string; english: string;
+  judgment: string; interpretation: string;
+  lines: string[];
+}
+
+const hexLookup: Record<string, HexSummary> = {};
+for (const h of HEXAGRAMS) {
+  hexLookup[`${h.trigrams.upper}:${h.trigrams.lower}`] = {
+    slug: h.slug, number: h.number, name: h.name,
+    chinese: h.chinese, english: h.english,
+    judgment: h.judgment,
+    interpretation: h.interpretation.split('\n\n')[0],
+    lines: h.lines,
+  };
+}
 ---
-<BaseLayout title="Hexagram 11 · Tài (Peace) · cusprose" path="/iching/" description="I Ching Hexagram 11 Tài — Peace. When opposites meet softly, things flourish.">
-  <Nav /><!-- I Ching lives under /east/ in nav UX; no top-level link to highlight -->
+<BaseLayout title="Cast the I Ching · cusprose" path="/iching/" description="Cast a hexagram using the ancient three-coin method. Six tosses, one answer. 64 hexagrams of the Book of Changes.">
+  <Nav />
 
-  <main class="iching">
+  <main class="iching"
+        data-hex-lookup={JSON.stringify(hexLookup)}
+        data-trigram-lines={JSON.stringify(TRIGRAM_LINES)}>
     <div class="container">
-      <p class="crumb">EAST / I CHING / HEXAGRAM 11</p>
 
-      <div class="grid">
-        <!-- Left: hero -->
-        <section class="hero">
-          <p class="eyebrow"><span class="star">✦</span> ䷊ HEXAGRAM ELEVEN</p>
-          <h1>Tài —<br/>Peace.</h1>
-          <p class="lede">☷ · Heaven below, Earth above. When opposites meet softly, things flourish.</p>
+      <!-- STAGE 1: ASK -->
+      <section class="stage stage-ask is-active" data-stage="ask">
+        <p class="eyebrow"><span class="star">✦</span> I CHING CASTING</p>
+        <header class="hero">
+          <h1>What do you<br/>seek to know?</h1>
+          <p class="lede">Hold your question gently. The coins will answer with one of 64 hexagrams from the Book of Changes.</p>
+        </header>
 
-          <div class="actions">
-            <p class="jump-label">JUMP TO</p>
-            <div class="jump-row">
-              <button type="button" class="jump-btn primary">Six lines →</button>
-              <button type="button" class="jump-btn">Changing into ䷨</button>
-              <button type="button" class="jump-btn soon" disabled>Cast a hexagram <span class="soon-tag">SOON</span></button>
-              <button type="button" class="jump-btn soon" disabled>Save reading <span class="soon-tag">SOON</span></button>
+        <form class="ask-form" autocomplete="off">
+          <div class="ask-wrap">
+            <input type="text" class="ask-input" name="q" maxlength="120"
+                   placeholder="Type your question…" aria-label="Your question" />
+            <button type="submit" class="ask-send" aria-label="Cast hexagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+          <div class="chips" role="group" aria-label="Quick topics">
+            <button type="button" class="chip" data-chip="Direction">Direction</button>
+            <button type="button" class="chip is-on" data-chip="Guidance">Guidance</button>
+            <button type="button" class="chip" data-chip="Change">Change</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- STAGE 2: CAST -->
+      <section class="stage stage-cast" data-stage="cast" hidden>
+        <p class="eyebrow"><span class="star">✦</span> CASTING</p>
+        <header class="hero">
+          <h1>Tossing<br/>the coins…</h1>
+          <p class="lede">Three coins, six times. Each toss builds one line of your hexagram, from bottom to top.</p>
+        </header>
+
+        <div class="cast-wrap">
+          <div class="cast-coins" aria-hidden="true">
+            <span class="coin">☰</span>
+            <span class="coin">☰</span>
+            <span class="coin">☰</span>
+          </div>
+
+          <div class="cast-figure">
+            <div class="cast-line" data-line="6"><span class="cast-num">6</span><span class="cast-bar"></span></div>
+            <div class="cast-line" data-line="5"><span class="cast-num">5</span><span class="cast-bar"></span></div>
+            <div class="cast-line" data-line="4"><span class="cast-num">4</span><span class="cast-bar"></span></div>
+            <div class="cast-line" data-line="3"><span class="cast-num">3</span><span class="cast-bar"></span></div>
+            <div class="cast-line" data-line="2"><span class="cast-num">2</span><span class="cast-bar"></span></div>
+            <div class="cast-line" data-line="1"><span class="cast-num">1</span><span class="cast-bar"></span></div>
+          </div>
+        </div>
+
+        <p class="cast-status">Line <span class="cast-current">1</span> of 6</p>
+        <button type="button" class="cast-toss-btn">TOSS COINS ☯</button>
+      </section>
+
+      <!-- STAGE 3: REVEAL -->
+      <section class="stage stage-reveal" data-stage="reveal" hidden>
+        <div class="reveal-grid">
+          <section class="reveal-hero">
+            <p class="eyebrow"><span class="star">✦</span> YOUR HEXAGRAM</p>
+            <p class="reveal-number"></p>
+            <h1 class="reveal-title"></h1>
+            <p class="reveal-english"></p>
+          </section>
+
+          <aside class="reveal-figure">
+            <p class="fig-head">THE FIGURE</p>
+            <div class="reveal-lines"></div>
+          </aside>
+
+          <section class="reveal-reading">
+            <div class="panel">
+              <p class="p-head">JUDGMENT</p>
+              <blockquote class="reveal-judgment"></blockquote>
             </div>
-          </div>
+            <div class="panel">
+              <p class="p-head">INTERPRETATION</p>
+              <p class="reveal-interp"></p>
+            </div>
+          </section>
+        </div>
 
-          <p class="pairs"><span class="pairs-label">PAIRS WITH</span> Mercury in 7th house · The Lovers (upright) · BaZi 甲寅</p>
-        </section>
+        <div class="reveal-actions">
+          <a class="btn-primary reveal-link" href="/iching/">READ FULL HEXAGRAM →</a>
+          <button type="button" class="btn-again">CAST AGAIN</button>
+        </div>
+      </section>
 
-        <!-- Center: figure -->
-        <aside class="figure">
-          <p class="fig-head">THE FIGURE</p>
-          <div class="lines">
-            {lines.map((l) => (
-              <button class="line-row" type="button" aria-label={`Line ${l.pos} — ${l.type}`}>
-                <span class="line-num">{l.pos}</span>
-                <span class={`line-glyph ${l.type}`}>
-                  {l.type === 'yang' ? (
-                    <span class="bar full"></span>
-                  ) : (
-                    <><span class="bar half"></span><span class="bar half"></span></>
-                  )}
-                </span>
-              </button>
-            ))}
-          </div>
-          <p class="fig-foot">Tap a line to read its 爻辞</p>
-        </aside>
-
-        <!-- Right: reading -->
-        <section class="reading">
-          <div class="panel">
-            <p class="p-head">CORE READING</p>
-            <blockquote>
-              "The small departs,<br/>the great approaches."
-            </blockquote>
-            <p class="attr">— Wilhelm-Baynes translation</p>
-          </div>
-          <div class="panel">
-            <p class="p-head">WHEN IT APPEARS</p>
-            <p class="p-body">A season of openness. The right people arrive, the resistance you'd been bracing for dissolves. Move with what is already moving.</p>
-          </div>
-          <div class="panel">
-            <p class="p-head">SHADOW SIDE</p>
-            <p class="p-body">Peace breeds inertia. Do not mistake ease for permanence — tend it.</p>
-          </div>
-        </section>
-      </div>
-
+      <!-- ALL HEXAGRAMS (always visible) -->
       <section class="all-hex">
-        <p class="all-head">ALL HEXAGRAMS</p>
+        <p class="all-head">ALL 64 HEXAGRAMS</p>
         <ul class="hex-grid">
           {HEXAGRAMS.map((h) => (
             <li>
@@ -102,31 +148,18 @@ const lines = [
 
 <style>
   .iching { padding-bottom: 6rem; }
-  .crumb {
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    margin-bottom: 2.5rem;
-  }
-  .grid {
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr 1fr;
-    gap: clamp(1.5rem, 4vw, 3.5rem);
-    align-items: start;
-  }
-  @media (max-width: 980px) {
-    .grid { grid-template-columns: 1fr; }
-  }
 
+  /* --- Shared --- */
   .eyebrow {
     font-size: 0.72rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--ink-soft);
     margin-bottom: 1.5rem;
+    text-align: center;
   }
   .eyebrow .star { color: var(--gold); margin-right: 0.4rem; }
+  .hero { text-align: center; margin-bottom: 2rem; }
   h1 {
     font-size: clamp(3rem, 6.5vw, 5.5rem);
     font-weight: 500;
@@ -138,54 +171,208 @@ const lines = [
     font-size: 1.05rem;
     color: var(--ink-soft);
     line-height: 1.5;
-    margin-bottom: 2.5rem;
-    max-width: 460px;
+    max-width: 520px;
+    margin: 0 auto;
   }
 
-  .actions { margin-bottom: 2.5rem; }
-  .jump-label {
-    font-size: 0.66rem;
-    letter-spacing: 0.22em;
+  /* --- Stages --- */
+  .stage { display: none; }
+  .stage.is-active { display: block; animation: rise 0.5s ease; }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* --- ASK --- */
+  .ask-form { max-width: 440px; margin: 2rem auto 0; }
+  .ask-wrap {
+    display: flex;
+    border: 1.5px solid var(--surface-border);
+    border-radius: 999px;
+    background: var(--surface);
+    backdrop-filter: blur(8px);
+    overflow: hidden;
+    padding: 0.35rem 0.35rem 0.35rem 1.2rem;
+  }
+  .ask-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--ink);
+    outline: none;
+  }
+  .ask-input::placeholder { color: var(--ink-soft); opacity: 0.6; }
+  .ask-send {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: var(--ink);
+    color: #fff;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: transform 0.15s;
+  }
+  .ask-send:hover { transform: scale(1.08); }
+  .chips {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  .chip {
+    font-family: inherit;
+    font-size: 0.74rem;
+    letter-spacing: 0.06em;
+    padding: 0.45rem 1rem;
+    border-radius: 999px;
+    border: 1px solid var(--surface-border);
+    background: transparent;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+  .chip.is-on {
+    background: var(--ink);
+    color: #fff;
+    border-color: var(--ink);
+  }
+
+  /* --- CAST --- */
+  .cast-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    margin: 2rem auto;
+    max-width: 360px;
+  }
+  .cast-coins {
+    display: flex;
+    gap: 1.2rem;
+    justify-content: center;
+  }
+  .coin {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #d9a441, #c4902e);
+    color: #fff;
+    font-size: 1.4rem;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 4px 16px rgba(217,164,65,0.3);
+    transition: transform 0.3s;
+  }
+  .coin.flipping {
+    animation: coinFlip 0.6s ease;
+  }
+  @keyframes coinFlip {
+    0%   { transform: rotateY(0deg) scale(1); }
+    50%  { transform: rotateY(180deg) scale(1.15); }
+    100% { transform: rotateY(360deg) scale(1); }
+  }
+  .coin.heads { background: linear-gradient(145deg, #d9a441, #c4902e); }
+  .coin.tails { background: linear-gradient(145deg, #6e6e8f, #4a4a68); }
+
+  .cast-figure {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    width: 100%;
+    background: var(--surface);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--surface-border);
+    border-radius: 20px;
+    padding: 1.5rem 1.4rem;
+  }
+  .cast-line {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    height: 28px;
+    opacity: 0.2;
+    transition: opacity 0.4s;
+  }
+  .cast-line.done { opacity: 1; }
+  .cast-line.active { opacity: 0.7; }
+  .cast-num {
+    font-size: 0.7rem;
+    color: var(--ink-soft);
+    width: 14px;
+    text-align: right;
+  }
+  .cast-bar {
+    flex: 1;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    height: 8px;
+  }
+  .cast-bar .bar {
+    height: 8px;
+    background: var(--ink);
+    border-radius: 2px;
+  }
+  .cast-bar .bar.full { width: 100%; }
+  .cast-bar .bar.half { width: calc(50% - 4px); }
+
+  .cast-status {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--ink-soft);
-    margin-bottom: 0.7rem;
+    text-align: center;
   }
-  .jump-row { display: flex; flex-wrap: wrap; gap: 0.55rem; }
-  .jump-btn {
-    font-size: 0.74rem;
+  .cast-toss-btn {
+    display: inline-block;
     font-family: inherit;
-    letter-spacing: 0.08em;
-    padding: 0.6rem 1rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    padding: 0.9rem 2.4rem;
     border-radius: 999px;
-    border: 1px solid var(--ink);
-    color: var(--ink);
-    background: transparent;
+    border: none;
+    background: var(--ink);
+    color: #fff;
     cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 0.5rem;
   }
-  .jump-btn.primary { background: var(--ink); color: #fff; border-color: var(--ink); }
-  .jump-btn.soon {
-    opacity: 0.5;
-    cursor: default;
-    border-style: dashed;
-  }
-  .jump-btn .soon-tag {
-    font-size: 0.58rem;
-    letter-spacing: 0.14em;
-    margin-left: 0.3rem;
-    color: var(--gold);
-  }
+  .cast-toss-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(22,24,58,0.15); }
+  .cast-toss-btn:disabled { opacity: 0.4; pointer-events: none; }
 
-  .pairs { font-size: 0.78rem; color: var(--ink-soft); }
-  .pairs-label {
-    font-size: 0.66rem;
+  /* --- REVEAL --- */
+  .reveal-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr 1fr;
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+    align-items: start;
+    margin-bottom: 3rem;
+  }
+  @media (max-width: 980px) {
+    .reveal-grid { grid-template-columns: 1fr; }
+  }
+  .reveal-hero { text-align: left; }
+  .reveal-hero .eyebrow { text-align: left; }
+  .reveal-hero h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); }
+  .reveal-number {
+    font-size: 0.72rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--gold);
-    margin-right: 0.55rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  .reveal-english {
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    margin-top: 0.8rem;
   }
 
-  /* figure */
-  .figure {
+  .reveal-figure {
     background: var(--surface);
     backdrop-filter: blur(12px);
     border: 1px solid var(--surface-border);
@@ -201,47 +388,38 @@ const lines = [
     color: var(--ink-soft);
     margin-bottom: 1.5rem;
   }
-  .lines { display: flex; flex-direction: column; gap: 0.7rem; }
-  .line-row {
+  .reveal-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  .reveal-line-row {
     display: flex;
     align-items: center;
     gap: 1rem;
-    background: transparent;
-    border: none;
-    cursor: pointer;
     padding: 0.3rem 0.4rem;
-    border-radius: 8px;
-    transition: background 0.2s;
   }
-  .line-row:hover { background: rgba(255,255,255,0.4); }
-  .line-num {
+  .reveal-line-row .line-num {
     font-size: 0.7rem;
     color: var(--ink-soft);
     width: 14px;
     text-align: right;
   }
-  .line-glyph {
+  .reveal-line-row .line-glyph {
     flex: 1;
     display: flex;
     gap: 8px;
     justify-content: center;
   }
-  .bar {
+  .reveal-line-row .bar {
     height: 8px;
     background: var(--ink);
     border-radius: 2px;
   }
-  .bar.full { width: 100%; }
-  .bar.half { width: calc(50% - 4px); }
-  .fig-foot {
-    font-size: 0.7rem;
-    color: var(--ink-soft);
-    margin-top: 1.4rem;
-    font-style: italic;
-  }
+  .reveal-line-row .bar.full { width: 100%; }
+  .reveal-line-row .bar.half { width: calc(50% - 4px); }
 
-  /* reading */
-  .reading { display: flex; flex-direction: column; gap: 1.6rem; }
+  .reveal-reading { display: flex; flex-direction: column; gap: 1.6rem; }
   .panel { padding-left: 0; }
   .p-head {
     font-size: 0.68rem;
@@ -258,9 +436,43 @@ const lines = [
     color: var(--ink);
     margin-bottom: 0.5rem;
   }
-  .attr { font-size: 0.78rem; color: var(--ink-soft); }
 
-  /* all hexagrams grid */
+  .reveal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+  .btn-primary {
+    display: inline-block;
+    background: var(--ink);
+    color: #fff;
+    padding: 0.9rem 2rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    transition: transform 0.2s;
+    text-decoration: none;
+  }
+  .btn-primary:hover { transform: translateY(-1px); }
+  .btn-again {
+    font-family: inherit;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    padding: 0.9rem 2rem;
+    border-radius: 999px;
+    border: 1.5px solid var(--ink);
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .btn-again:hover { transform: translateY(-1px); }
+
+  /* --- ALL HEXAGRAMS --- */
   .all-hex { margin-top: 5rem; }
   .all-head {
     font-size: 0.72rem;
@@ -312,3 +524,188 @@ const lines = [
     letter-spacing: 0.04em;
   }
 </style>
+
+<script>
+  const root = document.querySelector('.iching') as HTMLElement;
+  const hexLookup = JSON.parse(root.dataset.hexLookup!);
+  const trigramLines = JSON.parse(root.dataset.trigramLines!);
+  const stages = document.querySelectorAll<HTMLElement>('.stage');
+  const castLines: string[] = [];
+  let currentLine = 1;
+
+  function show(name: string) {
+    stages.forEach(s => {
+      s.classList.remove('is-active');
+      s.hidden = true;
+    });
+    const el = document.querySelector(`[data-stage="${name}"]`) as HTMLElement;
+    el.hidden = false;
+    void el.offsetWidth;
+    el.classList.add('is-active');
+  }
+
+  // --- ASK ---
+  const askForm = document.querySelector('.ask-form') as HTMLFormElement;
+  const chips = document.querySelectorAll<HTMLButtonElement>('.chip');
+
+  chips.forEach(c => c.addEventListener('click', () => {
+    chips.forEach(x => x.classList.remove('is-on'));
+    c.classList.add('is-on');
+    const input = askForm.querySelector('.ask-input') as HTMLInputElement;
+    input.value = c.dataset.chip || '';
+  }));
+
+  askForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    castLines.length = 0;
+    currentLine = 1;
+    resetCastUI();
+    show('cast');
+  });
+
+  // --- CAST ---
+  const tossBtn = document.querySelector('.cast-toss-btn') as HTMLButtonElement;
+  const castCurrentEl = document.querySelector('.cast-current') as HTMLElement;
+  const coins = document.querySelectorAll<HTMLElement>('.coin');
+  const castLineEls = document.querySelectorAll<HTMLElement>('.cast-line');
+
+  function resetCastUI() {
+    castCurrentEl.textContent = '1';
+    tossBtn.disabled = false;
+    tossBtn.textContent = 'TOSS COINS ☯';
+    castLineEls.forEach(el => {
+      el.classList.remove('done', 'active');
+      const bar = el.querySelector('.cast-bar') as HTMLElement;
+      bar.innerHTML = '';
+    });
+    const line1 = document.querySelector('[data-line="1"]') as HTMLElement;
+    if (line1) line1.classList.add('active');
+    coins.forEach(c => {
+      c.classList.remove('heads', 'tails', 'flipping');
+      c.textContent = '☰';
+    });
+  }
+
+  function tossLine(): 'yang' | 'yin' {
+    let sum = 0;
+    const arr = new Uint8Array(3);
+    crypto.getRandomValues(arr);
+    const results: boolean[] = [];
+    for (const v of arr) {
+      const isHeads = v % 2 === 0;
+      results.push(isHeads);
+      sum += isHeads ? 3 : 2;
+    }
+
+    coins.forEach((c, i) => {
+      c.classList.add('flipping');
+      setTimeout(() => {
+        c.classList.remove('flipping');
+        if (results[i]) {
+          c.classList.add('heads');
+          c.classList.remove('tails');
+          c.textContent = '☰';
+        } else {
+          c.classList.add('tails');
+          c.classList.remove('heads');
+          c.textContent = '☷';
+        }
+      }, 500);
+    });
+
+    return (sum === 7 || sum === 9) ? 'yang' : 'yin';
+  }
+
+  function renderCastLine(lineNum: number, type: string) {
+    const el = document.querySelector(`[data-line="${lineNum}"]`) as HTMLElement;
+    const bar = el.querySelector('.cast-bar') as HTMLElement;
+    if (type === 'yang') {
+      bar.innerHTML = '<span class="bar full"></span>';
+    } else {
+      bar.innerHTML = '<span class="bar half"></span><span class="bar half"></span>';
+    }
+    el.classList.add('done');
+    el.classList.remove('active');
+  }
+
+  tossBtn.addEventListener('click', () => {
+    if (currentLine > 6) return;
+    tossBtn.disabled = true;
+
+    const lineType = tossLine();
+
+    setTimeout(() => {
+      castLines.push(lineType);
+      renderCastLine(currentLine, lineType);
+      currentLine++;
+
+      if (currentLine <= 6) {
+        castCurrentEl.textContent = String(currentLine);
+        const nextEl = document.querySelector(`[data-line="${currentLine}"]`) as HTMLElement;
+        if (nextEl) nextEl.classList.add('active');
+        tossBtn.disabled = false;
+      } else {
+        tossBtn.textContent = 'REVEALING…';
+        setTimeout(() => revealHexagram(), 800);
+      }
+    }, 700);
+  });
+
+  // --- REVEAL ---
+  function linesToTrigram(lines: string[]): string | null {
+    for (const [name, pattern] of Object.entries(trigramLines)) {
+      if (lines[0] === pattern[0] && lines[1] === pattern[1] && lines[2] === pattern[2]) return name;
+    }
+    return null;
+  }
+
+  function revealHexagram() {
+    const lower = linesToTrigram(castLines.slice(0, 3));
+    const upper = linesToTrigram(castLines.slice(3, 6));
+    if (!lower || !upper) return;
+
+    const key = `${upper}:${lower}`;
+    const hex = hexLookup[key];
+    if (!hex) return;
+
+    const numEl = document.querySelector('.reveal-number') as HTMLElement;
+    const titleEl = document.querySelector('.reveal-title') as HTMLElement;
+    const engEl = document.querySelector('.reveal-english') as HTMLElement;
+    const judgEl = document.querySelector('.reveal-judgment') as HTMLElement;
+    const interpEl = document.querySelector('.reveal-interp') as HTMLElement;
+    const linkEl = document.querySelector('.reveal-link') as HTMLAnchorElement;
+    const linesEl = document.querySelector('.reveal-lines') as HTMLElement;
+
+    numEl.textContent = `HEXAGRAM ${hex.number}`;
+    titleEl.innerHTML = `${hex.name}<br/><span style="color:var(--gold);font-size:0.6em">${hex.chinese}</span>`;
+    engEl.textContent = hex.english;
+    judgEl.textContent = hex.judgment;
+    interpEl.textContent = hex.interpretation;
+    linkEl.href = `/iching/${hex.slug}/`;
+
+    linesEl.innerHTML = '';
+    for (let i = 5; i >= 0; i--) {
+      const type = castLines[i];
+      const row = document.createElement('div');
+      row.className = 'reveal-line-row';
+      row.innerHTML = `
+        <span class="line-num">${i + 1}</span>
+        <span class="line-glyph">
+          ${type === 'yang'
+            ? '<span class="bar full"></span>'
+            : '<span class="bar half"></span><span class="bar half"></span>'}
+        </span>`;
+      linesEl.appendChild(row);
+    }
+
+    show('reveal');
+  }
+
+  // --- CAST AGAIN ---
+  const againBtn = document.querySelector('.btn-again') as HTMLButtonElement;
+  againBtn.addEventListener('click', () => {
+    castLines.length = 0;
+    currentLine = 1;
+    show('ask');
+  });
+</script>

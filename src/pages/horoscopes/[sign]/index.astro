@@ -12,7 +12,10 @@ const { sign } = Astro.params;
 const meta = SIGN_BY_SLUG[sign];
 const reading = data.daily[sign];
 
-const today = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+const generatedDate = data.meta?.daily_generated || data.meta?.generated;
+const today = generatedDate
+  ? new Date(generatedDate + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })
+  : new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
 const stars = (n) => '★★★★★☆☆☆☆☆'.slice(5 - n, 10 - n);
 const eyebrow = `${meta.element} · ${meta.modality} · ${meta.ruler.replace(/^the /, '').toUpperCase()}`;
 const pairA = SIGN_BY_SLUG[meta.pairs[0]];

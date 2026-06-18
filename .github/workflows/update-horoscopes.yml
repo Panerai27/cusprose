@@ -1,0 +1,72 @@
+name: Update Horoscopes
+
+on:
+  schedule:
+    # Daily: 11pm UTC (7am Beijing next day)
+    - cron: "0 23 * * *"
+    # Weekly: Sunday 11pm UTC
+    - cron: "0 23 * * 0"
+    # Monthly: 1st of each month 11pm UTC
+    - cron: "0 23 1 * *"
+    # Yearly: January 1st 11pm UTC
+    - cron: "0 23 1 1 *"
+  workflow_dispatch:
+    inputs:
+      period:
+        description: "Which period to generate"
+        required: true
+        type: choice
+        options:
+          - daily
+          - weekly
+          - monthly
+          - yearly
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: npm install @anthropic-ai/sdk tsx
+
+      - name: Determine period
+        id: period
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "value=${{ inputs.period }}" >> "$GITHUB_OUTPUT"
+          else
+            CRON="${{ github.event.schedule }}"
+            case "$CRON" in
+              "0 23 1 1 *") echo "value=yearly" >> "$GITHUB_OUTPUT" ;;
+              "0 23 1 * *") echo "value=monthly" >> "$GITHUB_OUTPUT" ;;
+              "0 23 * * 0") echo "value=weekly" >> "$GITHUB_OUTPUT" ;;
+              *)            echo "value=daily" >> "$GITHUB_OUTPUT" ;;
+            esac
+          fi
+
+      - name: Generate horoscopes
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: npx tsx scripts/generate_horoscopes.ts --period ${{ steps.period.outputs.value }}
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/horoscopes.json
+          git diff --cached --quiet && echo "No changes" && exit 0
+          git commit -m "content(${{ steps.period.outputs.value }}): update horoscope readings"
+          git push
