@@ -318,6 +318,11 @@ const FAN_COUNT = 21;
   /* ===== A-version: immersive deep-night stage ===== */
   /* paint the whole page dark on the tarot route (overrides global cream body) */
   :global(body:has(.tarot)) { background: #0c0a22 !important; }
+
+  /* lift nav into the light on the dark tarot stage */
+  :global(body:has(.tarot) .nav .logo) { color: #f4efe2; }
+  :global(body:has(.tarot) .nav .links a) { color: #f4efe2; }
+  :global(body:has(.tarot) .nav .burger-line) { background: #f4efe2; }
   .night {
     position: fixed; inset: 0; z-index: -1; pointer-events: none;
     background:
