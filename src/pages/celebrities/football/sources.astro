@@ -1,0 +1,95 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Nav from '../../../components/Nav.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import { FOOTBALL_REUSABLE_PHOTO_SOURCES } from '../../../data/footballPhotoSources';
+import { ATHLETE_BY_SLUG } from '../../../data/athletes';
+
+const site = 'https://cusprose.com';
+const sourceRows = Object.entries(FOOTBALL_REUSABLE_PHOTO_SOURCES)
+  .map(([slug, meta]) => ({ slug, meta, athlete: ATHLETE_BY_SLUG[slug] }))
+  .filter((item) => item.athlete)
+  .sort((a, b) => a.athlete.name.localeCompare(b.athlete.name));
+
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Football Player Official Source Index',
+  description: 'Public source index for football player profiles on cusprose. Curated official references used for editorial verification.',
+  url: `${site}/celebrities/football/sources/`,
+  mainEntity: {
+    '@type': 'ItemList',
+    numberOfItems: sourceRows.length,
+    itemListElement: sourceRows.map((row, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: row.athlete.name,
+      url: `${site}/celebrities/football/${row.slug}/astrology/`,
+    })),
+  },
+};
+---
+<BaseLayout
+  title="Football Official Sources Index · cusprose"
+  path="/celebrities/football/sources/"
+  description="Official-source references used in football player astrology pages for editorial verification and transparency."
+>
+  <Nav current="Celebrities" />
+  <script type="application/ld+json" set:html={JSON.stringify(pageSchema)} />
+
+  <main class="sources-page">
+    <div class="container">
+      <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Celebrities', href: '/celebrities/' }, { label: 'Football Players', href: '/celebrities/football/' }, { label: 'Sources' }]} />
+
+      <header class="hero">
+        <p class="eyebrow"><span class="star">✦</span> FOOTBALL SOURCES INDEX</p>
+        <h1>Official reference links for football profiles.</h1>
+        <p class="lede">This page lists official sources currently used for editorial verification on football player astrology profiles. It is not an image license grant page and does not imply commercial reuse rights.</p>
+      </header>
+
+      <section class="panel notice">
+        <p><strong>Editorial policy:</strong> We display source references for transparency. Image publication requires separate rights confirmation and approval.</p>
+      </section>
+
+      <section class="panel">
+        <h2>Reusable source candidates ({sourceRows.length})</h2>
+        <ul class="source-list">
+          {sourceRows.map((row) => (
+            <li>
+              <div class="left">
+                <a href={`/celebrities/football/${row.slug}/astrology/`}>{row.athlete.name}</a>
+                <small>{row.athlete.nationality}</small>
+              </div>
+              <div class="right">
+                <a href={row.meta.sourceUrl} target="_blank" rel="nofollow noopener noreferrer">{row.meta.sourceTitle}</a>
+                <small>{row.meta.sourceType.toUpperCase()} · {row.meta.licenseStatus}</small>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .sources-page { padding-bottom: 6rem; }
+  .container { max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; }
+  .hero { margin-bottom: 2.2rem; }
+  .eyebrow { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 0.9rem; }
+  .eyebrow .star { color: var(--gold); margin-right: 0.4rem; }
+  h1 { font-size: clamp(2.1rem, 4.5vw, 3.4rem); line-height: 1.08; margin-bottom: 1rem; }
+  h2 { font-size: clamp(1.35rem, 2.6vw, 1.85rem); margin-bottom: 1rem; }
+  .lede { color: var(--ink-soft); max-width: 800px; line-height: 1.65; }
+  .panel { background: var(--surface); border: 1px solid var(--surface-border); border-radius: 14px; padding: 1.4rem; margin-bottom: 1rem; }
+  .notice p { margin: 0; color: var(--ink-soft); }
+  .source-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.8rem; }
+  .source-list li { display: grid; grid-template-columns: minmax(180px, 260px) 1fr; gap: 1rem; padding: 0.9rem; border: 1px solid var(--surface-border); border-radius: 10px; }
+  .left, .right { display: flex; flex-direction: column; gap: 0.2rem; }
+  .left a, .right a { color: var(--ink); text-decoration: none; font-weight: 500; }
+  .left a:hover, .right a:hover { color: var(--gold); }
+  small { color: var(--ink-soft); font-size: 0.8rem; }
+  @media (max-width: 860px) {
+    .source-list li { grid-template-columns: 1fr; }
+  }
+</style>

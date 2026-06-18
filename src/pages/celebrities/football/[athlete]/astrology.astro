@@ -42,6 +42,7 @@ const profileSchema = {
       birthPlace: athlete.birthPlace,
       nationality: athlete.nationality,
       jobTitle: 'Footballer',
+      sameAs: photoSource?.sourceUrl ? [photoSource.sourceUrl] : undefined,
       description: `${athlete.name} is a public football athlete with a ${sign.name} Sun sign in this symbolic astrology profile.`,
     },
     {
@@ -172,6 +173,7 @@ const profileSchema = {
             <p class="side-head">RELATED READING</p>
             <ul>
               <li><a href="/world-cup-2026/">World Cup 2026 Cosmic Forecasts</a></li>
+              <li><a href="/celebrities/football/sources/">Football official sources index</a></li>
               <li><a href={`/horoscopes/${sign.slug}/`}>{sign.name} horoscope</a></li>
               <li><a href={`/tarot/cards/${sign.tarot.slug}/`}>{sign.tarot.name} tarot card</a></li>
               <li><a href="/birth-chart/">Birth chart guide</a></li>
