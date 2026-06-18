@@ -4,12 +4,6 @@ import Nav from '../../../components/Nav.astro';
 import Breadcrumb from '../../../components/Breadcrumb.astro';
 import { FOOTBALL_ATHLETES, FOOTBALL_BY_SIGN } from '../../../data/athletes';
 import { SIGN_BY_SLUG, SIGNS } from '../../../data/signs';
-
-const sportCounts = FOOTBALL_ATHLETES.reduce<Record<string, number>>((counts, athlete) => {
-  counts[athlete.sport] = (counts[athlete.sport] || 0) + 1;
-  return counts;
-}, {});
-const sports = Object.entries(sportCounts).sort((a, b) => b[1] - a[1]);
 const site = 'https://cusprose.com';
 const itemListSchema = {
   '@context': 'https://schema.org',
@@ -30,7 +24,7 @@ const itemListSchema = {
   },
 };
 ---
-<BaseLayout title="Football Players Astrology · cusprose" path="/celebrities/football/" description="Football astrology for 15 world-class players: sun signs, birth dates, career symbolism, and cosmic themes.">
+<BaseLayout title="Football Players Astrology · cusprose" path="/celebrities/football/" description={`Football astrology for ${FOOTBALL_ATHLETES.length} world-class players: sun signs, birth dates, career symbolism, and cosmic themes.`}>
   <Nav current="Celebrities" />
   <script type="application/ld+json" set:html={JSON.stringify(itemListSchema)} />
 
@@ -41,7 +35,7 @@ const itemListSchema = {
       <header class="hero">
         <p class="eyebrow"><span class="star">✦</span> FOOTBALL ASTROLOGY</p>
         <h1>World football players, read with care.</h1>
-        <p class="lede">A public-figure astrology library for football fans: 15 world-class athletes, birthdays, sun signs, career themes, and symbolic notes without private claims or betting language.</p>
+        <p class="lede">A public-figure astrology library for football fans: {FOOTBALL_ATHLETES.length} world-class athletes, birthdays, sun signs, career themes, and symbolic notes without private claims or betting language.</p>
       </header>
 
       <section class="notice" aria-label="Editorial note">
@@ -88,7 +82,7 @@ const itemListSchema = {
       <section class="directory-section">
         <div class="section-head">
           <p class="eyebrow"><span class="star">✦</span> FULL DIRECTORY</p>
-          <h2>All 15 football players.</h2>
+          <h2>All {FOOTBALL_ATHLETES.length} football players.</h2>
         </div>
         <ol class="directory-list">
           {FOOTBALL_ATHLETES.map((athlete) => {

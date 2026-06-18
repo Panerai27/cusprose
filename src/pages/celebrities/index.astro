@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Nav from '../../components/Nav.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
+import { FOOTBALL_ATHLETES, BASKETBALL_ATHLETES } from '../../data/athletes';
 
 const site = 'https://cusprose.com';
 const itemListSchema = {
@@ -59,7 +60,7 @@ const itemListSchema = {
           <a href="/celebrities/football/" class="sport-card">
             <div class="sport-header">
               <h3>Football</h3>
-              <p class="count">15 Players</p>
+              <p class="count">{FOOTBALL_ATHLETES.length} Players</p>
             </div>
             <p class="description">World-class football players across major leagues and national teams.</p>
             <p class="cta">Explore →</p>
@@ -68,7 +69,7 @@ const itemListSchema = {
           <a href="/celebrities/basketball/" class="sport-card">
             <div class="sport-header">
               <h3>Basketball</h3>
-              <p class="count">10 Players</p>
+              <p class="count">{BASKETBALL_ATHLETES.length} Players</p>
             </div>
             <p class="description">NBA and international basketball stars at the highest level.</p>
             <p class="cta">Explore →</p>

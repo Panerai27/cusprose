@@ -3,6 +3,7 @@ import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import Nav from '../../../../components/Nav.astro';
 import Breadcrumb from '../../../../components/Breadcrumb.astro';
 import { FOOTBALL_ATHLETES, FOOTBALL_BY_SIGN } from '../../../../data/athletes';
+import { FOOTBALL_REUSABLE_PHOTO_SOURCES } from '../../../../data/footballPhotoSources';
 import { SIGN_BY_SLUG } from '../../../../data/signs';
 
 export function getStaticPaths() {
@@ -11,6 +12,7 @@ export function getStaticPaths() {
 
 const { athlete } = Astro.props;
 const sign = SIGN_BY_SLUG[athlete.signSlug];
+const photoSource = FOOTBALL_REUSABLE_PHOTO_SOURCES[athlete.slug];
 const relatedAthletes = (FOOTBALL_BY_SIGN[athlete.signSlug] || []).filter((item) => item.slug !== athlete.slug).slice(0, 4);
 const title = `${athlete.name}'s Zodiac Sign and Career Astrology Notes · cusprose`;
 const description = `${athlete.name} is a ${sign.name} Sun. Read a respectful public astrology profile covering birthday, sport, career themes, and symbolic notes.`;
@@ -80,6 +82,31 @@ const profileSchema = {
           <p class="lede">{athlete.profile}</p>
         </div>
       </header>
+
+      {athlete.worldCupImageUrl && (
+        <section class="panel photo-panel" aria-label="World Cup player photo">
+          <p class="kicker">World Cup 2026 photo</p>
+          <figure class="player-photo">
+            <img src={athlete.worldCupImageUrl} alt={athlete.worldCupImageAlt || `${athlete.name} in a World Cup context`} loading="lazy" decoding="async" />
+            {(athlete.worldCupImageCredit || athlete.worldCupImageAlt) && (
+              <figcaption>
+                {athlete.worldCupImageCredit || athlete.worldCupImageAlt}
+              </figcaption>
+            )}
+          </figure>
+        </section>
+      )}
+
+      {!athlete.worldCupImageUrl && photoSource && (
+        <section class="panel source-panel" aria-label="World Cup photo source">
+          <p class="kicker">World Cup 2026 photo source</p>
+          <p class="source-copy">Official image source identified for this player. License review is pending before on-page display.</p>
+          <p class="source-link">
+            <a href={photoSource.sourceUrl} target="_blank" rel="nofollow noopener noreferrer">{photoSource.sourceTitle}</a>
+          </p>
+          <p class="source-meta">Source type: {photoSource.sourceType.toUpperCase()} · Status: {photoSource.licenseStatus}</p>
+        </section>
+      )}
 
       <div class="layout">
         <article class="content">
@@ -175,6 +202,14 @@ const profileSchema = {
   h1 { font-size: clamp(2.4rem, 5vw, 4.3rem); font-weight: 500; line-height: 1.05; letter-spacing: -0.025em; max-width: 860px; margin-bottom: 1.2rem; }
   .lede { color: var(--ink-soft); font-size: 1.06rem; line-height: 1.6; max-width: 760px; }
   .layout { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(280px, 0.8fr); gap: 2rem; align-items: start; }
+  .photo-panel { margin-bottom: 1.2rem; }
+  .source-panel { margin-bottom: 1.2rem; }
+  .source-copy { margin-bottom: 0.6rem; color: var(--ink-soft); }
+  .source-link a { color: var(--ink); font-weight: 500; text-decoration: underline; text-underline-offset: 0.18em; }
+  .source-meta { margin-top: 0.45rem; color: var(--ink-soft); font-size: 0.82rem; letter-spacing: 0.03em; }
+  .player-photo { margin: 0; }
+  .player-photo img { width: 100%; border-radius: 14px; border: 1px solid var(--surface-border); display: block; }
+  .player-photo figcaption { margin-top: 0.6rem; font-size: 0.8rem; color: var(--ink-soft); }
   .content { display: flex; flex-direction: column; gap: 1.2rem; }
   .panel, .side-panel { background: var(--surface); border: 1px solid var(--surface-border); border-radius: 18px; backdrop-filter: blur(8px); }
   .panel { padding: 1.8rem; }
