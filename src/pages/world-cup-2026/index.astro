@@ -31,7 +31,7 @@ const forecastSchema = {
         itemListElement: footballAthletes.map((athlete, i) => ({
           '@type': 'ListItem',
           position: i + 1,
-          url: `${site}/football/${athlete.slug}/astrology/`,
+          url: `${site}/celebrities/football/${athlete.slug}/astrology/`,
           name: `${athlete.name}`,
         })),
       },
@@ -105,7 +105,7 @@ const forecastSchema = {
             const sign = SIGN_BY_SLUG[athlete.signSlug];
             return (
               <li>
-                <a href={`/football/${athlete.slug}/astrology/`}>
+                <a href={`/celebrities/football/${athlete.slug}/astrology/`}>
                   <span class="number">{i + 1}.</span>
                   <span class="name">{athlete.name}</span>
                   <span class="sign">
@@ -122,11 +122,11 @@ const forecastSchema = {
       <section class="related-section">
         <h2>Related cosmic guides</h2>
         <div class="related-links">
-          <a href="/football/" class="link-card">
+          <a href="/celebrities/football/" class="link-card">
             <p class="label">Football Players Directory</p>
             <p class="desc">Complete astrology profiles for all 15 featured players.</p>
           </a>
-          <a href="/basketball/" class="link-card">
+          <a href="/celebrities/basketball/" class="link-card">
             <p class="label">Basketball Players Directory</p>
             <p class="desc">Explore astrology profiles for NBA and international basketball stars.</p>
           </a>

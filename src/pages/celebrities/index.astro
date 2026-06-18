@@ -1,0 +1,127 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+
+const site = 'https://cusprose.com';
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Celebrity Athletes Astrology',
+  description: 'Explore astrology profiles for celebrity athletes across multiple sports. Sun signs, birth dates, career symbolism, and cosmic themes.',
+  url: `${site}/celebrities/`,
+  mainEntity: {
+    '@type': 'ItemList',
+    name: 'Celebrity athlete collections by sport',
+    numberOfItems: 2,
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Football Players Astrology',
+        url: `${site}/celebrities/football/`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Basketball Players Astrology',
+        url: `${site}/celebrities/basketball/`,
+      },
+    ],
+  },
+};
+---
+<BaseLayout title="Celebrity Athletes Astrology · cusprose" path="/celebrities/" description="Astrology profiles for celebrity athletes across football, basketball, and more. Sun signs, birth dates, and cosmic themes.">
+  <Nav current="Celebrities" />
+  <script type="application/ld+json" set:html={JSON.stringify(itemListSchema)} />
+
+  <main class="celebrities-page">
+    <div class="container">
+      <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Celebrities' }]} />
+
+      <header class="hero">
+        <p class="eyebrow"><span class="star">✦</span> CELEBRITY ASTROLOGY</p>
+        <h1>Athletes and their zodiac signs.</h1>
+        <p class="lede">A public-figure astrology library organized by sport. Explore birth dates, sun signs, career themes, and symbolic notes without private claims.</p>
+      </header>
+
+      <section class="notice" aria-label="Editorial note">
+        <p>This collection uses publicly available birth dates and symbolic astrology language. It does not describe private facts, health, relationships, or personal intentions.</p>
+      </section>
+
+      <section class="sports-directory">
+        <div class="section-head">
+          <p class="eyebrow"><span class="star">✦</span> SPORTS</p>
+          <h2>Browse by sport.</h2>
+        </div>
+
+        <div class="sports-grid">
+          <a href="/celebrities/football/" class="sport-card">
+            <div class="sport-header">
+              <h3>Football</h3>
+              <p class="count">15 Players</p>
+            </div>
+            <p class="description">World-class football players across major leagues and national teams.</p>
+            <p class="cta">Explore →</p>
+          </a>
+
+          <a href="/celebrities/basketball/" class="sport-card">
+            <div class="sport-header">
+              <h3>Basketball</h3>
+              <p class="count">10 Players</p>
+            </div>
+            <p class="description">NBA and international basketball stars at the highest level.</p>
+            <p class="cta">Explore →</p>
+          </a>
+        </div>
+      </section>
+
+      <section class="featured-section">
+        <div class="section-head">
+          <p class="eyebrow"><span class="star">✦</span> SPECIAL INTERESTS</p>
+          <h2>Timely cosmic forecasts.</h2>
+        </div>
+
+        <div class="featured-grid">
+          <a href="/world-cup-2026/" class="featured-card">
+            <p class="label">World Cup 2026</p>
+            <p class="description">Tarot previews and astrology profiles for the cosmic football championship.</p>
+          </a>
+          <a href="/horoscopes/" class="featured-card">
+            <p class="label">Zodiac Horoscopes</p>
+            <p class="description">General sun-sign forecasts for all 12 zodiac signs.</p>
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .celebrities-page { padding-bottom: 6rem; }
+  .container { max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; }
+  .eyebrow { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1rem; }
+  .eyebrow .star { color: var(--gold); margin-right: 0.4rem; }
+  h1 { font-size: clamp(2.4rem, 5vw, 4.3rem); font-weight: 500; line-height: 1.05; letter-spacing: -0.025em; max-width: 860px; margin: 1rem 0 1.2rem; }
+  h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 500; line-height: 1.2; letter-spacing: -0.015em; margin-bottom: 1.5rem; }
+  h3 { font-size: 1.2rem; font-weight: 500; margin: 0; }
+  .lede { color: var(--ink-soft); font-size: 1.06rem; line-height: 1.6; max-width: 760px; margin-bottom: 1rem; }
+  .hero { margin-bottom: 3rem; }
+  .notice { background: var(--surface); border: 1px solid var(--surface-border); border-radius: 12px; padding: 1.2rem; color: var(--ink-soft); font-size: 0.95rem; line-height: 1.6; margin-bottom: 3rem; }
+  .notice p { margin: 0; }
+  .section-head { margin-bottom: 2.5rem; }
+  .sports-directory, .featured-section { margin-bottom: 3rem; }
+  .sports-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+  .sport-card { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--surface-border); border-radius: 14px; padding: 2rem; text-decoration: none; transition: all 0.2s ease; }
+  .sport-card:hover { border-color: var(--gold); transform: translateY(-3px); }
+  .sport-header { margin-bottom: 1.2rem; }
+  .sport-header h3 { color: var(--ink); margin-bottom: 0.4rem; }
+  .sport-header .count { font-size: 0.85rem; color: var(--ink-soft); margin: 0; text-transform: uppercase; letter-spacing: 0.1em; }
+  .sport-card .description { color: var(--ink-soft); font-size: 0.95rem; line-height: 1.6; flex: 1; margin: 0 0 1.5rem; }
+  .sport-card .cta { color: var(--gold); font-size: 0.9rem; font-weight: 500; margin: 0; }
+  .featured-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; }
+  .featured-card { display: block; background: var(--surface); border: 1px solid var(--surface-border); border-radius: 12px; padding: 1.5rem; text-decoration: none; transition: all 0.2s ease; }
+  .featured-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+  .featured-card .label { font-weight: 500; color: var(--ink); margin: 0 0 0.6rem; font-size: 1rem; }
+  .featured-card .description { color: var(--ink-soft); font-size: 0.9rem; line-height: 1.5; margin: 0; }
+</style>

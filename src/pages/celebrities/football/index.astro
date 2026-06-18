@@ -1,9 +1,9 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Nav from '../../components/Nav.astro';
-import Breadcrumb from '../../components/Breadcrumb.astro';
-import { FOOTBALL_ATHLETES, FOOTBALL_BY_SIGN } from '../../data/athletes';
-import { SIGN_BY_SLUG, SIGNS } from '../../data/signs';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Nav from '../../../components/Nav.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import { FOOTBALL_ATHLETES, FOOTBALL_BY_SIGN } from '../../../data/athletes';
+import { SIGN_BY_SLUG, SIGNS } from '../../../data/signs';
 
 const sportCounts = FOOTBALL_ATHLETES.reduce<Record<string, number>>((counts, athlete) => {
   counts[athlete.sport] = (counts[athlete.sport] || 0) + 1;
@@ -16,7 +16,7 @@ const itemListSchema = {
   '@type': 'CollectionPage',
   name: 'Football Players Astrology',
   description: 'A respectful astrology index for world-class football players across major leagues and national teams.',
-  url: `${site}/football/`,
+  url: `${site}/celebrities/football/`,
   mainEntity: {
     '@type': 'ItemList',
     name: 'Football athlete astrology profiles',
@@ -25,18 +25,18 @@ const itemListSchema = {
       '@type': 'ListItem',
       position: index + 1,
       name: `${athlete.name}'s Zodiac Sign and Career Astrology Notes`,
-      url: `${site}/football/${athlete.slug}/astrology/`,
+      url: `${site}/celebrities/football/${athlete.slug}/astrology/`,
     })),
   },
 };
 ---
-<BaseLayout title="Football Players Astrology · cusprose" path="/football/" description="Football astrology for 15 world-class players: sun signs, birth dates, career symbolism, and cosmic themes.">
-  <Nav current="Football" />
+<BaseLayout title="Football Players Astrology · cusprose" path="/celebrities/football/" description="Football astrology for 15 world-class players: sun signs, birth dates, career symbolism, and cosmic themes.">
+  <Nav current="Celebrities" />
   <script type="application/ld+json" set:html={JSON.stringify(itemListSchema)} />
 
   <main class="athletes-page">
     <div class="container">
-      <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Football Players' }]} />
+      <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Celebrities', href: '/celebrities/' }, { label: 'Football Players' }]} />
 
       <header class="hero">
         <p class="eyebrow"><span class="star">✦</span> FOOTBALL ASTROLOGY</p>
@@ -72,7 +72,7 @@ const itemListSchema = {
           {FOOTBALL_ATHLETES.slice(0, 12).map((athlete) => {
             const sign = SIGN_BY_SLUG[athlete.signSlug];
             return (
-              <a class="athlete-card" href={`/football/${athlete.slug}/astrology/`}>
+              <a class="athlete-card" href={`/celebrities/football/${athlete.slug}/astrology/`}>
                 <span class="glyph" aria-hidden="true">{sign.glyph}</span>
                 <div>
                   <p class="sport">{athlete.nationality}</p>
@@ -95,7 +95,7 @@ const itemListSchema = {
             const sign = SIGN_BY_SLUG[athlete.signSlug];
             return (
               <li>
-                <a href={`/football/${athlete.slug}/astrology/`}>
+                <a href={`/celebrities/football/${athlete.slug}/astrology/`}>
                   <span>{athlete.name}</span>
                   <small>{athlete.nationality} · {sign.name} Sun</small>
                 </a>
@@ -124,7 +124,7 @@ const itemListSchema = {
                 </div>
                 <ul>
                   {group.map((athlete) => (
-                    <li><a href={`/football/${athlete.slug}/astrology/`}>{athlete.name}</a></li>
+                    <li><a href={`/celebrities/football/${athlete.slug}/astrology/`}>{athlete.name}</a></li>
                   ))}
                 </ul>
               </article>

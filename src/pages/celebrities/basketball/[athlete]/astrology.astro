@@ -1,9 +1,9 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import Nav from '../../../components/Nav.astro';
-import Breadcrumb from '../../../components/Breadcrumb.astro';
-import { BASKETBALL_ATHLETES, BASKETBALL_BY_SIGN } from '../../../data/athletes';
-import { SIGN_BY_SLUG } from '../../../data/signs';
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Nav from '../../../../components/Nav.astro';
+import Breadcrumb from '../../../../components/Breadcrumb.astro';
+import { BASKETBALL_ATHLETES, BASKETBALL_BY_SIGN } from '../../../../data/athletes';
+import { SIGN_BY_SLUG } from '../../../../data/signs';
 
 export function getStaticPaths() {
   return BASKETBALL_ATHLETES.map((athlete) => ({ params: { athlete: athlete.slug }, props: { athlete } }));
@@ -15,7 +15,7 @@ const relatedAthletes = (BASKETBALL_BY_SIGN[athlete.signSlug] || []).filter((ite
 const title = `${athlete.name}'s Zodiac Sign and Career Astrology Notes · cusprose`;
 const description = `${athlete.name} is a ${sign.name} Sun. Read a respectful public astrology profile covering birthday, sport, career themes, and symbolic notes.`;
 const site = 'https://cusprose.com';
-const canonical = `${site}/basketball/${athlete.slug}/astrology/`;
+const canonical = `${site}/celebrities/basketball/${athlete.slug}/astrology/`;
 // Timezone-safe: parse the human-readable date string without relying on Date UTC conversion
 const _MONTHS: Record<string, string> = { January:'01', February:'02', March:'03', April:'04', May:'05', June:'06', July:'07', August:'08', September:'09', October:'10', November:'11', December:'12' };
 const [_m, _d, _y] = athlete.birthDate.replace(',', '').split(' ');
@@ -61,13 +61,13 @@ const profileSchema = {
   ],
 };
 ---
-<BaseLayout title={title} path={`/basketball/${athlete.slug}/astrology/`} description={description}>
-  <Nav current="Basketball" />
+<BaseLayout title={title} path={`/celebrities/basketball/${athlete.slug}/astrology/`} description={description}>
+  <Nav current="Celebrities" />
   <script type="application/ld+json" set:html={JSON.stringify(profileSchema)} />
 
   <main class="profile-page">
     <div class="container">
-      <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Basketball Players', href: '/basketball/' }, { label: athlete.name }]} />
+      <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Celebrities', href: '/celebrities/' }, { label: 'Basketball Players', href: '/celebrities/basketball/' }, { label: athlete.name }]} />
 
       <header class="hero">
         <div class="glyph-card" aria-hidden="true">
@@ -144,7 +144,7 @@ const profileSchema = {
           <div class="side-panel">
             <p class="side-head">RELATED READING</p>
             <ul>
-              <li><a href="/basketball/">All Basketball Players</a></li>
+              <li><a href="/celebrities/basketball/">All Basketball Players</a></li>
               <li><a href={`/horoscopes/${sign.slug}/`}>{sign.name} horoscope</a></li>
               <li><a href={`/tarot/cards/${sign.tarot.slug}/`}>{sign.tarot.name} tarot card</a></li>
               <li><a href="/birth-chart/">Birth chart guide</a></li>
@@ -154,7 +154,7 @@ const profileSchema = {
             <div class="side-panel">
               <p class="side-head">MORE {sign.name.toUpperCase()} BASKETBALL PLAYERS</p>
               <ul>
-                {relatedAthletes.map((item) => <li><a href={`/basketball/${item.slug}/astrology/`}>{item.name}</a></li>)}
+                {relatedAthletes.map((item) => <li><a href={`/celebrities/basketball/${item.slug}/astrology/`}>{item.name}</a></li>)}
               </ul>
             </div>
           )}
